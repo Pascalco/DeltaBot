@@ -3,7 +3,6 @@
 #licensed under CC-Zero: https://creativecommons.org/publicdomain/zero/1.0
 
 import pywikibot
-from pywikibot.data import api
 import re
 
 site = pywikibot.Site('wikidata','wikidata')
@@ -19,17 +18,8 @@ for category in categories:
         for proposal in proposals:
             page2 = pywikibot.Page(site,'Wikidata:Property proposal/'+proposal)
             if page2.isRedirectPage():
-                params = {
-                    'action': 'query',
-                    'redirects': True,
-                    'titles': 'Wikidata:Property proposal/'+proposal
-                }
-                req = api.Request(site=site,**params)
-                data = req.submit()
-                redirects = dict((x['from'], x['to'])
-                                 for x in data['query']['redirects'])
-                page2 = pywikibot.Page(site,data['query']['redirects'][0]['to'])
-            cnt += re.sub(r'(<!([^>]+)>)|\s|\n','',page2.get()).count('status=|')   
+                page2 = page2.getRedirectTarget()
+            cnt += re.sub(r'(<!([^>]+)>)|\s|\n','',page2.get()).count('status=|')
 
     text += '| '+category+' = '+str(cnt)+'\n'
 text += '| #default = <strong class="error">invalid parameter <tt>{{{1}}}</strong>\n}}</includeonly>'

@@ -3,7 +3,6 @@
 #licensed under CC-Zero: https://creativecommons.org/publicdomain/zero/1.0
 
 import pywikibot
-from pywikibot.data import api
 from datetime import datetime
 import re
 
@@ -79,19 +78,8 @@ def main():
         for proposal in proposals:
             page2 = pywikibot.Page(site,'Wikidata:Property proposal/'+proposal)
             if page2.isRedirectPage():
-                params = {
-                    'action': 'query',
-                    'redirects': True,
-                    'titles': 'Wikidata:Property proposal/'+proposal
-                }
-                req = api.Request(site=site,**params)
-                data = req.submit()
-                redirects = dict((x['from'], x['to'])
-                                 for x in data['query']['redirects'])
-                newname = data['query']['redirects'][0]['to']
-                page2 = pywikibot.Page(site,newname)
-            else:
-                newname = proposal
+                page2 = page2.getRedirectTarget()
+                proposal = page2.title()[27:]
             pptext = re.sub(r'(<!([^>]+)>)|\n','',page2.get())
             if pptext.count('{{Property proposal') > 1: #ToDo: handle pages with multiple proposal
                 continue
@@ -105,7 +93,7 @@ def main():
                         month = str(history[0].timestamp.month) if history[0].timestamp.month > 9 else '0'+str(history[0].timestamp.month)
                         data = {
                             'name': proposal.replace('_',' '),
-                            'newname': newname,
+                            'newname': proposal,
                             'category': category,
                             'proposer': history[-1].user,
                             'startdate': history[-1].timestamp.date().isoformat(),
