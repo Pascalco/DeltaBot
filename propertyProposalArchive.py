@@ -29,19 +29,19 @@ def removeProposals(proposals):
 def loadNewArchivePage(archive):
     page = pywikibot.Page(site,'Wikidata:Property proposal/Archive/'+archive)
     if not page.exists():
-        newarchive = ("{{archive|category=Property proposal archive}}\n\n
-                    ==Done==\n\n
-                    <!--{{PPArchive|Property name|Proposer|Start date|Close date/{{subst:#time:Y-m-d}}|Property ID}}-->\n
-                    {| class="wikitable sortable"\n
-                    |-\n
-                    ! Property name !! Proposer !! Start date !! Close date !! Property/Note\n
-                    |}\n\n
-                    ==Not done==\n\n
-                    <!--{{PPArchive|Property name|Proposer|Start date|Close date/{{subst:#time:Y-m-d}}|Reason (optional)}}-->\n
-                    {| class="wikitable sortable"\n
-                    |-\n
-                    ! Property name !! Proposer !! Start date !! Close date !! Reason\n
-                    |}")
+        newarchive = ('{{archive|category=Property proposal archive}}\n\n'
+                    '==Done==\n\n'
+                    '<!--{{PPArchive|Property name|Proposer|Start date|Close date/{{subst:#time:Y-m-d}}|Property ID}}-->\n'
+                    '{| class="wikitable sortable"\n'
+                    '|-\n'
+                    '! Property name !! Proposer !! Start date !! Close date !! Property/Note\n'
+                    '|}\n\n'
+                    '==Not done==\n\n'
+                    '<!--{{PPArchive|Property name|Proposer|Start date|Close date/{{subst:#time:Y-m-d}}|Reason (optional)}}-->\n'
+                    '{| class="wikitable sortable"\n'
+                    '|-\n'
+                    '! Property name !! Proposer !! Start date !! Close date !! Reason\n'
+                    '|}')
         page.put(newarchive,comment='new archive',minorEdit=False)
     return page.get().replace('_',' ')
 
