@@ -87,7 +87,7 @@ def main():
             res = re.search('\|\s*status\s*=\s*([^\|\}]+)',pptext)
             if res:
                 status = res.group(1)
-                if status.isdigit() or status == 'not done' or status == 'withdrawn':
+                if status.isdigit() or status.lower() == 'not done' or status.lower() == 'withdrawn':
                     status = status if status != 'not done' else ''
                     history = page2.getVersionHistory()
                     if (today - history[0].timestamp).days >= 3:
