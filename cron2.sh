@@ -1,2 +1,2 @@
-python propularItems.py
+python popularItems.py
 python propertyProposalArchive.py
