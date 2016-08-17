@@ -34,7 +34,7 @@ for i in range(0,len(content)):
 text = ''
 for section in content:
     if section[0] != '':
-        text += '== {} ==\n\n'.format(section[0])
+        text += u'== {} ==\n\n'.format(section[0])
     text += section[1]+'\n\n'
 
 if cntDone > 0:
