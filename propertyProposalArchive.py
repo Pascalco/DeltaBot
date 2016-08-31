@@ -80,7 +80,9 @@ def main():
             page2 = pywikibot.Page(site,'Wikidata:Property proposal/'+proposal)
             if page2.isRedirectPage():
                 page2 = page2.getRedirectTarget()
-                proposal = page2.title()[27:]
+                newname = page2.title()[27:]
+            else:
+                newname = proposal
             pptext = re.sub(r'(<!([^>]+)>)|\n','',page2.get())
             if pptext.count('{{Property proposal') > 1: #ToDo: handle pages with multiple proposal
                 continue
@@ -94,7 +96,7 @@ def main():
                         month = str(history[0].timestamp.month) if history[0].timestamp.month > 9 else '0'+str(history[0].timestamp.month)
                         data = {
                             'name': proposal.replace('_',' '),
-                            'newname': proposal,
+                            'newname': newname,
                             'category': category,
                             'proposer': history[-1].user,
                             'startdate': history[-1].timestamp.date().isoformat(),
