@@ -18,7 +18,7 @@ def removeProposals(proposals):
             page = pywikibot.Page(site,'Wikidata:Property_proposal/'+proposal['category'])
             te = re.sub(r'(?<!_)_(?!_)',' ',page.get())
             categories[proposal['category']] = {'text': te, 'count': 0}
-        categories[proposal['category']]['text'] = re.sub(r'{{Wikidata:Property proposal/'+proposal['name']+'}}\n?','',categories[proposal['category']]['text'])
+        categories[proposal['category']]['text'] = re.sub(r'{{Wikidata:Property proposal/'+re.escape(proposal['name'])+'}}\n?','',categories[proposal['category']]['text'])
         categories[proposal['category']]['count'] += 1
     for category in categories:
         page = pywikibot.Page(site,'Wikidata:Property_proposal/'+category)
