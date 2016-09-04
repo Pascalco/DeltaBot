@@ -11,8 +11,8 @@ repo = site.data_repository()
 siteCommons = pywikibot.Site('commons', 'commons')
 repoCommons = siteCommons.data_repository()
 
-f2 = open('isbn_range.xml').read().replace('\n', '').replace(' ', '')
-execfile('categoryPrefix.dat')
+f2 = open('fixClaims/isbn_range.xml').read().replace('\n', '').replace(' ', '')
+execfile('fixClaims/categoryPrefix.dat')
 
 #########################
 # format actions        #
@@ -326,8 +326,8 @@ def proceedOneCandidate(q, job):
 
 
 def main():
-    done = json.load(open('done.json'))
-    jobs = json.load(open('jobs.json'))
+    done = json.load(open('fixClaims/done.json'))
+    jobs = json.load(open('fixClaims/jobs.json'))
     for job in jobs:
         candidates = getViolations(job)
         if job['name'] not in done:
@@ -340,7 +340,7 @@ def main():
                     done[job['name']].append(q)
                 except:
                     pass
-    f1 = open('done.json', 'w')
+    f1 = open('fixClaims/done.json', 'w')
     f1.write(json.dumps(done, ensure_ascii=False))
 
 
