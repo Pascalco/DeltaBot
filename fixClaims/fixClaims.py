@@ -140,8 +140,6 @@ def action_normalize(item, claim, job):
 def action_inverse(item, claim, job):
     #bug with checking for same claim
     itemID = item.getID()
-    if job['p'] == 'P1423':
-        print itemID
     target = claim.getTarget()
     target.get()
     if 'constrainttarget' in job:
@@ -335,7 +333,6 @@ def main():
         for q in candidates:
             if q not in done[job['name']]:
                 try:
-                    print q
                     proceedOneCandidate(q, job)
                     done[job['name']].append(q)
                 except:
