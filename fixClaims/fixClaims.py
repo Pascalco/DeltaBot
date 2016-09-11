@@ -158,6 +158,8 @@ def action_inverse(item, claim, job):
 
 #move claim from pOld to pNew
 def action_moveP(item, claim, job):
+    if job['pNew'] in item.claims:
+        return 0
     data = item.toJSON()
     for m in data['claims'][job['pOld']]:
         mydata = {}
@@ -171,6 +173,8 @@ def action_moveP(item, claim, job):
 
 #add claim pNew=valNew
 def action_addClaim(item, claim, job):
+    if job['pNew'] in item.claims:
+        return 0
     claimNew = pywikibot.Claim(repo, job['pNew'])
     itemNew = pywikibot.ItemPage(repo, job['valNew'])
     claimNew.setTarget(itemNew)
@@ -308,9 +312,6 @@ def proceedOneCandidate(q, job):
         return 0
     if 'pOld' in job:
         if not job['pOld'] in item.claims:
-            return 0
-    if 'pNew' in job:
-        if job['pNew'] in item.claims:
             return 0
     if 'constraint' in job:
         if not constraintCheck(item, job):
