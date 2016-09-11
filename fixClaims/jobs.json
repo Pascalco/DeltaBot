@@ -150,6 +150,12 @@
 	"pNew": "P17",
 	"valNew": "Q145"
 }, {
+	"p": "P625",
+	"name": "P625move",
+    "query": "SELECT DISTINCT ?item WHERE { ?item wdt:P31/wdt:P279* wd:Q4830453; wdt:P625 []; wdt:P159 [] . MINUS { ?item p:P159/pq:P625 [] } }",
+	"action": "moveStatementToQualifier",
+    "pNew": "P159"
+}, {
     "p": "P675",
     "name": "P675format",
     "query": "SELECT ?item WHERE { ?item wdt:P675 ?value . FILTER( REGEX(STR(?value), '^([0-9a-zA-Z_\\\\-]{12})$') = false )}",
