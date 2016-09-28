@@ -218,7 +218,8 @@
 	"p": "P968",
 	"name": "P968format",
     "query": "SELECT ?item WHERE { ?item wdt:P968 ?value . FILTER( REGEX(STR(?value), '^(mailto:[-\\\\w\\\\.]+@[-\\\\w]+\\\\.[\\\\w\\\\.]+)$') = false )}",
-	"action": "lowercase",
+	"action": "format",
+	"subaction": "lowercase",
     "regex": "mailto:[-\\w\\.]+@[-\\w]+\\.[\\w\\.]+"
 }, {
     "p": "P1104",
