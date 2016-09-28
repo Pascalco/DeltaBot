@@ -1,27 +1,27 @@
 [{
-	"p": "P10",
-	"name": "P10commons",
+    "p": "P10",
+    "name": "P10commons",
     "query": "SELECT ?item WHERE { ?item wdt:P10 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
-	"action": "normalize"
+    "action": "normalize"
 }, {
-	"p": "P14",
-	"name": "P14commons",
+    "p": "P14",
+    "name": "P14commons",
     "query": "SELECT ?item WHERE { ?item wdt:P14 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
-	"action": "normalize"
+    "action": "normalize"
 }, {
-	"p": "P18",
-	"name": "P18commons",
+    "p": "P18",
+    "name": "P18commons",
     "query": "SELECT ?item WHERE { ?item wdt:P18 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
-	"action": "normalize"
+    "action": "normalize"
 }, {
-	"p": "P21",
-	"name": "P21changeclaim",
-    "query": "SELECT ?item WHERE { ?item wdt:P21 ?value . FILTER( ?value IN (wd:Q8441, wd:Q467))}",    
-	"action": "changeClaim",
-	"map": {
-		"8441": 6581097,
-		"467": 6581072
-	}
+    "p": "P21",
+    "name": "P21changeclaim",
+    "query": "SELECT ?item WHERE { ?item wdt:P21 ?value . FILTER( ?value IN (wd:Q8441, wd:Q467))}",
+    "action": "changeClaim",
+    "map": {
+        "8441": 6581097,
+        "467": 6581072
+    }
 }, {
     "p": "P27",
     "name": "P27changeclaim",
@@ -31,129 +31,129 @@
         "55": 29999
     }
 }, {
-	"p": "P94",
-	"name": "P94commons",
+    "p": "P94",
+    "name": "P94commons",
     "query": "SELECT ?item WHERE { ?item wdt:P94 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
-	"action": "normalize"
+    "action": "normalize"
 }, {
-	"p": "P154",
-	"name": "P154commons",
+    "p": "P154",
+    "name": "P154commons",
     "query": "SELECT ?item WHERE { ?item wdt:P154 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
-	"action": "normalize"
+    "action": "normalize"
 }, {
-	"p": "P213",
-	"name": "P213format",
+    "p": "P213",
+    "name": "P213format",
     "query": "SELECT ?item WHERE { ?item wdt:P213 ?value . FILTER( REGEX(STR(?value), '^(0000 000[0-4] \\\\d{4} \\\\d{3}[\\\\dX])$') = false )}",
-	"action": "format",
-	"subaction": "isniformat",
-	"regex": "0000 000[0-4] \\d{4} \\d{3}[\\dX]"
+    "action": "format",
+    "subaction": "isniformat",
+    "regex": "0000 000[0-4] \\d{4} \\d{3}[\\dX]"
 }, {
-	"p": "P242",
-	"name": "P242commons",
-    "query": "SELECT ?item WHERE { ?item wdt:P242 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",    
-	"action": "normalize"
+    "p": "P242",
+    "name": "P242commons",
+    "query": "SELECT ?item WHERE { ?item wdt:P242 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
+    "action": "normalize"
 }, {
     "p": "P409",
     "name": "P409format",
-    "query": "SELECT ?item WHERE { ?item wdt:P409 ?value . FILTER( REGEX(STR(?value), '^([1-9][0-9]{0,11})$') = false )}",    
+    "query": "SELECT ?item WHERE { ?item wdt:P409 ?value . FILTER( REGEX(STR(?value), '^([1-9][0-9]{0,11})$') = false )}",
     "action": "format",
     "subaction": "removePrefix",
     "regex": "[1-9][0-9]{0,11}"
 }, {
-	"p": "P425",
-	"name": "P425conflict",
-    "query": "SELECT ?item WHERE { ?item wdt:P425 ?value; wdt:P31 wd:Q5 }",    
-	"action": "moveP",
-	"pOld": "P425",
-	"pNew": "P101",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q5"
-	}]
+    "p": "P425",
+    "name": "P425conflict",
+    "query": "SELECT ?item WHERE { ?item wdt:P425 ?value; wdt:P31 wd:Q5 }",
+    "action": "moveP",
+    "pOld": "P425",
+    "pNew": "P101",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q5"
+    }]
 }, {
-	"p": "P536",
-	"name": "P536addclaim",
-    "query": "SELECT ?item WHERE { ?item wdt:P597 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q10833314 } MINUS { ?item wdt:P106 wd:Q18814798 }}",    
-	"action": "addClaim",
-	"pNew": "P106",
-	"valNew": "Q10833314",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q5"
-	}]
-}, {
-	"p": "P536",
-	"name": "P536format",
-    "query": "SELECT ?item WHERE { ?item wdt:P536 ?value . FILTER( REGEX(STR(?value), '^([A-Z]*\\\\d*)$') = false )}",
-	"action": "format",
-	"subaction": "uppercase",
-	"regex": "[A-Z]*\\d*"
-}, {
-	"p": "P555",
-	"name": "P555format",
-	"query": "SELECT ?item WHERE { ?item wdt:P555 ?value . FILTER( REGEX(STR(?value), '^(\\\\d+–\\\\d+)$') = false )}",
-	"action": "format",
-	"subaction": "dash",
-	"regex": "\\d+–\\d+"
-}, {
-	"p": "P564",
-	"name": "P564format",
-	"query": "SELECT ?item WHERE { ?item wdt:P564 ?value . FILTER( REGEX(STR(?value), '^(\\\\d+–\\\\d+)$') = false )}",
-	"action": "format",
-	"subaction": "dash",
-	"regex": "\\d+–\\d+"
-}, {
-	"p": "P592",
-	"name": "P592format",
-	"query": "SELECT ?item WHERE { ?item wdt:P592 ?value . FILTER( REGEX(STR(?value), '^(CHEMBL\\\\d+)$') = false )}",
-	"action": "format",
-	"subaction": "uppercase",
-	"regex": "CHEMBL\\d+"
-}, {
-	"p": "P597",
-	"name": "P597addclaim",
+    "p": "P536",
+    "name": "P536addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P597 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q10833314 } MINUS { ?item wdt:P106 wd:Q18814798 }}",
-	"action": "addClaim",
-	"pNew": "P106",
-	"valNew": "Q10833314",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q5"
-	}]
+    "action": "addClaim",
+    "pNew": "P106",
+    "valNew": "Q10833314",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q5"
+    }]
 }, {
-	"p": "P599",
-	"name": "P599addclaim",
+    "p": "P536",
+    "name": "P536format",
+    "query": "SELECT ?item WHERE { ?item wdt:P536 ?value . FILTER( REGEX(STR(?value), '^([A-Z]*\\\\d*)$') = false )}",
+    "action": "format",
+    "subaction": "uppercase",
+    "regex": "[A-Z]*\\d*"
+}, {
+    "p": "P555",
+    "name": "P555format",
+    "query": "SELECT ?item WHERE { ?item wdt:P555 ?value . FILTER( REGEX(STR(?value), '^(\\\\d+–\\\\d+)$') = false )}",
+    "action": "format",
+    "subaction": "dash",
+    "regex": "\\d+–\\d+"
+}, {
+    "p": "P564",
+    "name": "P564format",
+    "query": "SELECT ?item WHERE { ?item wdt:P564 ?value . FILTER( REGEX(STR(?value), '^(\\\\d+–\\\\d+)$') = false )}",
+    "action": "format",
+    "subaction": "dash",
+    "regex": "\\d+–\\d+"
+}, {
+    "p": "P592",
+    "name": "P592format",
+    "query": "SELECT ?item WHERE { ?item wdt:P592 ?value . FILTER( REGEX(STR(?value), '^(CHEMBL\\\\d+)$') = false )}",
+    "action": "format",
+    "subaction": "uppercase",
+    "regex": "CHEMBL\\d+"
+}, {
+    "p": "P597",
+    "name": "P597addclaim",
+    "query": "SELECT ?item WHERE { ?item wdt:P597 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q10833314 } MINUS { ?item wdt:P106 wd:Q18814798 }}",
+    "action": "addClaim",
+    "pNew": "P106",
+    "valNew": "Q10833314",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q5"
+    }]
+}, {
+    "p": "P599",
+    "name": "P599addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P599 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q10833314 } MINUS { ?item wdt:P106 wd:Q18814798 }}",
-	"action": "addClaim",
-	"pNew": "P106",
-	"valNew": "Q10833314",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q5"
-	}]
+    "action": "addClaim",
+    "pNew": "P106",
+    "valNew": "Q10833314",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q5"
+    }]
 }, {
-	"p": "P613",
-	"name": "P613format",
+    "p": "P613",
+    "name": "P613format",
     "query": "SELECT ?item WHERE { ?item wdt:P613 ?value . FILTER( REGEX(STR(?value), '^([A-Z]{2}[0-9]{4,10})$') = false )}",
-	"action": "format",
-	"subaction": "removeWhitespace",
-	"regex": "[A-Z]{2}[0-9]{4,10}"
+    "action": "format",
+    "subaction": "removeWhitespace",
+    "regex": "[A-Z]{2}[0-9]{4,10}"
 }, {
-	"p": "P613",
-	"name": "P613addclaim",
+    "p": "P613",
+    "name": "P613addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P613 ?dummy0 . MINUS { ?item wdt:P17 wd:Q145 }}",
-	"action": "addClaim",
-	"pNew": "P17",
-	"valNew": "Q145"
+    "action": "addClaim",
+    "pNew": "P17",
+    "valNew": "Q145"
 }, {
-	"p": "P625",
-	"name": "P625move",
+    "p": "P625",
+    "name": "P625move",
     "query": "SELECT DISTINCT ?item WHERE { ?item wdt:P31/wdt:P279* wd:Q4830453; wdt:P625 []; wdt:P159 [] . MINUS { ?item p:P159/pq:P625 [] } }",
-	"action": "moveStatementToQualifier",
+    "action": "moveStatementToQualifier",
     "pNew": "P159"
 }, {
     "p": "P675",
@@ -163,69 +163,69 @@
     "subaction": "removeSuffix",
     "regex": "[0-9a-zA-Z_\\-]{12}"
 }, {
-	"p": "P677",
-	"name": "P677addclaim",
+    "p": "P677",
+    "name": "P677addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P677 ?dummy0 . MINUS { ?item wdt:P17 wd:Q213 }}",
-	"action": "addClaim",
-	"pNew": "P17",
-	"valNew": "Q213"
+    "action": "addClaim",
+    "pNew": "P17",
+    "valNew": "Q213"
 }, {
-	"p": "P709",
-	"name": "P709addclaim",
+    "p": "P709",
+    "name": "P709addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P709 ?dummy0 . MINUS { ?item wdt:P17 wd:Q145 }}",
-	"action": "addClaim",
-	"pNew": "P17",
-	"valNew": "Q145"
+    "action": "addClaim",
+    "pNew": "P17",
+    "valNew": "Q145"
 }, {
     "p": "P762",
     "name": "P762addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P762 ?dummy0 . OPTIONAL { ?item wdt:P17 ?dummy1 } FILTER(!bound(?dummy1))}",
     "action": "addClaim",
     "pNew": "P17",
-    "valNew": "Q213"    
+    "valNew": "Q213"
 }, {
     "p": "P774",
     "name": "P774addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P774 ?dummy0 . OPTIONAL { ?item wdt:P17 ?dummy1 } FILTER(!bound(?dummy1))}",
     "action": "addClaim",
     "pNew": "P17",
-    "valNew": "Q30"    
+    "valNew": "Q30"
 }, {
     "p": "P776",
     "name": "P776addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P776 ?dummy0 . OPTIONAL { ?item wdt:P17 ?dummy1 } FILTER(!bound(?dummy1))}",
     "action": "addClaim",
     "pNew": "P17",
-    "valNew": "Q34"    
+    "valNew": "Q34"
 }, {
-	"p": "P910",
-	"name": "P910valueclaim",
+    "p": "P910",
+    "name": "P910valueclaim",
     "query": "SELECT ?item { ?item wdt:P910 ?value . MINUS { ?value wdt:P31/wdt:P279* wd:Q4167836 }}",
-	"action": "addValueClaim",
-	"pNewT": "P31",
-	"valNew": "Q4167836",
-	"constrainttarget": [{
-		"type": "category"
-	}]
+    "action": "addValueClaim",
+    "pNewT": "P31",
+    "valNew": "Q4167836",
+    "constrainttarget": [{
+        "type": "category"
+    }]
 }, {
-	"p": "P957",
-	"name": "P957format",
+    "p": "P957",
+    "name": "P957format",
     "query": "SELECT ?item WHERE { ?item wdt:P957 ?value . FILTER( REGEX(STR(?value), '^(\\\\d{1,5}-\\\\d{1,7}-\\\\d{1,6}-[\\\\dX])$') = false )}",
-	"action": "format",
+    "action": "format",
     "subaction": "isbn10",
     "regex": "[\\d\\-X]{13}"
 }, {
-	"p": "P968",
-	"name": "P968format",
+    "p": "P968",
+    "name": "P968format",
     "query": "SELECT ?item WHERE { ?item wdt:P968 ?value . FILTER( REGEX(STR(?value), '^(mailto:[-\\\\w\\\\.]+@[-\\\\w]+\\\\.[\\\\w\\\\.]+)$') = false )}",
-	"action": "format",
-	"subaction": "lowercase",
+    "action": "format",
+    "subaction": "lowercase",
     "regex": "mailto:[-\\w\\.]+@[-\\w]+\\.[\\w\\.]+"
 }, {
     "p": "P1104",
     "name": "P1104unit",
     "query": "SELECT ?item WHERE{ ?item p:P1104/psv:P1104/wikibase:quantityUnit ?unit . FILTER(?unit != wd:Q199)}",
-    "action": "removeUnit"   
+    "action": "removeUnit"
 }, {
     "p": "P1015",
     "name": "P1015format",
@@ -244,107 +244,122 @@
     "query": "SELECT ?item WHERE{ ?item p:P1101/psv:P1101/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q174583))}",
     "action": "removeUnit"
 }, {
-	"p": "P1077",
-	"name": "P1077addclaim",
+    "p": "P1077",
+    "name": "P1077addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1077 ?dummy0 . MINUS { ?item wdt:P17 wd:Q212 }}",
-	"action": "addClaim",
-	"pNew": "P17",
-	"valNew": "Q212"
+    "action": "addClaim",
+    "pNew": "P17",
+    "valNew": "Q212"
+}, {
+    "p": "P1113",
+    "name": "P1113unit",
+    "query": "SELECT ?item WHERE{ ?item p:P1113/psv:P1113/wikibase:quantityUnit ?unit . FILTER(?unit = wd:Q1983062)}",
+    "action": "removeUnit"
+}, {
+    "p": "P1120",
+    "name": "P1120unit",
+    "query": "SELECT ?item WHERE{ ?item p:P1120/psv:P1120/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q5))}",
+    "action": "removeUnit"
 }, {
     "p": "P1128",
     "name": "P1128unit",
     "query": "SELECT ?item WHERE{ ?item p:P1128/psv:P1128/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q5))}",
-    "action": "removeUnit"   
+    "action": "removeUnit"
 }, {
-	"p": "P1273",
-	"name": "P1273format",
+    "p": "P1273",
+    "name": "P1273format",
     "query": "SELECT ?item WHERE { ?item wdt:P1273 ?value . FILTER( REGEX(STR(?value), '^(a\\\\d{7}[0-9x])$') = false )}",
-	"action": "format",
-	"subaction": "lowercase",
-	"regex": "a\\d{7}[0-9x]"
+    "action": "format",
+    "subaction": "lowercase",
+    "regex": "a\\d{7}[0-9x]"
 }, {
-	"p": "P1258",
-	"name": "P1258format",
-	"query": "SELECT ?item WHERE { ?item wdt:P1258 ?value . FILTER( REGEX(STR(?value), '^(m/[0-9A-Za-z][-0-9A-Za-z_\\']*|(tv|celebrity|critic)/[0-9a-z][-0-9a-z_\\']*(/s\\\\d\\\\d)?(/e\\\\d\\\\d)?|source-[1-9]\\\\d*)$') = false )}",
-	"action": "format",
-	"subaction": "removeLast",
-	"regex": "m/[0-9A-Za-z][-0-9A-Za-z_']*|(tv|celebrity|critic)/[0-9a-z][-0-9a-z_']*(/s\\d\\d)?(/e\\d\\d)?|source-[1-9]\\d*"
+    "p": "P1258",
+    "name": "P1258format",
+    "query": "SELECT ?item WHERE { ?item wdt:P1258 ?value . FILTER( REGEX(STR(?value), '^(m/[0-9A-Za-z][-0-9A-Za-z_\\']*|(tv|celebrity|critic)/[0-9a-z][-0-9a-z_\\']*(/s\\\\d\\\\d)?(/e\\\\d\\\\d)?|source-[1-9]\\\\d*)$') = false )}",
+    "action": "format",
+    "subaction": "removeLast",
+    "regex": "m/[0-9A-Za-z][-0-9A-Za-z_']*|(tv|celebrity|critic)/[0-9a-z][-0-9a-z_']*(/s\\d\\d)?(/e\\d\\d)?|source-[1-9]\\d*"
 }, {
-	"p": "P1340",
-	"name": "P1340changeclaim",
+    "p": "P1339",
+    "name": "P1339unit",
+    "query": "SELECT ?item WHERE{ ?item p:P1339/psv:P1339/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q5))}",
+    "action": "removeUnit"
+}, {
+    "p": "P1340",
+    "name": "P1340changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1340 ?value . FILTER( ?value IN (wd:Q1088, wd:Q47071))}",
-	"action": "changeClaim",
-	"map": {
-		"1088": 17122834,
-		"47071": 17122705
-	}
+    "action": "changeClaim",
+    "map": {
+        "1088": 17122834,
+        "47071": 17122705
+    }
 }, {
-	"p": "P1364",
-	"name": "P1364addclaim",
-    "query": "SELECT ?item WHERE { ?item wdt:P1364 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q13382519 }}",    
-	"action": "addClaim",
-	"pNew": "P106",
-	"valNew": "Q13382519",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q5"
-	}]
+    "p": "P1364",
+    "name": "P1364addclaim",
+    "query": "SELECT ?item WHERE { ?item wdt:P1364 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q13382519 }}",
+    "action": "addClaim",
+    "pNew": "P106",
+    "valNew": "Q13382519",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q5"
+    }]
 }, {
-	"p": "P1423",
-	"name": "P1423inverse",
+    "p": "P1423",
+    "name": "P1423inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P1423 ?value FILTER NOT EXISTS { ?value wdt:P1424 ?item } }",
-	"action": "inverse",
-	"pNewT": "P1424",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q11266439"
-	}]
+    "action": "inverse",
+    "pNewT": "P1424",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q11266439"
+    }]
 }, {
-	"p": "P1424",
-	"name": "P1424inverse",
+    "p": "P1424",
+    "name": "P1424inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P1424 ?value FILTER NOT EXISTS { ?value wdt:P1423 ?item } }",
-	"action": "inverse",
-	"pNewT": "P1423",
-	"constrainttarget": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q11266439"
-	}]
+    "action": "inverse",
+    "pNewT": "P1423",
+    "constrainttarget": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q11266439"
+    }]
 }, {
-	"p": "P1464",
-	"name": "P1464inverse",
+    "p": "P1464",
+    "name": "P1464inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P1464 ?value FILTER NOT EXISTS { ?value wdt:P971 ?item }}",
-	"action": "inverse",
-	"pNewT": "P971",
-	"constrainttarget": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q4167836"
-	}, {
-		"type": "category"
-	}]
+    "action": "inverse",
+    "pNewT": "P971",
+    "constrainttarget": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q4167836"
+    }, {
+        "type": "category"
+    }]
 }, {
-	"p": "P1465",
-	"name": "P1465inverse",
+    "p": "P1465",
+    "name": "P1465inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P1465 ?value FILTER NOT EXISTS { ?value wdt:P971 ?item }}",
-	"action": "inverse",
-	"pNewT": "P971",
-	"constrainttarget": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q4167836"
-	}, {
-		"type": "category"
-	}]
+    "action": "inverse",
+    "pNewT": "P971",
+    "constrainttarget": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q4167836"
+    }, {
+        "type": "category"
+    }]
 }, {
-	"p": "P1695",
-	"name": "P1695format",
-	"query": "SELECT ?item WHERE { ?item wdt:P1695 ?value . FILTER( REGEX(STR(?value), '^(A[0-9]{7}[0-9X])$') = false )}",
-	"action": "format",
-	"subaction": "uppercase",
-	"regex": "A[0-9]{7}[0-9X]"
+    "p": "P1695",
+    "name": "P1695format",
+    "query": "SELECT ?item WHERE { ?item wdt:P1695 ?value . FILTER( REGEX(STR(?value), '^(A[0-9]{7}[0-9X])$') = false )}",
+    "action": "format",
+    "subaction": "uppercase",
+    "regex": "A[0-9]{7}[0-9X]"
 }, {
     "p": "P1728",
     "name": "P1728format",
@@ -360,76 +375,76 @@
     "subaction": "removePrefix",
     "regex": "mw[0-9]{10}"
 }, {
-	"p": "P1753",
-	"name": "P1753inverse",
+    "p": "P1753",
+    "name": "P1753inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P1753 ?value FILTER NOT EXISTS { ?value wdt:P1754 ?item }}",
-	"action": "inverse",
-	"pNewT": "P1754",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q4167836"
-	}, {
-		"type": "category"
-	}],
-	"constrainttarget": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q13406463"
-	}]
+    "action": "inverse",
+    "pNewT": "P1754",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q4167836"
+    }, {
+        "type": "category"
+    }],
+    "constrainttarget": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q13406463"
+    }]
 }, {
-	"p": "P1754",
-	"name": "P1754inverse",
+    "p": "P1754",
+    "name": "P1754inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P1754 ?value FILTER NOT EXISTS { ?value wdt:P1753 ?item }}",
-	"action": "inverse",
-	"pNewT": "P1753",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q13406463"
-	}],
-	"constrainttarget": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q4167836"
-	}, {
-		"type": "category"
-	}]
+    "action": "inverse",
+    "pNewT": "P1753",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q13406463"
+    }],
+    "constrainttarget": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q4167836"
+    }, {
+        "type": "category"
+    }]
 }, {
-	"p": "P1791",
-	"name": "P1791inverse",
+    "p": "P1791",
+    "name": "P1791inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P1791 ?value FILTER NOT EXISTS { ?value wdt:P971 ?item }}",
-	"action": "inverse",
-	"pNewT": "P971",
-	"constrainttarget": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q4167836"
-	}, {
-		"type": "category"
-	}]
+    "action": "inverse",
+    "pNewT": "P971",
+    "constrainttarget": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q4167836"
+    }, {
+        "type": "category"
+    }]
 }, {
-	"p": "P1792",
-	"name": "P1792inverse",
+    "p": "P1792",
+    "name": "P1792inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P1792 ?value FILTER NOT EXISTS { ?value wdt:P971 ?item }}",
-	"action": "inverse",
-	"pNewT": "P971",
-	"constrainttarget": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q4167836"
-	}, {
-		"type": "category"
-	}]
+    "action": "inverse",
+    "pNewT": "P971",
+    "constrainttarget": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q4167836"
+    }, {
+        "type": "category"
+    }]
 }, {
-	"p": "P1884",
-	"name": "P1884changeclaim",
+    "p": "P1884",
+    "name": "P1884changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1340 ?value . FILTER( ?value IN (wd:Q23445, wd:Q47071))}",
-	"action": "changeClaim",
-	"map": {
-		"23445": 1922956,
-		"47071": 2367101
-	}
+    "action": "changeClaim",
+    "map": {
+        "23445": 1922956,
+        "47071": 2367101
+    }
 }, {
     "p": "P1953",
     "name": "P1953format",
@@ -445,74 +460,74 @@
     "subaction": "removeSuffix",
     "regex": "[1-9][0-9]*"
 }, {
-	"p": "P1981",
-	"name": "P1981changeclaim",
+    "p": "P1981",
+    "name": "P1981changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1981 ?value . FILTER( ?value IN (wd:Q204, wd:Q23488, wd:Q36977, wd:Q40254, wd:Q38712))}",
-	"action": "changeClaim",
-	"map": {
-		"204": 20644794,
-		"23488": 20644795,
+    "action": "changeClaim",
+    "map": {
+        "204": 20644794,
+        "23488": 20644795,
         "36977": 20644796,
         "40254": 20644797,
         "38712": 20644798
-	}
+    }
 }, {
-	"p": "P2002",
-	"name": "P2002format",
+    "p": "P2002",
+    "name": "P2002format",
     "query": "SELECT ?item WHERE { ?item wdt:P2002 ?value . FILTER( REGEX(STR(?value), '^([A-Za-z0-9_]+)$') = false )}",
-	"action": "format",
-	"subaction": "removeFirst",
-	"regex": "[A-Za-z0-9_]+"
+    "action": "format",
+    "subaction": "removeFirst",
+    "regex": "[A-Za-z0-9_]+"
 }, {
-	"p": "P2003",
-	"name": "P2003format",
-	"query": "SELECT ?item WHERE { ?item wdt:P2003 ?value . FILTER( REGEX(STR(?value), '^([a-z0-9_.]+)$') = false )}",
-	"action": "format",
-	"subaction": "lowercase",
-	"regex": "[a-z0-9_.]+"
+    "p": "P2003",
+    "name": "P2003format",
+    "query": "SELECT ?item WHERE { ?item wdt:P2003 ?value . FILTER( REGEX(STR(?value), '^([a-z0-9_.]+)$') = false )}",
+    "action": "format",
+    "subaction": "lowercase",
+    "regex": "[a-z0-9_.]+"
 }, {
-	"p": "P2035",
-	"name": "P2035format",
-	"query": "SELECT ?item WHERE { ?item wdt:P2035 ?value . FILTER( REGEX(STR(?value), '^(https://www.linkedin.com/in/[\\\\-\\\\&%A-Z0-9a-záâãåäăąćčçéèêěëğîıíłńñøóòôöõřśşșšțúůüýž]+)$') = false )}",
-	"action": "format",
-	"subaction": "linkedin",
-	"regex": "https://www.linkedin.com/in/[\\-\\&%A-Z0-9a-záâãåäăąćčçéèêěëğîıíłńñøóòôöõřśşșšțúůüýž]+"
+    "p": "P2035",
+    "name": "P2035format",
+    "query": "SELECT ?item WHERE { ?item wdt:P2035 ?value . FILTER( REGEX(STR(?value), '^(https://www.linkedin.com/in/[\\\\-\\\\&%A-Z0-9a-záâãåäăąćčçéèêěëğîıíłńñøóòôöõřśşșšțúůüýž]+)$') = false )}",
+    "action": "format",
+    "subaction": "linkedin",
+    "regex": "https://www.linkedin.com/in/[\\-\\&%A-Z0-9a-záâãåäăąćčçéèêěëğîıíłńñøóòôöõřśşșšțúůüýž]+"
 },{
-	"p": "P2080",
-	"name": "P2080addclaim",
+    "p": "P2080",
+    "name": "P2080addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P2080 ?dummy0 . MINUS { ?item wdt:P21 wd:Q6581072 }}",
-	"action": "addClaim",
-	"pNew": "P21",
-	"valNew": "Q6581072",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q5"
-	}]
+    "action": "addClaim",
+    "pNew": "P21",
+    "valNew": "Q6581072",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q5"
+    }]
 }, {
-	"p": "P2181",
-	"name": "P2181addclaim",
+    "p": "P2181",
+    "name": "P2181addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P2181 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q82955 }}",
-	"action": "addClaim",
-	"pNew": "P106",
-	"valNew": "Q82955",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q5"
-	}]
+    "action": "addClaim",
+    "pNew": "P106",
+    "valNew": "Q82955",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q5"
+    }]
 }, {
-	"p": "P2181",
-	"name": "P2181addclaim",
+    "p": "P2181",
+    "name": "P2181addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P2181 ?dummy0 . MINUS { ?item wdt:P27 wd:Q33 }}",
-	"action": "addClaim",
-	"pNew": "P27",
-	"valNew": "Q33",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q5"
-	}]
+    "action": "addClaim",
+    "pNew": "P27",
+    "valNew": "Q33",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q5"
+    }]
 }, {
     "p": "P2206",
     "name": "P2206format",
@@ -521,34 +536,39 @@
     "subaction": "removeSuffix",
     "regex": "[1-9][0-9]+"
 }, {
-	"p": "P2278",
-	"name": "P2278addclaim",
+    "p": "P2278",
+    "name": "P2278addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P2278 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q82955 }}",
-	"action": "addClaim",
-	"pNew": "P106",
-	"valNew": "Q82955",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q5"
-	}]
+    "action": "addClaim",
+    "pNew": "P106",
+    "valNew": "Q82955",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q5"
+    }]
 }, {
-	"p": "P2278",
-	"name": "P2278addclaim2",
+    "p": "P2278",
+    "name": "P2278addclaim2",
     "query": "SELECT ?item WHERE { ?item wdt:P2278 ?dummy0 . MINUS { ?item wdt:P27 wd:Q41 }}",
-	"action": "addClaim",
-	"pNew": "P27",
-	"valNew": "Q41",
-	"constraint": [{
-		"type": "item",
-		"p": "P31",
-		"val": "Q5"
-	}]
+    "action": "addClaim",
+    "pNew": "P27",
+    "valNew": "Q41",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q5"
+    }]
 }, {
-	"p": "P2878",
-	"name": "P2878format",
-	"query": "SELECT ?item WHERE { ?item wdt:P2878 ?value . FILTER( REGEX(STR(?value), '^(\\\\d{4} [A-Z0-9]+)$') = false )}",
-	"action": "format",
-	"subaction": "uppercase",
-	"regex": "\\d{4} [A-Z0-9]+"
+    "p": "P2437",
+    "name": "P2437unit",
+    "query": "SELECT ?item WHERE{ ?item p:P2437/psv:P2437/wikibase:quantityUnit ?unit . FILTER(?unit = wd:Q3464665)}",
+    "action": "removeUnit"
+}, {
+    "p": "P2878",
+    "name": "P2878format",
+    "query": "SELECT ?item WHERE { ?item wdt:P2878 ?value . FILTER( REGEX(STR(?value), '^(\\\\d{4} [A-Z0-9]+)$') = false )}",
+    "action": "format",
+    "subaction": "uppercase",
+    "regex": "\\d{4} [A-Z0-9]+"
 }]
