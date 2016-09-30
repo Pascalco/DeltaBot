@@ -460,6 +460,11 @@
     "subaction": "removeSuffix",
     "regex": "[1-9][0-9]*"
 }, {
+    "p": "P1971",
+    "name": "P1971unit",
+    "query": "SELECT ?item WHERE{ ?item p:P1971/psv:P1971/wikibase:quantityUnit ?unit . FILTER(?unit = wd:Q5)}",
+    "action": "removeUnit"
+}, {
     "p": "P1981",
     "name": "P1981changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1981 ?value . FILTER( ?value IN (wd:Q204, wd:Q23488, wd:Q36977, wd:Q40254, wd:Q38712))}",
