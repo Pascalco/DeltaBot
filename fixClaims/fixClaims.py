@@ -40,7 +40,7 @@ def format_removeWhitespace(value, regex):
 
 
 def format_isniformat(value, regex):
-    value = re.sub(r'[^0-9]','', value)
+    value = re.sub(r'[^0-9X]','', value)
     return value[0:4] + ' ' + value[4:8] + ' ' + value[8:12] + ' ' + value[12:16]
 
 
