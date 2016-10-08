@@ -141,6 +141,10 @@ def action_inverse(item, claim, job):
     #bug with checking for same claim
     itemID = item.getID()
     target = claim.getTarget()
+    if target.isRedirectPage():
+        return 0
+    if not target.exists():
+        return 0
     target.get()
     if 'constrainttarget' in job:
         if not constraintTargetCheck(target, job):
@@ -317,6 +321,7 @@ def getViolations(job):
     except:
         pass
     return candidates
+
 
 
 def proceedOneCandidate(q, job):
