@@ -460,16 +460,25 @@
     "subaction": "removeSuffix",
     "regex": "[1-9][0-9]*"
 }, {
+    "p": "P1971",
+    "name": "P1971unit",
+    "query": "SELECT ?item WHERE{ ?item p:P1971/psv:P1971/wikibase:quantityUnit ?unit . FILTER(?unit = wd:Q5)}",
+    "action": "removeUnit"
+}, {
     "p": "P1981",
     "name": "P1981changeclaim",
-    "query": "SELECT ?item WHERE { ?item wdt:P1981 ?value . FILTER( ?value IN (wd:Q204, wd:Q23488, wd:Q36977, wd:Q40254, wd:Q38712))}",
+    "query": "SELECT ?item WHERE { ?item wdt:P1981 ?value . FILTER( ?value IN (wd:Q204, wd:Q23488, wd:Q19774, wd:Q36977, wd:Q23378, wd:Q40254, wd:Q23763, wd:Q38712, wd:Q23756))}",
     "action": "changeClaim",
     "map": {
         "204": 20644794,
         "23488": 20644795,
+        "19774": 20644795,
         "36977": 20644796,
+        "23378": 20644796,
         "40254": 20644797,
-        "38712": 20644798
+        "23763": 20644797,
+        "38712": 20644798,
+        "23756": 20644798
     }
 }, {
     "p": "P2002",
