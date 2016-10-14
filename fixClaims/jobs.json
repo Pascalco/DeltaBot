@@ -1,17 +1,17 @@
 [{
     "p": "P10",
     "name": "P10commons",
-    "query": "SELECT ?item WHERE { ?item wdt:P10 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
+    "query": "SELECT ?item WHERE { ?item wdt:P10 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
     "action": "normalize"
 }, {
     "p": "P14",
     "name": "P14commons",
-    "query": "SELECT ?item WHERE { ?item wdt:P14 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
+    "query": "SELECT ?item WHERE { ?item wdt:P14 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
     "action": "normalize"
 }, {
     "p": "P18",
     "name": "P18commons",
-    "query": "SELECT ?item WHERE { ?item wdt:P18 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
+    "query": "SELECT ?item WHERE { ?item wdt:P18 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
     "action": "normalize"
 }, {
     "p": "P21",
@@ -33,12 +33,12 @@
 }, {
     "p": "P94",
     "name": "P94commons",
-    "query": "SELECT ?item WHERE { ?item wdt:P94 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
+    "query": "SELECT ?item WHERE { ?item wdt:P94 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
     "action": "normalize"
 }, {
     "p": "P154",
     "name": "P154commons",
-    "query": "SELECT ?item WHERE { ?item wdt:P154 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
+    "query": "SELECT ?item WHERE { ?item wdt:P154 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
     "action": "normalize"
 }, {
     "p": "P213",
@@ -50,7 +50,7 @@
 }, {
     "p": "P242",
     "name": "P242commons",
-    "query": "SELECT ?item WHERE { ?item wdt:P242 ?value . FILTER( STRSTARTS(?value, 'File:') || REGEX(STR(?value), '_') = true)}",
+    "query": "SELECT ?item WHERE { ?item wdt:P242 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
     "action": "normalize"
 }, {
     "p": "P409",
