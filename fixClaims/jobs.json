@@ -36,6 +36,14 @@
     "query": "SELECT ?item WHERE { ?item wdt:P94 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
     "action": "normalize"
 }, {
+    "p": "P105",
+    "name": "P105changeclaim",
+    "query": "SELECT ?item WHERE { ?item wdt:P105 ?value . FILTER( ?value IN (wd:Q8436))}",
+    "action": "changeClaim",
+    "map": {
+        "8436": 35409
+    }
+}, {
     "p": "P154",
     "name": "P154commons",
     "query": "SELECT ?item WHERE { ?item wdt:P154 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
