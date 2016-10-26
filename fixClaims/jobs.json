@@ -31,6 +31,14 @@
         "55": 29999
     }
 }, {
+    "p": "P31",
+    "name": "P31changeclaim",
+    "query": "SELECT ?item WHERE {?item wdt:P31 wd:Q215627}",
+    "action": "changeClaim",
+    "map": {
+        "215627": 5
+    }
+}, {
     "p": "P94",
     "name": "P94commons",
     "query": "SELECT ?item WHERE { ?item wdt:P94 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
