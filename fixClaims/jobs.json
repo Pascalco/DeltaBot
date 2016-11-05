@@ -238,6 +238,13 @@
     "subaction": "lowercase",
     "regex": "mailto:[-\\w\\.]+@[-\\w]+\\.[\\w\\.]+"
 }, {
+    "p": "P980",
+    "name": "P980addclaim",
+    "query": "SELECT ?item WHERE { ?item wdt:P980 ?dummy0 . OPTIONAL { ?item wdt:P17 ?dummy1 } FILTER(!bound(?dummy1))}",
+    "action": "addClaim",
+    "pNew": "P17",
+    "valNew": "Q34"
+}, {
     "p": "P1104",
     "name": "P1104unit",
     "query": "SELECT ?item WHERE{ ?item p:P1104/psv:P1104/wikibase:quantityUnit ?unit . FILTER(?unit != wd:Q199)}",
