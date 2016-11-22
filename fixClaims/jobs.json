@@ -487,7 +487,7 @@
 }, {
     "p": "P1971",
     "name": "P1971unit",
-    "query": "SELECT ?item WHERE{ ?item p:P1971/psv:P1971/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q5, wd:Q7569, wd:Q1340307))}",
+    "query": "SELECT ?item WHERE{ ?item p:P1971/psv:P1971/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q5, wd:Q7569, wd:Q1340307, Q352082))}",
     "action": "removeUnit"
 }, {
     "p": "P1981",
