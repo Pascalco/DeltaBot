@@ -175,6 +175,28 @@ def action_moveP(item, claim, job):
     return 'break'
 
 
+#move qualifiers on p from pOld to pNew
+def action_moveQualifier(item, claim, job):
+    data = item.toJSON()
+    for m in data['claims'][job['p']]:
+        if 'qualifiers' not in m:
+            continue
+        if job['pOld'] not in m['qualifiers']:
+            continue
+        if job['pNew'] in m['qualifiers']:
+            continue
+        m['qualifiers'][job['pNew']] =  m['qualifiers'][job['pOld']]
+        for x in m['qualifiers'][job['pNew']]:
+            x['hash'] = ''
+            x['property'] = job['pNew']
+        del m['qualifiers'][job['pOld']]
+        m['qualifiers-order'] = [w.replace(job['pOld'], job['pNew']) for w in m['qualifiers-order']]
+        mydata = {}
+        mydata['claims'] = [m]
+        item.editEntity(mydata, summary=u'move qualifier [[Property:'+job['pOld']+']] -> [[Property:'+job['pNew']+']]')
+    return 1
+
+
 #add claim pNew=valNew
 def action_addClaim(item, claim, job):
     if job['pNew'] in item.claims:
