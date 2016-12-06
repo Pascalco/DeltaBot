@@ -162,6 +162,8 @@ def action_inverse(item, claim, job):
 
 #move claim from pOld to pNew
 def action_moveP(item, claim, job):
+    if not job['pOld'] in item.claims:
+        return 0
     if job['pNew'] in item.claims:
         return 0
     data = item.toJSON()
@@ -356,9 +358,6 @@ def proceedOneCandidate(q, job):
     #checks
     if not job['p'] in item.claims:
         return 0
-    if 'pOld' in job:
-        if not job['pOld'] in item.claims:
-            return 0
     if 'constraint' in job:
         if not constraintCheck(item, job):
             return 0
