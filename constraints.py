@@ -260,7 +260,7 @@ def main():
                 if len(report) > 1:
                     try:
                         query = 'SELECT (count(DISTINCT(?item)) AS ?cnt) WHERE {{ {{ ?item wdt:{p} [] . }} UNION {{ ?ref pr:{p} [] . ?statement1 prov:wasDerivedFrom ?ref . ?item ?p1 ?statement1 }} UNION {{ ?statement1 pq:{p} [] . ?item ?p1 ?statement1 }} }}'.format(p=p)
-                        data, = requestquery(query)
+                        data, _ = requestquery(query)
                         cnt = data['results']['bindings'][0]['cnt']['value']
                     except:
                         cnt = ''
