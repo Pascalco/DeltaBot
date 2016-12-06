@@ -39,6 +39,20 @@
         "215627": 5
     }
 }, {
+    "p": "P39",
+    "name": "P39movequalifiers1",
+    "query": "SELECT ?item WHERE { ?item p:P39/pq:P155 []}",
+    "action": "moveQualifier",
+    "pOld": "P155",
+    "pNew": "P1365"
+}, {
+    "p": "P39",
+    "name": "P39movequalifiers2",
+    "query": "SELECT ?item WHERE { ?item p:P39/pq:P156 []}",
+    "action": "moveQualifier",
+    "pOld": "P156",
+    "pNew": "P1366"
+}, {
     "p": "P94",
     "name": "P94commons",
     "query": "SELECT ?item WHERE { ?item wdt:P94 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
