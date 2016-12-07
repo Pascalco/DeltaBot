@@ -312,7 +312,7 @@
 }, {
     "p": "P1258",
     "name": "P1258format",
-    "query": "SELECT ?item WHERE { ?item wdt:P1258 ?value . FILTER( REGEX(STR(?value), '^(m/[0-9A-Za-z][-0-9A-Za-z_\\']*|(tv|celebrity|critic)/[0-9a-z][-0-9a-z_\\']*(/s\\\\d\\\\d)?(/e\\\\d\\\\d)?|source-[1-9]\\\\d*)$') = false )}",
+    "query": "SELECT ?item WHERE { ?item wdt:P1258 ?value . FILTER( REGEX(STR(?value), '^(m/[0-9A-Za-z][-0-9A-Za-z_\\']*|(tv|celebrity|critic|franchise)/[0-9a-z][-0-9a-z_\\']*(/s\\\\d\\\\d)?(/e\\\\d\\\\d)?|source-[1-9]\\\\d*)$') = false )}",
     "action": "format",
     "subaction": "removeLast",
     "regex": "m/[0-9A-Za-z][-0-9A-Za-z_']*|(tv|celebrity|critic)/[0-9a-z][-0-9a-z_']*(/s\\d\\d)?(/e\\d\\d)?|source-[1-9]\\d*"
