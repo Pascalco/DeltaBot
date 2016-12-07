@@ -14,6 +14,8 @@ repoCommons = siteCommons.data_repository()
 f2 = open('fixClaims/isbn_range.xml').read().replace('\n', '').replace(' ', '')
 execfile('fixClaims/categoryPrefix.dat')
 
+whitelist = ['Q4115189', 'Q13406268', 'Q15397819']
+
 #########################
 # format actions        #
 #########################
@@ -377,7 +379,7 @@ def main():
         if job['name'] not in done:
             done[job['name']] = []
         for q in candidates:
-            if q not in done[job['name']]:
+            if q not in done[job['name']] and q not in whitelist:
                 try:
                     proceedOneCandidate(q, job)
                     done[job['name']].append(q)
