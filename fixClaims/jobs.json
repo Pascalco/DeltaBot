@@ -324,13 +324,14 @@
 }, {
     "p": "P1340",
     "name": "P1340changeclaim",
-    "query": "SELECT ?item WHERE { ?item wdt:P1340 ?value . FILTER( ?value IN (wd:Q1088, wd:Q47071, wd:Q3133, wd:Q943))}",
+    "query": "SELECT ?item WHERE { ?item wdt:P1340 ?value . FILTER( ?value IN (wd:Q1088, wd:Q47071, wd:Q3133, wd:Q943, wd:Q23445))}",
     "action": "changeClaim",
     "map": {
         "1088": 17122834,
         "47071": 17122705,
         "3133": 17122854,
-        "943": 27777837
+        "943": 27777837,
+        "23445": 17244465
     }
 }, {
     "p": "P1364",
