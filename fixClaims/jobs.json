@@ -308,7 +308,7 @@
     "query": "SELECT ?item WHERE { ?item wdt:P1151 ?value FILTER NOT EXISTS { ?value wdt:P1204 ?item } }",
     "action": "inverse",
     "pNewT": "P1204",
-    "constraint": [{
+    "constrainttarget": [{
         "type": "item",
         "p": "P31",
         "val": "Q4663903"
