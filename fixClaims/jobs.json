@@ -303,6 +303,17 @@
     "query": "SELECT ?item WHERE{ ?item p:P1128/psv:P1128/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q5))}",
     "action": "removeUnit"
 }, {
+    "p": "P1151",
+    "name": "P1151inverse",
+    "query": "SELECT ?item WHERE { ?item wdt:P1151 ?value FILTER NOT EXISTS { ?value wdt:P1204 ?item } }",
+    "action": "inverse",
+    "pNewT": "P1204",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q4663903"
+    }]
+}, {
     "p": "P1273",
     "name": "P1273format",
     "query": "SELECT ?item WHERE { ?item wdt:P1273 ?value . FILTER( REGEX(STR(?value), '^(a\\\\d{7}[0-9x])$') = false )}",
