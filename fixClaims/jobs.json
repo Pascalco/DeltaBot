@@ -552,7 +552,14 @@
     "action": "format",
     "subaction": "linkedin",
     "regex": "https://www.linkedin.com/in/[\\-\\&%A-Z0-9a-záâãåäăąćčçéèêěëğîıíłńñøóòôöõřśşșšțúůüýž]+"
-},{
+}, {
+    "p": "P2035",
+    "name": "P2035conflict",
+    "query": "SELECT ?item WHERE { ?item wdt:P2035 ?value . FILTER( REGEX(STR(?value), '^https://www.linkedin.com/company') = true )}",
+    "action": "moveP",
+    "pOld": "P2035",
+    "pNew": "P973"
+}, {
     "p": "P2080",
     "name": "P2080addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P2080 ?dummy0 . MINUS { ?item wdt:P21 wd:Q6581072 }}",
