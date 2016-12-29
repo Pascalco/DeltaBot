@@ -580,6 +580,12 @@
         "val": "Q5"
     }]
 }, {
+    "p": "P2096",
+    "name": "P2096move",
+    "query": "SELECT DISTINCT ?item WHERE { ?item wdt:P18 []; wdt:P2096 []}",
+    "action": "moveStatementToQualifier",
+    "pNew": "P18"
+}, {
     "p": "P2181",
     "name": "P2181addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P2181 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q82955 }}",
