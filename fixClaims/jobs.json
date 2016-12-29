@@ -498,11 +498,13 @@
 }, {
     "p": "P1884",
     "name": "P1884changeclaim",
-    "query": "SELECT ?item WHERE { ?item wdt:P1884 ?value . FILTER( ?value IN (wd:Q23445, wd:Q47071))}",
+    "query": "SELECT ?item WHERE { ?item wdt:P1884 ?value . FILTER( ?value IN (wd:Q23445, wd:Q47071, wd:Q1088, wd:Q3142))}",
     "action": "changeClaim",
     "map": {
         "23445": 1922956,
-        "47071": 2367101
+        "47071": 2367101,
+        "1088": 4930092,
+        "3142": 152357
     }
 }, {
     "p": "P1953",
