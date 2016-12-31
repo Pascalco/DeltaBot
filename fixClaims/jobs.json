@@ -196,7 +196,7 @@
 }, {
     "p": "P646",
     "name": "P646format",
-    "query": "SELECT ?item WHERE { ?item wdt:P646 ?value . FILTER(REGEX(STR(?value), "^(/g/[0-9a-zA-Z_]+)$") = true ) }",
+    "query": "SELECT ?item WHERE { ?item wdt:P646 ?value . FILTER(REGEX(STR(?value), '^(/g/[0-9a-zA-Z_]+)$') = true ) }",
     "action": "moveP",
     "pOld": "P646",
     "pNew": "P2671"
