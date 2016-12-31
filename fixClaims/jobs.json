@@ -194,6 +194,13 @@
     "action": "moveStatementToQualifier",
     "pNew": "P159"
 }, {
+    "p": "P646",
+    "name": "P646format",
+    "query": "SELECT ?item WHERE { ?item wdt:P646 ?value . FILTER(REGEX(STR(?value), "^(/g/[0-9a-zA-Z_]+)$") = true ) }",
+    "action": "moveP",
+    "pOld": "P646",
+    "pNew": "P2671"
+}, {
     "p": "P675",
     "name": "P675format",
     "query": "SELECT ?item WHERE { ?item wdt:P675 ?value . FILTER( REGEX(STR(?value), '^([0-9a-zA-Z_\\\\-]{12})$') = false )}",
