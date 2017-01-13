@@ -60,6 +60,11 @@
     "action": "moveQualifier",
     "pOld": "P156",
     "pNew": "P1366"
+},  {
+    "p": "P41",
+    "name": "P41commons",
+    "query": "SELECT ?item WHERE { ?item wdt:P41 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
+    "action": "normalize"
 }, {
     "p": "P94",
     "name": "P94commons",
