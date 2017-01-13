@@ -451,6 +451,13 @@
     "subaction": "removePrefix",
     "regex": "mw[0-9]{10}"
 }, {
+    "p": "P1730",
+    "name": "P1730format",
+    "query": "SELECT ?item WHERE { ?item wdt:P1730 ?value . FILTER( REGEX(STR(?value), '^(mt[0-9]{10})$') = false )}",
+    "action": "format",
+    "subaction": "removePrefix",
+    "regex": "mt[0-9]{10}"
+}, {
     "p": "P1753",
     "name": "P1753inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P1753 ?value FILTER NOT EXISTS { ?value wdt:P1754 ?item }}",
