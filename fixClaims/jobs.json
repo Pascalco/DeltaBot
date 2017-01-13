@@ -365,6 +365,11 @@
         "23445": 17244465
     }
 }, {
+    "p": "P1342",
+    "name": "P1342unit",
+    "query": "SELECT ?item WHERE{ ?item p:P1342/psv:P1342/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q5, wd:Q708492))}",
+    "action": "removeUnit"
+}, {
     "p": "P1364",
     "name": "P1364addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1364 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q13382519 }}",
