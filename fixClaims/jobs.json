@@ -605,6 +605,11 @@
     "action": "moveStatementToQualifier",
     "pNew": "P18"
 }, {
+    "p": "P2124",
+    "name": "P2124unit",
+    "query": "SELECT ?item WHERE{ ?item p:P2124/psv:P2124/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q5))}",
+    "action": "removeUnit"
+}, {
     "p": "P2181",
     "name": "P2181addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P2181 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q82955 }}",
