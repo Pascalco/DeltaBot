@@ -277,6 +277,13 @@
     "pOld": "P946",
     "pNew": "P213"
 }, {
+    "p": "P949",
+    "name": "P949format",
+    "query": "SELECT ?item WHERE { ?item wdt:P949 ?value . FILTER( REGEX(STR(?value), '^\\\\d{9}$') = false )}",
+    "action": "format",
+    "subaction": "add0",
+    "regex": "\\d{9}"
+}, {
     "p": "P957",
     "name": "P957format",
     "query": "SELECT ?item WHERE { ?item wdt:P957 ?value . FILTER( REGEX(STR(?value), '^(\\\\d{1,5}-\\\\d{1,7}-\\\\d{1,6}-[\\\\dX])$') = false )}",
