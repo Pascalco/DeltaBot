@@ -131,10 +131,10 @@ def action_normalize(item, job):
     for claim in item.claims[job['p']]:
         m = claim.toJSON()
         curVal = m['mainsnak']['datavalue']['value']
-        newVal = string.replace(curVal, '_', ' ').title()
+        newVal = string.replace(curVal, '_', ' ')
         if newVal[0:5] == 'File:':
             newVal = newVal[5:]
-        target = pywikibot.FilePage(siteCommons, 'File:'+curVal)
+        target = pywikibot.FilePage(siteCommons, newVal)
         if target.exists():
             claim.changeTarget(target)
 
