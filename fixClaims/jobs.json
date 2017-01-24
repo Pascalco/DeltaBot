@@ -232,6 +232,13 @@
     "pNew": "P17",
     "valNew": "Q145"
 }, {
+    "p": "P715",
+    "name": "P715format",
+    "query": "SELECT ?item WHERE { ?item wdt:P715 ?value . FILTER( REGEX(STR(?value), '^([0-9]{5})$') = false )}",
+    "action": "format",
+    "subaction": "removePrefix",
+    "regex": "[0-9]{5}"
+}, {
     "p": "P762",
     "name": "P762addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P762 ?dummy0 . OPTIONAL { ?item wdt:P17 ?dummy1 } FILTER(!bound(?dummy1))}",
@@ -262,6 +269,13 @@
     "constrainttarget": [{
         "type": "category"
     }]
+}, {
+    "p": "P946",
+    "name": "P946format",
+    "query": "SELECT ?item WHERE { ?item wdt:P946 ?value . FILTER(REGEX(STR(?value), '^(0000 000[0-4] \\\\d{4} \\\\d{3}[\\\\dX])$') = true ) }",
+    "action": "moveP",
+    "pOld": "P946",
+    "pNew": "P213"
 }, {
     "p": "P957",
     "name": "P957format",
