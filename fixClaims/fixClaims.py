@@ -40,6 +40,7 @@ def format_removeFirst(value, regex):
 def format_removeWhitespace(value, regex):
     return value.replace(' ', '')
 
+
 def format_isniformat(value, regex):
     value = re.sub(r'[^0-9X]','', value)
     return value[0:4] + ' ' + value[4:8] + ' ' + value[8:12] + ' ' + value[12:16]
@@ -60,6 +61,14 @@ def format_removePrefix(value, regex):
 def format_removeSuffix(value, regex):
     for _ in range(0, len(value)):
         value = value[:-1]
+        if formatcheck(value, regex):
+            return value
+    return None
+
+
+def format_add0(value, regex):
+    for _ in range(10):
+        value = '0'+value
         if formatcheck(value, regex):
             return value
     return None
