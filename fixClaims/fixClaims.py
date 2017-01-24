@@ -116,53 +116,55 @@ def format_isbn10(value, regex):
 #########################
 
 
-def action_format(item, claim, job):
-    if formatcheck(claim, job['regex']):
-        return 0
-    subaction = globals()['format_' + job['subaction']]
-    newVal = subaction(claim.getTarget(), job['regex'])
-    if newVal:
-        if formatcheck(newVal, job['regex']):
-            claim.changeTarget(newVal)
+def action_format(item, job):
+    for claim in item.claims[job['p']]:
+        if formatcheck(claim, job['regex']):
+            continue
+        subaction = globals()['format_' + job['subaction']]
+        newVal = subaction(claim.getTarget(), job['regex'])
+        if newVal:
+            if formatcheck(newVal, job['regex']):
+                claim.changeTarget(newVal)
 
 
-def action_normalize(item, claim, job):
-    m = claim.toJSON()
-    curVal = m['mainsnak']['datavalue']['value']
-    newVal = string.replace(curVal, '_', ' ').title()
-    if newVal[0:5] == 'File:':
-        newVal = newVal[5:]
-    target = pywikibot.FilePage(siteCommons, 'File:'+curVal)
-    if target.exists():
-        claim.changeTarget(target)
+def action_normalize(item, job):
+    for claim in item.claims[job['p']]:
+        m = claim.toJSON()
+        curVal = m['mainsnak']['datavalue']['value']
+        newVal = string.replace(curVal, '_', ' ').title()
+        if newVal[0:5] == 'File:':
+            newVal = newVal[5:]
+        target = pywikibot.FilePage(siteCommons, 'File:'+curVal)
+        if target.exists():
+            claim.changeTarget(target)
 
 
 #add an inverse claim
-def action_inverse(item, claim, job):
+def action_inverse(item, job):
     #bug with checking for same claim
-    itemID = item.getID()
-    target = claim.getTarget()
-    if target.isRedirectPage():
-        return 0
-    if not target.exists():
-        return 0
-    target.get()
-    if 'constrainttarget' in job:
-        if not constraintTargetCheck(target, job):
-            return 0
-    if target.claims:
-        if job['pNewT'] in target.claims:
-            for m in target.claims[job['pNewT']]:
-                if m.getTarget().getID() == itemID:
-                    return 0
-    claimNew = pywikibot.Claim(repo, job['pNewT'])
-    claimNew.setTarget(item)
-    target.addClaim(claimNew)
-    return 1
+    for claim in item.claims[job['p']]:
+        itemID = item.getID()
+        target = claim.getTarget()
+        if target.isRedirectPage():
+            continue
+        if not target.exists():
+            continue
+        target.get()
+        if 'constrainttarget' in job:
+            if not constraintTargetCheck(target, job):
+                continue
+        if target.claims:
+            if job['pNewT'] in target.claims:
+                for m in target.claims[job['pNewT']]:
+                    if m.getTarget().getID() == itemID:
+                        return 0
+        claimNew = pywikibot.Claim(repo, job['pNewT'])
+        claimNew.setTarget(item)
+        target.addClaim(claimNew)
 
 
 #move claim from pOld to pNew
-def action_moveP(item, claim, job):
+def action_moveP(item, job):
     if not job['pOld'] in item.claims:
         return 0
     if job['pNew'] in item.claims:
@@ -175,11 +177,10 @@ def action_moveP(item, claim, job):
         m.pop('id', None)
         mydata['claims'].append(m)
         item.editEntity(mydata, summary=u'move claim [[Property:'+job['pOld']+']] -> [[Property:'+job['pNew']+']]')
-    return 'break'
 
 
 #move qualifiers on p from pOld to pNew
-def action_moveQualifier(item, claim, job):
+def action_moveQualifier(item, job):
     data = item.toJSON()
     for m in data['claims'][job['p']]:
         if 'qualifiers' not in m:
@@ -197,65 +198,64 @@ def action_moveQualifier(item, claim, job):
         mydata = {}
         mydata['claims'] = [m]
         item.editEntity(mydata, summary=u'move qualifier [[Property:'+job['pOld']+']] -> [[Property:'+job['pNew']+']]')
-    return 1
 
 
 #add claim pNew=valNew
-def action_addClaim(item, claim, job):
+def action_addClaim(item, job):
     if job['pNew'] in item.claims:
         return 0
     claimNew = pywikibot.Claim(repo, job['pNew'])
     itemNew = pywikibot.ItemPage(repo, job['valNew'])
     claimNew.setTarget(itemNew)
     item.addClaim(claimNew)
-    return 'break'
 
 
 #add value claim pNew=valNew
-def action_addValueClaim(item, claim, job):
-    target = claim.getTarget()
-    if target.isRedirectPage():
-        return 0
-    if not target.exists():
-        return 0
-    target.get()
-    if 'constrainttarget' in job:
-        if not constraintTargetCheck(target, job):
-            return 0
-    if job['pNewT'] not in target.claims:
-        claimNew = pywikibot.Claim(repo, job['pNewT'])
-        itemNew = pywikibot.ItemPage(repo, job['valNew'])
-        claimNew.setTarget(itemNew)
-        target.addClaim(claimNew)
-    return 1
+def action_addValueClaim(item, job):
+    for claim in item.claims[job['p']]:
+        target = claim.getTarget()
+        if target.isRedirectPage():
+            continue
+        if not target.exists():
+            continue
+        target.get()
+        if 'constrainttarget' in job:
+            if not constraintTargetCheck(target, job):
+                continue
+        if job['pNewT'] not in target.claims:
+            claimNew = pywikibot.Claim(repo, job['pNewT'])
+            itemNew = pywikibot.ItemPage(repo, job['valNew'])
+            claimNew.setTarget(itemNew)
+            target.addClaim(claimNew)
 
 
-def action_changeClaim(item, claim, job):
-    m = claim.toJSON()
-    if 'datavalue' not in m['mainsnak']:
-        return 0
-    curVal = str(m['mainsnak']['datavalue']['value']['numeric-id'])
-    if curVal not in job['map']:
-        return 0
-    newVal = job['map'][curVal]
-    mydata = {}
-    m['mainsnak']['datavalue']['value']['numeric-id'] = newVal
-    mydata['claims'] = [m]
-    summary = u'move claim [[Q' + str(curVal) + ']] -> [[Q' + str(newVal) + ']]'
-    item.editEntity(mydata, summary=summary)
-    return 1
+def action_changeClaim(item, job):
+    for claim in item.claims[job['p']]:
+        m = claim.toJSON()
+        if 'datavalue' not in m['mainsnak']:
+            continue
+        curVal = str(m['mainsnak']['datavalue']['value']['numeric-id'])
+        if curVal not in job['map']:
+            continue
+        newVal = job['map'][curVal]
+        mydata = {}
+        m['mainsnak']['datavalue']['value']['numeric-id'] = newVal
+        mydata['claims'] = [m]
+        summary = u'move claim [[Q' + str(curVal) + ']] -> [[Q' + str(newVal) + ']]'
+        item.editEntity(mydata, summary=summary)
 
 
-def action_removeUnit(item, claim, job):
-    m = claim.toJSON()
-    mydata = {}
-    m['mainsnak']['datavalue']['value']['unit'] = '1'
-    mydata['claims'] = [m]
-    summary = u'remove unit'
-    item.editEntity(mydata, summary=summary)
-    return 1
+def action_removeUnit(item, job):
+    for claim in item.claims[job['p']]:
+        m = claim.toJSON()
+        mydata = {}
+        m['mainsnak']['datavalue']['value']['unit'] = '1'
+        mydata['claims'] = [m]
+        summary = u'remove unit'
+        item.editEntity(mydata, summary=summary)
 
-def action_moveStatementToQualifier(item, claim, job):
+
+def action_moveStatementToQualifier(item, job):
     if job['pNew'] not in item.claims:
         return 0
     if len(item.claims[job['pNew']]) != 1:
@@ -350,7 +350,6 @@ def getViolations(job):
     return candidates
 
 
-
 def proceedOneCandidate(q, job):
     item = pywikibot.ItemPage(repo, q)
     if item.isRedirectPage():
@@ -359,17 +358,12 @@ def proceedOneCandidate(q, job):
         return 0
     item.get()
     #checks
-    if not job['p'] in item.claims:
-        return 0
     if 'constraint' in job:
         if not constraintCheck(item, job):
             return 0
-    for claim in item.claims[job['p']]:
-        #actions
-        action = globals()['action_' + job['action']]
-        res = action(item, claim, job)
-        if res == 'break':
-            break
+    #actions
+    action = globals()['action_' + job['action']]
+    action(item, job)
 
 
 def main():
