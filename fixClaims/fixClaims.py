@@ -274,7 +274,36 @@ def action_moveStatementToQualifier(item, job):
     mydata['claims'].append(m)
     summary = u'move claim [[Property:'+job['p']+']] -> [[Property:'+job['pNew']+']]'
     item.editEntity(mydata, summary=summary)
-    return 1
+
+
+def action_moveSourceToQualifier(item, job):
+    for prop in item.claims.keys():
+        for claim in item.claims[prop]:
+            data = claim.toJSON()
+            i = -1
+            for source in claim.sources:
+                i += 1
+                if job['p'] not in source:
+                    continue
+                for snak in source[job['p']]:
+                    data['qualifiers'] = data.get('qualifiers', {})
+                    data['qualifiers'][job['p']] = data['qualifiers'].get(job['p'], [])
+                    for qual in (pywikibot.Claim.qualifierFromJSON(repo, q) for q in data['qualifiers'][job['p']]):
+                        if qual.target_equals(snak.getTarget()):
+                            break
+                    else:
+                        snak.isReference = False
+                        snak.isQualifier = True
+                        data['qualifiers'][job['p']].append(snak.toJSON())
+                    data['references'][i]['snaks'][job['p']].pop(0)
+                    if len(data['references'][i]['snaks'][job['p']]) == 0:
+                        data['references'][i]['snaks'].pop(job['p'])
+                        if len(data['references'][i]['snaks']) == 0:
+                            data['references'].pop(i)
+                            i -= 1
+            mydata = {'claims': [data]}
+            summary = u'move reference to qualifier'
+            item.editEntity(mydata, summary=summary)
 
 
 #########################
