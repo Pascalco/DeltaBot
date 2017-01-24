@@ -321,7 +321,7 @@
     "name": "P1015format",
     "query": "SELECT ?item WHERE { ?item wdt:P1015 ?value . FILTER( REGEX(STR(?value), '^([1-9]\\\\d{0,8})$') = false )}",
     "action": "format",
-    "subaction": "removeFirst",
+    "subaction": "removePrefix",
     "regex": "[1-9]\\d{0,8}"
 }, {
     "p": "P1082",
