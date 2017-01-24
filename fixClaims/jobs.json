@@ -60,6 +60,11 @@
     "action": "moveQualifier",
     "pOld": "P156",
     "pNew": "P1366"
+},  {
+    "p": "P41",
+    "name": "P41commons",
+    "query": "SELECT ?item WHERE { ?item wdt:P41 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
+    "action": "normalize"
 }, {
     "p": "P94",
     "name": "P94commons",
@@ -360,6 +365,11 @@
         "23445": 17244465
     }
 }, {
+    "p": "P1342",
+    "name": "P1342unit",
+    "query": "SELECT ?item WHERE{ ?item p:P1342/psv:P1342/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q5, wd:Q708492))}",
+    "action": "removeUnit"
+}, {
     "p": "P1364",
     "name": "P1364addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1364 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q13382519 }}",
@@ -440,6 +450,13 @@
     "action": "format",
     "subaction": "removePrefix",
     "regex": "mw[0-9]{10}"
+}, {
+    "p": "P1730",
+    "name": "P1730format",
+    "query": "SELECT ?item WHERE { ?item wdt:P1730 ?value . FILTER( REGEX(STR(?value), '^(mt[0-9]{10})$') = false )}",
+    "action": "format",
+    "subaction": "removePrefix",
+    "regex": "mt[0-9]{10}"
 }, {
     "p": "P1753",
     "name": "P1753inverse",
@@ -594,6 +611,11 @@
     "query": "SELECT DISTINCT ?item WHERE { ?item wdt:P18 []; wdt:P2096 []}",
     "action": "moveStatementToQualifier",
     "pNew": "P18"
+}, {
+    "p": "P2124",
+    "name": "P2124unit",
+    "query": "SELECT ?item WHERE{ ?item p:P2124/psv:P2124/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q5))}",
+    "action": "removeUnit"
 }, {
     "p": "P2181",
     "name": "P2181addclaim",
