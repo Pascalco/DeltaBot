@@ -199,6 +199,11 @@
     "action": "moveStatementToQualifier",
     "pNew": "P159"
 }, {
+    "p": "P642",
+    "name": "P652move",
+    "query": "SELECT DISTINCT ?item WHERE { wd:P642 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "action": "moveSourceToQualifier"
+}, {
     "p": "P646",
     "name": "P646format",
     "query": "SELECT ?item WHERE { ?item wdt:P646 ?value . FILTER(REGEX(STR(?value), '^(/g/[0-9a-zA-Z_]+)$') = true ) }",
@@ -381,6 +386,16 @@
         "p": "P31",
         "val": "Q5"
     }]
+}, {
+    "p": "P1365",
+    "name": "P1365move",
+    "query": "SELECT DISTINCT ?item WHERE { wd:P1365 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "action": "moveSourceToQualifier"
+}, {
+    "p": "P1366",
+    "name": "P1366move",
+    "query": "SELECT DISTINCT ?item WHERE { wd:P1366 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "action": "moveSourceToQualifier"
 }, {
     "p": "P1423",
     "name": "P1423inverse",
