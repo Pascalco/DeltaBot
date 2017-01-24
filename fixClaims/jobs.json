@@ -291,6 +291,13 @@
     "subaction": "isbn10",
     "regex": "[\\d\\-X]{13}"
 }, {
+    "p": "P957",
+    "name": "P957move",
+    "query": "SELECT ?item WHERE { ?item wdt:P957 ?value . FILTER( REGEX(STR(?value), '^97[89]-[0-9-]{13}$') = true ) }",
+    "action": "moveP",
+    "pOld": "P957",
+    "pNew": "P212"
+}, {
     "p": "P968",
     "name": "P968format",
     "query": "SELECT ?item WHERE { ?item wdt:P968 ?value . FILTER( REGEX(STR(?value), '^(mailto:[-\\\\w\\\\.]+@[-\\\\w]+\\\\.[\\\\w\\\\.]+)$') = false )}",
