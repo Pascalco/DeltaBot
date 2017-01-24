@@ -258,17 +258,19 @@ def action_removeUnit(item, claim, job):
 def action_moveStatementToQualifier(item, claim, job):
     if job['pNew'] not in item.claims:
         return 0
-    if len(item.claims[job['p']]) != 1 or len(item.claims[job['pNew']]) != 1:
+    if len(item.claims[job['pNew']]) != 1:
         return 0
     data = item.toJSON()
     mydata = {}
-    mydata['claims'] = [{"id":data['claims'][job['p']][0]['id'],"remove":""}]
+    mydata['claims'] = []
     m = data['claims'][job['pNew']][0]
     if 'qualifiers' not in m:
         m['qualifiers'] = {}
     if job['p'] not in m['qualifiers']:
         m['qualifiers'][job['p']] = []
-    m['qualifiers'][job['p']].append(data['claims'][job['p']][0]['mainsnak'])
+    for claim in data['claims'][job['p']]:
+        mydata['claims'].append({'id':claim['id'], 'remove': ''})
+        m['qualifiers'][job['p']].append(claim['mainsnak'])
     mydata['claims'].append(m)
     summary = u'move claim [[Property:'+job['p']+']] -> [[Property:'+job['pNew']+']]'
     item.editEntity(mydata, summary=summary)
