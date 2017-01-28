@@ -79,6 +79,18 @@
         "8436": 35409
     }
 }, {
+    "p": "P131",
+    "name": "P131conflict",
+    "query": "SELECT ?item WHERE { ?item wdt:P131 []; wdt:P31 wd:Q4830453 }",
+    "action": "moveP",
+    "pOld": "P131",
+    "pNew": "P159",
+    "constraint": [{
+        "type": "item",
+        "p": "P31",
+        "val": "Q4830453"
+    }]
+}, {
     "p": "P154",
     "name": "P154commons",
     "query": "SELECT ?item WHERE { ?item wdt:P154 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
