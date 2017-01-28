@@ -623,6 +623,13 @@
     "subaction": "lowercase",
     "regex": "[a-z0-9_.]+"
 }, {
+    "p": "P2003",
+    "name": "P2003format2",
+    "query": "SELECT ?item WHERE { ?item wdt:P2003 ?value . FILTER( REGEX(STR(?value), '^([a-z0-9_.]+)$') = false )}",
+    "action": "format",
+    "subaction": "removeFirst",
+    "regex": "[a-z0-9_.]+"
+}, {
     "p": "P2035",
     "name": "P2035format",
     "query": "SELECT ?item WHERE { ?item wdt:P2035 ?value . FILTER( REGEX(STR(?value), '^(https://www.linkedin.com/in/[\\\\-\\\\&%A-Z0-9a-záâãåäăąćčçéèêěëğîıíłńñøóòôöõřśşșšțúůüýž]+)$') = false )}",
