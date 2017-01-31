@@ -108,6 +108,20 @@
     "query": "SELECT ?item WHERE { ?item wdt:P242 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
     "action": "normalize"
 }, {
+    "p": "P244",
+    "name": "P244viaf",
+    "query": "SELECT DISTINCT ?item WHERE{ ?item wdt:P244 ?value; wdt:P214 ?viaf . FILTER(!REGEX(?value, '^(n|nb|nr|no|ns|sh)([4-9][0-9]|00|20[0-1][0-9])[0-9]{6}$'))}",
+    "action": "viaf",
+    "regex": "(n|nb|nr|no|ns|sh)([4-9][0-9]|00|20[0-1][0-9])[0-9]{6}",
+    "viafkey": "LC|"
+}, {
+    "p": "P268",
+    "name": "P268viaf",
+    "query": "SELECT DISTINCT ?item WHERE{ ?item wdt:P268 ?value; wdt:P214 ?viaf . FILTER(!REGEX(?value, '^\\\\d{8}[0-9bcdfghjkmnpqrstvwxz]$'))}",
+    "action": "viaf",
+    "regex": "\\d{8}[0-9bcdfghjkmnpqrstvwxz]",
+    "viafkey": "BNF|"
+}, {
     "p": "P409",
     "name": "P409format",
     "query": "SELECT ?item WHERE { ?item wdt:P409 ?value . FILTER( REGEX(STR(?value), '^([1-9][0-9]{0,11})$') = false )}",
@@ -392,6 +406,13 @@
     "action": "format",
     "subaction": "removeLast",
     "regex": "m/[0-9A-Za-z][-0-9A-Za-z_']*|(tv|celebrity|critic)/[0-9a-z][-0-9a-z_']*(/s\\d\\d)?(/e\\d\\d)?|source-[1-9]\\d*"
+}, {
+    "p": "P1273",
+    "name": "P1273viaf",
+    "query": "SELECT DISTINCT ?item WHERE{ ?item wdt:P1273 ?value; wdt:P214 ?viaf . FILTER(!REGEX(?value, '^a\\\\d{7}[\\\\dx]?$'))}",
+    "action": "viaf",
+    "regex": "a\\d{7}[\\dx]?",
+    "viafkey": "BNC|"
 }, {
     "p": "P1339",
     "name": "P1339unit",
