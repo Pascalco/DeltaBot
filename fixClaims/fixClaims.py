@@ -148,6 +148,31 @@ def action_normalize(item, job):
             claim.changeTarget(target)
 
 
+#correct wrong authority identfiers with the value from VIAF
+def action_viaf(item, job):
+    viaf  = item.claims['P214'][0].getTarget()
+    for claim in item.claims[job['p']]:
+        value = claim.getTarget()
+        r = requests.get('https://viaf.org/viaf/' + viaf + '/viaf.json')
+        data = r.json()
+        if not isinstance(data['ns1:sources']['ns1:source'], list):
+            sources = [data['ns1:sources']['ns1:source']]
+        else:
+            sources = data['ns1:sources']['ns1:source']
+        for n in sources:
+            if job['viafkey'] in n['#text']:
+                viafvalue = n['@nsid']
+                if job['p'] == 'P268':
+                    viafvalue = viafvalue.replace('http://catalogue.bnf.fr/ark:/12148/cb', '')
+                elif job['p'] == 'P1273':
+                    viafvalue = viafvalue[1:]
+                if levenshtein(value, viafvalue) > 2:
+                    continue
+                if formatcheck(viafvalue, job['regex']):
+                    claim.changeTarget(viafvalue)
+
+
+
 #add an inverse claim
 def action_inverse(item, job):
     #bug with checking for same claim
@@ -365,6 +390,23 @@ def formatcheck(claim, regex):
     if res:
         return True
     return False
+
+
+def levenshtein(s1, s2):
+    if len(s1) < len(s2):
+        return levenshtein(s2, s1)
+    if len(s2) == 0:
+        return len(s1)
+    previous_row = range(len(s2) + 1)
+    for i, c1 in enumerate(s1):
+        current_row = [i + 1]
+        for j, c2 in enumerate(s2):
+            insertions = previous_row[j + 1] + 1 # j+1 instead of j since previous_row and current_row are one character longer
+            deletions = current_row[j] + 1       # than s2
+            substitutions = previous_row[j] + (c1 != c2)
+            current_row.append(min(insertions, deletions, substitutions))
+        previous_row = current_row
+    return previous_row[-1]
 
 #########################
 # main functions        #
