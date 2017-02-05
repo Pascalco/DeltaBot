@@ -340,6 +340,32 @@ def action_moveSourceToQualifier(item, job):
             item.editEntity(mydata, summary=summary)
 
 
+def action_moveQualifierToSource(item, job):
+    for prop in item.claims.keys():
+        for claim in item.claims[prop]:
+            data = claim.toJSON()
+            if job['p'] not in claim.qualifiers:
+                continue
+            for snak in claim.qualifiers[job['p']]:
+                ok = True
+                data['references'] = data.get('references', [])
+                for reference in data['references']:
+                    for _, ref in pywikibot.Claim.referenceFromJSON(repo, reference).items():
+                        for x in ref:
+                            if x.target_equals(snak.getTarget()):
+                                ok = False
+                if ok:
+                    snak.isQualifier = False
+                    snak.isReference = True
+                    data['references'].append({'snaks': {job['p']: [snak.toJSON()]}})
+                data['qualifiers'][job['p']].pop(0)
+                if len(data['qualifiers'][job['p']]) == 0:
+                    data['qualifiers'].pop(job['p'])
+            mydata = {'claims': [data]}
+            summary = u'move qualifier to reference'
+            item.editEntity(mydata, summary=summary)
+
+
 #########################
 # checks                #
 #########################
