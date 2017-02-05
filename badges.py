@@ -8,6 +8,7 @@ import pywikibot
 from pywikibot.data import api
 
 site = pywikibot.Site('wikidata', 'wikidata')
+site.login()
 repo = site.data_repository()
 site.get_tokens('edit')
 
