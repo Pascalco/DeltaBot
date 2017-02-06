@@ -778,4 +778,4 @@
     "action": "format",
     "subaction": "removeSuffix",
     "regex": "[0-9]+"
-}, ]
+}]
