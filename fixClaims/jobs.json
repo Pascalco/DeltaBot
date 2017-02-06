@@ -101,6 +101,16 @@
     "query": "SELECT ?item WHERE { ?item wdt:P154 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
     "action": "normalize"
 }, {
+    "p": "P155",
+    "name": "P155move",
+    "query": "SELECT DISTINCT ?item WHERE { wd:P155 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "action": "moveSourceToQualifier"
+}, {
+    "p": "P156",
+    "name": "P156move",
+    "query": "SELECT DISTINCT ?item WHERE { wd:P156 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "action": "moveSourceToQualifier"
+}, {
     "p": "P213",
     "name": "P213format",
     "query": "SELECT ?item WHERE { ?item wdt:P213 ?value . FILTER( REGEX(STR(?value), '^(0000 000[0-4] \\\\d{4} \\\\d{3}[\\\\dX])$') = false )}",
@@ -419,6 +429,11 @@
     "regex": "a\\d{7}[\\dx]?",
     "viafkey": "BNC|"
 }, {
+    "p": "P1310",
+    "name": "P1310move",
+    "query": "SELECT DISTINCT ?item WHERE { wd:P1310 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "action": "moveSourceToQualifier"
+}, {
     "p": "P1339",
     "name": "P1339unit",
     "query": "SELECT ?item WHERE{ ?item p:P1339/psv:P1339/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q5))}",
@@ -699,6 +714,11 @@
     "query": "SELECT DISTINCT ?item WHERE { ?item wdt:P18 []; wdt:P2096 []}",
     "action": "moveStatementToQualifier",
     "pNew": "P18"
+}, {
+    "p": "P2096",
+    "name": "P2096move2",
+    "query": "SELECT DISTINCT ?item WHERE { wd:P2096 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "action": "moveSourceToQualifier"
 }, {
     "p": "P2124",
     "name": "P2124unit",
