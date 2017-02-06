@@ -771,4 +771,11 @@
     "action": "format",
     "subaction": "uppercase",
     "regex": "\\d{4} [A-Z0-9]+"
-}]
+}, {
+    "p": "P3571",
+    "name": "P3571format",
+    "query": "SELECT ?item WHERE { ?item wdt:P3571 ?value . FILTER( REGEX(STR(?value), '^([0-9]+)$') = false )}",
+    "action": "format",
+    "subaction": "removeSuffix",
+    "regex": "[0-9]+"
+}, ]
