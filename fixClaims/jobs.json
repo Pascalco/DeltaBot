@@ -266,6 +266,13 @@
     "pNew": "P17",
     "valNew": "Q213"
 }, {
+    "p": "P691",
+    "name": "P691viaf",
+    "query": "SELECT DISTINCT ?item WHERE{ ?item wdt:P691 ?value; wdt:P214 ?viaf . FILTER(!REGEX(?value, '^[a-z]{2,4}[0-9]{2,14}$'))}",
+    "action": "viaf",
+    "regex": "[a-z]{2,4}[0-9]{2,14}",
+    "viafkey": "NKC|"
+}, {
     "p": "P709",
     "name": "P709addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P709 ?dummy0 . MINUS { ?item wdt:P17 wd:Q145 }}",
