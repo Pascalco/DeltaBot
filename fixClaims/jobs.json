@@ -401,7 +401,7 @@
 }, {
     "p": "P1128",
     "name": "P1128unit",
-    "query": "SELECT ?item WHERE{ ?item p:P1128/psv:P1128/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q5))}",
+    "query": "SELECT ?item WHERE{ ?item p:P1128/psv:P1128/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q5, wd:Q703534))}",
     "action": "removeUnit"
 }, {
     "p": "P1151",
