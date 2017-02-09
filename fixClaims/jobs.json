@@ -137,6 +137,13 @@
     "regex": "\\d{8}[0-9bcdfghjkmnpqrstvwxz]",
     "viafkey": "BNF|"
 }, {
+    "p": "P269",
+    "name": "P269viaf",
+    "query": "SELECT DISTINCT ?item WHERE{ ?item wdt:P269 ?value; wdt:P214 ?viaf . FILTER(!REGEX(?value, '^[0-9]{8}[0-9X]$'))}",
+    "action": "viaf",
+    "regex": "[0-9]{8}[0-9X]",
+    "viafkey": "SUDOC|"
+}, {
     "p": "P409",
     "name": "P409format",
     "query": "SELECT ?item WHERE { ?item wdt:P409 ?value . FILTER( REGEX(STR(?value), '^([1-9][0-9]{0,11})$') = false )}",
