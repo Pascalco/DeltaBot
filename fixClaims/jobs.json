@@ -422,13 +422,6 @@
         "val": "Q4663903"
     }]
 }, {
-    "p": "P1273",
-    "name": "P1273format",
-    "query": "SELECT ?item WHERE { ?item wdt:P1273 ?value . FILTER( REGEX(STR(?value), '^(a\\\\d{7}[0-9x])$') = false )}",
-    "action": "format",
-    "subaction": "lowercase",
-    "regex": "a\\d{7}[0-9x]"
-}, {
     "p": "P1258",
     "name": "P1258format",
     "query": "SELECT ?item WHERE { ?item wdt:P1258 ?value . FILTER( REGEX(STR(?value), '^(m/[0-9A-Za-z][-0-9A-Za-z_\\']*|(tv|celebrity|critic|franchise)/[0-9a-z][-0-9a-z_\\']*(/s\\\\d\\\\d)?(/e\\\\d\\\\d)?|source-[1-9]\\\\d*)$') = false )}",
@@ -437,10 +430,17 @@
     "regex": "m/[0-9A-Za-z][-0-9A-Za-z_']*|(tv|celebrity|critic)/[0-9a-z][-0-9a-z_']*(/s\\d\\d)?(/e\\d\\d)?|source-[1-9]\\d*"
 }, {
     "p": "P1273",
+    "name": "P1273format",
+    "query": "SELECT ?item WHERE { ?item wdt:P1273 ?value . FILTER( REGEX(STR(?value), '^(a\\\\d{7}[0-9x])$') = false )}",
+    "action": "format",
+    "subaction": "lowercase",
+    "regex": "a\\d{7}[0-9x]"
+}, {
+    "p": "P1273",
     "name": "P1273viaf",
-    "query": "SELECT DISTINCT ?item WHERE{ ?item wdt:P1273 ?value; wdt:P214 ?viaf . FILTER(!REGEX(?value, '^a\\\\d{7}[\\\\dx]?$'))}",
+    "query": "SELECT DISTINCT ?item WHERE{ ?item wdt:P1273 ?value; wdt:P214 ?viaf . FILTER(!REGEX(?value, '^a[0-9]{7}[0-9x]$'))}",
     "action": "viaf",
-    "regex": "a\\d{7}[\\dx]?",
+    "regex": "a[0-9]{7}[0-9x]",
     "viafkey": "BNC|"
 }, {
     "p": "P1310",
