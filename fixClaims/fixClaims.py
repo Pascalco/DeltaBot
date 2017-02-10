@@ -75,7 +75,11 @@ def format_add0(value, regex):
 
 
 def format_linkedin(value, regex):
-    return re.sub('https?://(.*)linkedin.com/in/', 'https://www.linkedin.com/in/', value)
+    newvalue = re.sub('https?://(.*)linkedin.com/in/', 'https://www.linkedin.com/in/', value)
+    if newvalue[-1] == '/'
+        return newvalue[:-1]
+    else:
+        return newvalue
 
 
 def format_isbn10(value, regex):
