@@ -120,6 +120,13 @@ def format_isbn10(value, regex):
                     return country+'-'+publisher+'-'+work+'-'+val[9]
 
 
+def format_uuid(value, regex):
+    val = value.replace('-', '').replace(' ', '')
+    if len(val) != 32:
+        return None
+    return value[0:8] + '-' + value[8:12] + '-' + value[12:16] + '-' + value[16:20] + '-' + value[20:32]
+
+
 #########################
 # actions               #
 #########################
