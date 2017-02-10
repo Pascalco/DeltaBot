@@ -676,6 +676,13 @@
         "23756": 20644798
     }
 }, {
+    "p": "P1992",
+    "name": "P1992format",
+    "query": "SELECT ?item WHERE { ?item wdt:P1992 ?value . FILTER( REGEX(STR(?value), '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$') = false )}",
+    "action": "format",
+    "subaction": "uuid",
+    "regex": "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+}, {
     "p": "P2002",
     "name": "P2002format",
     "query": "SELECT ?item WHERE { ?item wdt:P2002 ?value . FILTER( REGEX(STR(?value), '^([A-Za-z0-9_]+)$') = false )}",
