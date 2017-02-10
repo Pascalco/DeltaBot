@@ -472,6 +472,8 @@ def getViolations(job):
 
 
 def proceedOneCandidate(q, job):
+    if q[0] != 'Q':
+        return 0
     item = pywikibot.ItemPage(repo, q)
     if item.isRedirectPage():
         return 0
