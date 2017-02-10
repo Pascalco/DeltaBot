@@ -76,7 +76,7 @@ def format_add0(value, regex):
 
 def format_linkedin(value, regex):
     newvalue = re.sub('https?://(.*)linkedin.com/in/', 'https://www.linkedin.com/in/', value)
-    if newvalue[-1] == '/'
+    if newvalue[-1] == '/':
         return newvalue[:-1]
     else:
         return newvalue
@@ -166,6 +166,9 @@ def action_viaf(item, job):
         value = claim.getTarget()
         r = requests.get('https://viaf.org/viaf/' + viaf + '/viaf.json')
         data = r.json()
+        if 'ns0:redirect' in data:
+            r = requests.get('https://viaf.org/viaf/' + data['ns0:redirect']['ns0:directto'] + '/viaf.json')
+            data = r.json()
         if not isinstance(data['ns1:sources']['ns1:source'], list):
             sources = [data['ns1:sources']['ns1:source']]
         else:
@@ -181,6 +184,7 @@ def action_viaf(item, job):
                     continue
                 if formatcheck(viafvalue, job['regex']):
                     claim.changeTarget(viafvalue)
+                    break
 
 
 
