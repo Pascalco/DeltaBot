@@ -79,6 +79,11 @@
         "8436": 35409
     }
 }, {
+    "p": "P109",
+    "name": "P109commons",
+    "query": "SELECT ?item WHERE { ?item wdt:P109 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
+    "action": "normalize"
+}, {
     "p": "P131",
     "name": "P131conflict",
     "query": "SELECT ?item WHERE { ?item wdt:P131 []; wdt:P31 wd:Q4830453 . MINUS { ?item wdt:P159 [] } }",
