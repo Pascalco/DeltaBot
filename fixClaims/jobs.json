@@ -130,6 +130,20 @@
     "pOld": "P213",
     "pNew": "P946"
 }, {
+    "p": "P234",
+    "name": "P234move",
+    "query": "SELECT ?item WHERE { ?item wdt:P234 ?value . FILTER(REGEX(STR(?value), '^[A-Z]{14}-[A-Z]{10}-[A-Z]$') = true ) }",
+    "action": "moveP",
+    "pOld": "P234",
+    "pNew": "P235"
+}, {
+    "p": "P235",
+    "name": "P235move",
+    "query": "SELECT ?item WHERE { ?item wdt:P235 ?value . FILTER(REGEX(STR(?value), '^1S/([0-9]*[A-Z][ub]?[a-z]?[0-9]*\\\\.?)+(/[A-Za-z0-9+\\\\-(),.*;?]+)*$') = true ) }",
+    "action": "moveP",
+    "pOld": "P235",
+    "pNew": "P234"
+}, {
     "p": "P242",
     "name": "P242commons",
     "query": "SELECT ?item WHERE { ?item wdt:P242 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
