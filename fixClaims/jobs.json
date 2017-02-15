@@ -123,6 +123,13 @@
     "subaction": "isniformat",
     "regex": "0000 000[0-4] \\d{4} \\d{3}[\\dX]"
 }, {
+    "p": "P213",
+    "name": "P213move",
+    "query": "SELECT ?item WHERE { ?item wdt:P213 ?value . FILTER(REGEX(STR(?value), '^[A-Z]{2}[A-Z0-9]{10}$') = true ) }",
+    "action": "moveP",
+    "pOld": "P213",
+    "pNew": "P946"
+}, {
     "p": "P242",
     "name": "P242commons",
     "query": "SELECT ?item WHERE { ?item wdt:P242 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
