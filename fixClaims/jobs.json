@@ -330,6 +330,22 @@
         "type": "category"
     }]
 }, {
+    "p": "P914",
+    "name": "P914changeclaim",
+    "query": "SELECT ?item WHERE { ?item wdt:P914 ?value . FILTER( ?value IN (wd:Q204, wd:Q23488, wd:Q19774, wd:Q36977, wd:Q23378, wd:Q40254, wd:Q23763, wd:Q38712, wd:Q23756))}",
+    "action": "changeClaim",
+    "map": {
+        "204": 14920387,
+        "23488": 14920391,
+        "19774": 14920391,
+        "36977": 14920392,
+        "23378": 14920392,
+        "40254": 14920393,
+        "23763": 14920393,
+        "38712": 14920394,
+        "23756": 14920394
+    }
+}, {
     "p": "P946",
     "name": "P946format",
     "query": "SELECT ?item WHERE { ?item wdt:P946 ?value . FILTER(REGEX(STR(?value), '^(0000 000[0-4] \\\\d{4} \\\\d{3}[\\\\dX])$') = true ) }",
