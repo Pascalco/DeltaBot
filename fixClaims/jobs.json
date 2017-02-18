@@ -583,6 +583,17 @@
         "type": "category"
     }]
 }, {
+    "p": "P1560",
+    "name": "P1560inverse",
+    "query": "SELECT ?item WHERE { ?item wdt:P1560 ?value FILTER NOT EXISTS { ?value wdt:P1560 ?item } }",
+    "action": "inverse",
+    "pNewT": "P1560",
+    "constrainttarget": [{
+        "type": "item",
+        "p": "P31",
+        "val": ["Q12308941","Q11879590"]
+    }]
+}, {
     "p": "P1695",
     "name": "P1695format",
     "query": "SELECT ?item WHERE { ?item wdt:P1695 ?value . FILTER( REGEX(STR(?value), '^(A[0-9]{7}[0-9X])$') = false )}",
