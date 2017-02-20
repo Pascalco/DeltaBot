@@ -216,17 +216,23 @@ def action_inverse(item, job):
 def action_moveP(item, job):
     if not job['pOld'] in item.claims:
         return 0
-    if job['pNew'] in item.claims:
-        return 0
-    data = item.toJSON()
-    for m in data['claims'][job['pOld']]:
+    for claim in item.claims[job['pOld']]:
+        print claim.getTarget().getID()
+        if 'constraintvalue' in job:
+            if not constraintValueCheck(claim.getTarget(), job):
+                continue
+        m = claim.toJSON()
         mydata = {}
         mydata['claims'] = [{"id": m['id'], "remove":""}]
-        m['mainsnak']['property'] = job['pNew']
-        m.pop('id', None)
-        mydata['claims'].append(m)
+        d = item.claims.get(job['pNew'], [])
+        for n in d:
+            if claim.getTarget() == n.getTarget():
+                break
+        else:
+            m['mainsnak']['property'] = job['pNew']
+            m.pop('id', None)
+            mydata['claims'].append(m)
         item.editEntity(mydata, summary=u'move claim [[Property:'+job['pOld']+']] -> [[Property:'+job['pNew']+']]')
-
 
 #move qualifiers on p from pOld to pNew
 def action_moveQualifier(item, job):
@@ -402,7 +408,16 @@ def constraintCheck(item, job):
     return True
 
 
+def constraintValueCheck(value, job):
+    for constraint in job['constraintvalue']:
+        check = globals()['check_' + constraint['type']]
+        if not check(value, constraint):
+            return False
+    return True
+
+
 def check_item(item, constraint):
+    item.get()
     if not constraint['p'] in item.claims:
         return False
     if 'val' in constraint:
@@ -420,6 +435,10 @@ def check_category(item, constraint):
         if prefix not in categoryPrefix:
             return False
     return True
+
+
+def check_format(value, constraint):
+    return formatcheck(value, constraint['regex'])
 
 
 def formatcheck(claim, regex):
