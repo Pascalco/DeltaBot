@@ -134,6 +134,13 @@
         "regex": "[A-Z]{2}[A-Z0-9]{10}"
     }]
 }, {
+    "p": "P227",
+    "name": "P227viaf",
+    "query": "SELECT DISTINCT ?item WHERE{ ?item wdt:P227 ?value; wdt:P214 ?viaf . FILTER(!REGEX(?value, '^(1|1[01])\\\\d{7}[0-9X]|[47]\\\\d{6}-\\\\d|[1-9]\\\\d{0,7}-[0-9X]|3\\\\d{7}[0-9X]$'))}",
+    "action": "viaf",
+    "regex": "(1|1[01])\\d{7}[0-9X]|[47]\\d{6}-\\d|[1-9]\\d{0,7}-[0-9X]|3\\d{7}[0-9X]",
+    "viafkey": "DNB|"
+}, {
     "p": "P234",
     "name": "P234move",
     "query": "SELECT ?item WHERE { ?item wdt:P234 ?value . FILTER(REGEX(STR(?value), '^[A-Z]{14}-[A-Z]{10}-[A-Z]$') = true ) }",

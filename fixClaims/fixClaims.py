@@ -178,10 +178,16 @@ def action_viaf(item, job):
                 viafvalue = n['@nsid']
                 if job['p'] == 'P268':
                     viafvalue = viafvalue.replace('http://catalogue.bnf.fr/ark:/12148/cb', '')
+                elif job['p'] == 'P227':
+                    viafvalue = viafvalue.replace('http://d-nb.info/gnd/', '')
                 elif job['p'] == 'P1273':
                     viafvalue = viafvalue[1:]
-                if levenshtein(value, viafvalue) > 2:
-                    continue
+                if job['p'] == 'P227':
+                    if 'DNB|'+value != n['#text']:
+                        continue
+                else:
+                    if levenshtein(value, viafvalue) > 2:
+                        continue
                 if formatcheck(viafvalue, job['regex']):
                     claim.changeTarget(viafvalue)
                     break
@@ -217,7 +223,6 @@ def action_moveP(item, job):
     if not job['pOld'] in item.claims:
         return 0
     for claim in item.claims[job['pOld']]:
-        print claim.getTarget().getID()
         if 'constraintvalue' in job:
             if not constraintValueCheck(claim.getTarget(), job):
                 continue
