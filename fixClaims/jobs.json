@@ -174,13 +174,13 @@
     "name": "P397inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P397 ?value FILTER NOT EXISTS { ?value wdt:P398 ?item } }",
     "action": "inverse",
-    "pNewT": "P398",
+    "pNewT": "P398"
 }, {
     "p": "P398",
     "name": "P398inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P398 ?value FILTER NOT EXISTS { ?value wdt:P397 ?item } }",
     "action": "inverse",
-    "pNewT": "P397",
+    "pNewT": "P397"
 }, {
     "p": "P409",
     "name": "P409format",
