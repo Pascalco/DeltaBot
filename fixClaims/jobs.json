@@ -128,21 +128,33 @@
     "query": "SELECT ?item WHERE { ?item wdt:P213 ?value . FILTER(REGEX(STR(?value), '^[A-Z]{2}[A-Z0-9]{10}$') = true ) }",
     "action": "moveP",
     "pOld": "P213",
-    "pNew": "P946"
+    "pNew": "P946",
+    "constraintvalue": [{
+        "type": "format",
+        "regex": "[A-Z]{2}[A-Z0-9]{10}"
+    }]
 }, {
     "p": "P234",
     "name": "P234move",
     "query": "SELECT ?item WHERE { ?item wdt:P234 ?value . FILTER(REGEX(STR(?value), '^[A-Z]{14}-[A-Z]{10}-[A-Z]$') = true ) }",
     "action": "moveP",
     "pOld": "P234",
-    "pNew": "P235"
+    "pNew": "P235",
+    "constraintvalue": [{
+        "type": "format",
+        "regex": "[A-Z]{14}-[A-Z]{10}-[A-Z]"
+    }]
 }, {
     "p": "P235",
     "name": "P235move",
     "query": "SELECT ?item WHERE { ?item wdt:P235 ?value . FILTER(REGEX(STR(?value), '^1S/([0-9]*[A-Z][ub]?[a-z]?[0-9]*\\\\.?)+(/[A-Za-z0-9+\\\\-(),.*;?]+)*$') = true ) }",
     "action": "moveP",
     "pOld": "P235",
-    "pNew": "P234"
+    "pNew": "P234",
+    "constraintvalue": [{
+        "type": "format",
+        "regex": "1S/([0-9]*[A-Z][ub]?[a-z]?[0-9]*\\.?)+(/[A-Za-z0-9+\\-(),.*;?]+)*"
+    }]
 }, {
     "p": "P242",
     "name": "P242commons",
@@ -295,7 +307,11 @@
     "query": "SELECT ?item WHERE { ?item wdt:P646 ?value . FILTER(REGEX(STR(?value), '^(/g/[0-9a-zA-Z_]+)$') = true ) }",
     "action": "moveP",
     "pOld": "P646",
-    "pNew": "P2671"
+    "pNew": "P2671",
+    "constraintvalue": [{
+        "type": "format",
+        "regex": "/g/[0-9a-zA-Z_]+"
+    }]
 }, {
     "p": "P675",
     "name": "P675format",
@@ -384,7 +400,11 @@
     "query": "SELECT ?item WHERE { ?item wdt:P946 ?value . FILTER(REGEX(STR(?value), '^(0000 000[0-4] \\\\d{4} \\\\d{3}[\\\\dX])$') = true ) }",
     "action": "moveP",
     "pOld": "P946",
-    "pNew": "P213"
+    "pNew": "P213",
+    "constraintvalue": [{
+        "type": "format",
+        "regex": "0000 000[0-4] \\d{4} \\d{3}[\\dX]"
+    }]
 }, {
     "p": "P949",
     "name": "P949format",
@@ -405,7 +425,11 @@
     "query": "SELECT ?item WHERE { ?item wdt:P957 ?value . FILTER( REGEX(STR(?value), '^97[89]-[0-9-]{13}$') = true ) }",
     "action": "moveP",
     "pOld": "P957",
-    "pNew": "P212"
+    "pNew": "P212",
+    "constraintvalue": [{
+        "type": "format",
+        "regex": "97[89]-[0-9-]{13}"
+    }]
 }, {
     "p": "P968",
     "name": "P968format",
@@ -782,7 +806,11 @@
     "query": "SELECT ?item WHERE { ?item wdt:P2035 ?value . FILTER( REGEX(STR(?value), '^https://www.linkedin.com/company') = true )}",
     "action": "moveP",
     "pOld": "P2035",
-    "pNew": "P973"
+    "pNew": "P973",
+    "constraintvalue": [{
+        "type": "value",
+        "regex": "https://www.linkedin.com/company(.*)"
+    }]
 }, {
     "p": "P2080",
     "name": "P2080addclaim",
