@@ -21,60 +21,60 @@ whitelist = ['Q4115189', 'Q13406268', 'Q15397819']
 #########################
 
 
-def format_uppercase(value, regex):
+def format_uppercase(value, job):
     return value.upper()
 
 
-def format_lowercase(value, regex):
+def format_lowercase(value, job):
     return value.lower()
 
 
-def format_removeLast(value, regex):
+def format_removeLast(value, job):
     return value[:-1]
 
 
-def format_removeFirst(value, regex):
+def format_removeFirst(value, job):
     return value[1:]
 
 
-def format_removeWhitespace(value, regex):
+def format_removeWhitespace(value, job):
     return value.replace(' ', '')
 
 
-def format_isniformat(value, regex):
+def format_isniformat(value, job):
     value = re.sub(r'[^0-9X]','', value)
     return value[0:4] + ' ' + value[4:8] + ' ' + value[8:12] + ' ' + value[12:16]
 
 
-def format_dash(value, regex):
+def format_dash(value, job):
     return (value.encode('utf-8').replace('-', '–')).decode('utf-8')
 
 
-def format_removePrefix(value, regex):
+def format_removePrefix(value, job):
     for _ in range(0, len(value)):
         value = value[1:]
-        if formatcheck(value, regex):
+        if formatcheck(value, job['regex']):
             return value
     return None
 
 
-def format_removeSuffix(value, regex):
+def format_removeSuffix(value, job):
     for _ in range(0, len(value)):
         value = value[:-1]
-        if formatcheck(value, regex):
+        if formatcheck(value, job['regex']):
             return value
     return None
 
 
-def format_add0(value, regex):
+def format_add0(value, job):
     for _ in range(10):
         value = '0'+value
-        if formatcheck(value, regex):
+        if formatcheck(value, job['regex']):
             return value
     return None
 
 
-def format_linkedin(value, regex):
+def format_linkedin(value, job):
     newvalue = re.sub('https?://(.*)linkedin.com/in/', 'https://www.linkedin.com/in/', value)
     if newvalue[-1] == '/':
         return newvalue[:-1]
@@ -82,7 +82,7 @@ def format_linkedin(value, regex):
         return newvalue
 
 
-def format_isbn10(value, regex):
+def format_isbn10(value, job):
     val = value.replace('-', '').replace(' ', '')
     if len(val) != 10:
         return None
@@ -124,7 +124,7 @@ def format_isbn10(value, regex):
                     return country+'-'+publisher+'-'+work+'-'+val[9]
 
 
-def format_uuid(value, regex):
+def format_uuid(value, job):
     val = value.replace('-', '').replace(' ', '')
     if len(val) != 32:
         return None
@@ -141,7 +141,7 @@ def action_format(item, job):
         if formatcheck(claim, job['regex']):
             continue
         subaction = globals()['format_' + job['subaction']]
-        newVal = subaction(claim.getTarget(), job['regex'])
+        newVal = subaction(claim.getTarget(), job)
         if newVal:
             if formatcheck(newVal, job['regex']):
                 claim.changeTarget(newVal)
