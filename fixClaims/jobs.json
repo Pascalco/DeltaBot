@@ -182,6 +182,17 @@
     "regex": "[0-9]{8}[0-9X]",
     "viafkey": "SUDOC|"
 }, {
+    "p": "P289",
+    "name": "P289move",
+    "query": "SELECT ?item WHERE{ ?item wdt:P289/wdt:P31 wd:Q2235308 }",
+    "action": "moveP",
+    "pOld": "P289",
+    "pNew": "P31",
+    "constraintsvalue": [{
+        "type": "item",
+        "val": "Q2235308"
+    }]
+}, {
     "p": "P397",
     "name": "P397inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P397 ?value FILTER NOT EXISTS { ?value wdt:P398 ?item } }",
