@@ -925,6 +925,13 @@
     "query": "SELECT ?item WHERE{ ?item p:P2437/psv:P2437/wikibase:quantityUnit ?unit . FILTER(?unit = wd:Q3464665)}",
     "action": "removeUnit"
 }, {
+    "p": "P2605",
+    "name": "P2605format",
+    "query": "SELECT ?item WHERE { ?item wdt:P2605 ?value . FILTER( REGEX(STR(?value), '^[0-9]+$') = false )}",
+    "action": "format",
+    "subaction": "removeSuffix",
+    "regex": "[0-9]+"
+}, {
     "p": "P2878",
     "name": "P2878format",
     "query": "SELECT ?item WHERE { ?item wdt:P2878 ?value . FILTER( REGEX(STR(?value), '^(\\\\d{4} [A-Z0-9]+)$') = false )}",
