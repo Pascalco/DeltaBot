@@ -932,6 +932,11 @@
     "subaction": "uppercase",
     "regex": "\\d{4} [A-Z0-9]+"
 }, {
+    "p": "P3451",
+    "name": "P3451commons",
+    "query": "SELECT ?item WHERE { ?item wdt:P3451 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
+    "action": "normalize"
+}, {
     "p": "P3571",
     "name": "P3571format",
     "query": "SELECT ?item WHERE { ?item wdt:P3571 ?value . FILTER( REGEX(STR(?value), '^([0-9]+)$') = false )}",
