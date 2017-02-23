@@ -161,36 +161,37 @@ def action_normalize(item, job):
 
 #correct wrong authority identfiers with the value from VIAF
 def action_viaf(item, job):
-    viaf  = item.claims['P214'][0].getTarget()
-    for claim in item.claims[job['p']]:
-        value = claim.getTarget()
-        r = requests.get('https://viaf.org/viaf/' + viaf + '/viaf.json')
-        data = r.json()
-        if 'ns0:redirect' in data:
-            r = requests.get('https://viaf.org/viaf/' + data['ns0:redirect']['ns0:directto'] + '/viaf.json')
+    for m in item.claims['P214']:
+        viaf  = m.getTarget()
+        for claim in item.claims[job['p']]:
+            value = claim.getTarget()
+            r = requests.get('https://viaf.org/viaf/' + viaf + '/viaf.json')
             data = r.json()
-        if not isinstance(data['ns1:sources']['ns1:source'], list):
-            sources = [data['ns1:sources']['ns1:source']]
-        else:
-            sources = data['ns1:sources']['ns1:source']
-        for n in sources:
-            if job['viafkey'] in n['#text']:
-                viafvalue = n['@nsid']
-                if job['p'] == 'P268':
-                    viafvalue = viafvalue.replace('http://catalogue.bnf.fr/ark:/12148/cb', '')
-                elif job['p'] == 'P227':
-                    viafvalue = viafvalue.replace('http://d-nb.info/gnd/', '')
-                elif job['p'] == 'P1273':
-                    viafvalue = viafvalue[1:]
-                if job['p'] == 'P227':
-                    if 'DNB|'+value != n['#text']:
-                        continue
-                else:
-                    if levenshtein(value, viafvalue) > 2:
-                        continue
-                if formatcheck(viafvalue, job['regex']):
-                    claim.changeTarget(viafvalue)
-                    break
+            if 'ns0:redirect' in data:
+                r = requests.get('https://viaf.org/viaf/' + data['ns0:redirect']['ns0:directto'] + '/viaf.json')
+                data = r.json()
+            if not isinstance(data['ns1:sources']['ns1:source'], list):
+                sources = [data['ns1:sources']['ns1:source']]
+            else:
+                sources = data['ns1:sources']['ns1:source']
+            for n in sources:
+                if job['viafkey'] in n['#text']:
+                    viafvalue = n['@nsid']
+                    if job['p'] == 'P268':
+                        viafvalue = viafvalue.replace('http://catalogue.bnf.fr/ark:/12148/cb', '')
+                    elif job['p'] == 'P227':
+                        viafvalue = viafvalue.replace('http://d-nb.info/gnd/', '')
+                    elif job['p'] == 'P1273':
+                        viafvalue = viafvalue[1:]
+                    if job['p'] == 'P227':
+                        if 'DNB|'+value != n['#text']:
+                            continue
+                    else:
+                        if levenshtein(value, viafvalue) > 2:
+                            continue
+                    if formatcheck(viafvalue, job['regex']):
+                        claim.changeTarget(viafvalue)
+                        break
 
 
 
