@@ -477,7 +477,7 @@
 }, {
     "p": "P1082",
     "name": "P1082unit",
-    "query": "SELECT ?item WHERE{ ?item p:P1082/psv:P1082/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q22947, wd:Q5, wd:Q3125361, wd:Q215627, wd:Q2625603))}",
+    "query": "SELECT ?item WHERE{ ?item p:P1082/psv:P1082/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q2472587, wd:Q22947, wd:Q5, wd:Q3125361, wd:Q215627, wd:Q2625603, wd:Q33829))}",
     "action": "removeUnit"
 }, {
     "p": "P1101",
