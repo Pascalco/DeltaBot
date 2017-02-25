@@ -5,12 +5,12 @@
 import pywikibot
 from datetime import timedelta, datetime
 
-yesterday = datetime.today() - timedelta(minutes=15)
-date = yesterday.strftime('%Y%m%d%H%M%S')
+start = datetime.today() - timedelta(minutes=15)
+starttime = start.strftime('%Y%m%d%H%M%S')
 
 site = pywikibot.Site('wikidata', 'wikidata')
 
-for rev in site.recentchanges(start=date, showBot=False, showPatrolled=True, reverse=True):
+for rev in site.recentchanges(start=starttime, showBot=False, showPatrolled=True, reverse=True):
     try:
         if '/* restore' in rev['comment']:
             comment = rev['comment'].split('|')
