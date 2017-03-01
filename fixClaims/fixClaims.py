@@ -350,7 +350,7 @@ def action_moveSourceToQualifier(item, job):
                     data['qualifiers'] = data.get('qualifiers', {})
                     data['qualifiers'][job['p']] = data['qualifiers'].get(job['p'], [])
                     for qual in (pywikibot.Claim.qualifierFromJSON(repo, q) for q in data['qualifiers'][job['p']]):
-                        if qual.target_equals(snak.getTarget()):
+                        if str(qual.getTarget()) == str(snak.getTarget()):
                             break
                     else:
                         snak.isReference = False
@@ -379,7 +379,7 @@ def action_moveQualifierToSource(item, job):
                 for reference in data['references']:
                     for _, ref in pywikibot.Claim.referenceFromJSON(repo, reference).items():
                         for x in ref:
-                            if x.target_equals(snak.getTarget()):
+                            if str(snak.getTarget()) == str(x.getTarget()):
                                 ok = False
                 if ok:
                     snak.isQualifier = False
