@@ -387,6 +387,11 @@
     "pNew": "P17",
     "valNew": "Q34"
 }, {
+    "p": "P854",
+    "name": "P854move",
+    "query": "SELECT DISTINCT ?item { ?statement1 pq:P854 [] . ?item ?p1 ?statement1 . FILTER (?p1 NOT IN (p:P1343, p:P248, p:P747)) }",
+    "action": "moveQualifierToSource"
+}, {
     "p": "P910",
     "name": "P910valueclaim",
     "query": "SELECT ?item { ?item wdt:P910 ?value . MINUS { ?value wdt:P31/wdt:P279* wd:Q4167836 }}",
