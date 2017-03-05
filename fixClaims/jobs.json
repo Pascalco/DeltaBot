@@ -175,6 +175,11 @@
     "regex": "(n|nb|nr|no|ns|sh)([4-9][0-9]|00|20[0-1][0-9])[0-9]{6}",
     "viafkey": "LC|"
 }, {
+    "p": "P248",
+    "name": "P248move",
+    "query": "SELECT DISTINCT ?item { ?statement1 pq:P248 [] . ?item ?p1 ?statement1 . FILTER (?p1 NOT IN (p:P1343, p:P747, p:P485)) }",
+    "action": "moveQualifierToSource"
+}, {
     "p": "P268",
     "name": "P268viaf",
     "query": "SELECT DISTINCT ?item WHERE{ ?item wdt:P268 ?value; wdt:P214 ?viaf . FILTER(!REGEX(?value, '^\\\\d{8}[0-9bcdfghjkmnpqrstvwxz]$'))}",
