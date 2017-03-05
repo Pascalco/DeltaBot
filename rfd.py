@@ -22,7 +22,7 @@ for i in range(0,len(content)):
         if any(x in content[i][1] for x in ('{{done', '{{deleted', '{{not done', '{{not deleted', '{{merged')):
             continue
         item = pywikibot.ItemPage(repo, res.group(1))
-        if item.isRedirectPage():
+        if item.isRedirectPage() and item.getRedirectTarget().exists():
             content[i][1] += (u'\n: {{{{done}}}} Redirect created by [[User:{}|]], you can do it ' +
                               u'[[Special:MyLanguage/Help:Merge|yourself]] next time. --~~~~').format(item.userName())
             cntDone += 1
