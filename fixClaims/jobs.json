@@ -23,6 +23,20 @@
         "467": 6581072
     }
 }, {
+    "p": "P21",
+    "name": "P21addclaim1",
+    "query": "SELECT ?item WHERE { ?item wdt:P31 wd:Q467}",
+    "action": "addClaim",
+    "pNew": "P21",
+    "valNew": "Q6581072"
+}, {
+    "p": "P21",
+    "name": "P21addclaim2",
+    "query": "SELECT ?item WHERE { ?item wdt:P31 wd:Q8441}",
+    "action": "addClaim",
+    "pNew": "P21",
+    "valNew": "Q6581097"
+}, {
     "p": "P27",
     "name": "P27changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P27 wd:Q55; wdt:P569 ?dob . FILTER ( ?dob >= '1816-01-01T00:00:00Z'^^xsd:dateTime )}",
@@ -41,10 +55,12 @@
 }, {
     "p": "P31",
     "name": "P31changeclaim",
-    "query": "SELECT ?item WHERE {?item wdt:P31 wd:Q215627}",
+    "query": "SELECT ?item WHERE {?item wdt:P31 ?value . FILTER ( ?value IN (wd:Q215627, wd:Q467, wd:Q8441))}",
     "action": "changeClaim",
     "map": {
-        "215627": 5
+        "215627": 5,
+        "467": 5,
+        "8551": 5
     }
 }, {
     "p": "P39",
