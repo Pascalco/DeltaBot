@@ -302,7 +302,7 @@ def action_changeClaim(item, job):
         mydata = {}
         m['mainsnak']['datavalue']['value']['numeric-id'] = newVal
         mydata['claims'] = [m]
-        summary = u'move claim [[Q' + str(curVal) + ']] -> [[Q' + str(newVal) + ']]'
+        summary = u'move claim [[Property:' + job['p'] + ']]: [[Q' + curVal + ']] -> [[Q' + str(newVal) + ']]'
         item.editEntity(mydata, summary=summary)
 
 
@@ -312,7 +312,7 @@ def action_removeUnit(item, job):
         mydata = {}
         m['mainsnak']['datavalue']['value']['unit'] = '1'
         mydata['claims'] = [m]
-        summary = u'remove unit'
+        summary = u'remove unit from [[Property:' + job['p'] + ']]'
         item.editEntity(mydata, summary=summary)
 
 
@@ -363,7 +363,7 @@ def action_moveSourceToQualifier(item, job):
                             data['references'].pop(i)
                             i -= 1
             mydata = {'claims': [data]}
-            summary = u'move reference to qualifier'
+            summary = u'move reference [[Property:' + job['p'] + ']] to qualifier'
             item.editEntity(mydata, summary=summary)
 
 
@@ -389,7 +389,7 @@ def action_moveQualifierToSource(item, job):
                 if len(data['qualifiers'][job['p']]) == 0:
                     data['qualifiers'].pop(job['p'])
             mydata = {'claims': [data]}
-            summary = u'move qualifier to reference'
+            summary = u'move qualifier [[Property:' + job['p'] + ']] to reference'
             item.editEntity(mydata, summary=summary)
 
 
