@@ -198,8 +198,8 @@ def action_viaf(item, job):
 #add an inverse claim
 def action_inverse(item, job):
     #bug with checking for same claim
+    itemID = item.getID()
     for claim in item.claims[job['p']]:
-        itemID = item.getID()
         target = claim.getTarget()
         if target.isRedirectPage():
             continue
@@ -216,7 +216,7 @@ def action_inverse(item, job):
                         return 0
         claimNew = pywikibot.Claim(repo, job['pNewT'])
         claimNew.setTarget(item)
-        target.addClaim(claimNew)
+        target.addClaim(claimNew, summary=u'adding inverse claim')
 
 
 #move claim from pOld to pNew
