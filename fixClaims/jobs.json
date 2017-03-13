@@ -37,6 +37,13 @@
     "pNew": "P21",
     "valNew": "Q6581097"
 }, {
+    "p": "P26",
+    "name": "P26movequalifiers",
+    "query": "SELECT ?item WHERE { ?item p:P26/pq:P276 [] }",
+    "action": "moveQualifier",
+    "pOld": "P276",
+    "pNew": "P2842"
+},{
     "p": "P27",
     "name": "P27changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P27 wd:Q55; wdt:P569 ?dob . FILTER ( ?dob >= '1816-01-01T00:00:00Z'^^xsd:dateTime )}",
