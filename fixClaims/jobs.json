@@ -9,6 +9,11 @@
     "query": "SELECT ?item WHERE { ?item wdt:P14 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
     "action": "normalize"
 }, {
+    "p": "P15",
+    "name": "P15commons",
+    "query": "SELECT ?item WHERE { ?item wdt:P15 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
+    "action": "normalize"
+}, {
     "p": "P18",
     "name": "P18commons",
     "query": "SELECT ?item WHERE { ?item wdt:P18 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
@@ -457,6 +462,11 @@
         "regex": "0000 000[0-4] \\d{4} \\d{3}[\\dX]"
     }]
 }, {
+    "p": "P948",
+    "name": "P948commons",
+    "query": "SELECT ?item WHERE { ?item wdt:P948 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
+    "action": "normalize"
+}, {
     "p": "P949",
     "name": "P949format",
     "query": "SELECT ?item WHERE { ?item wdt:P949 ?value . FILTER( REGEX(STR(?value), '^\\\\d{9}$') = false )}",
@@ -644,6 +654,11 @@
         "val": "Q11266439"
     }]
 }, {
+    "p": "P1442",
+    "name": "P1442commons",
+    "query": "SELECT ?item WHERE { ?item wdt:P1442 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
+    "action": "normalize"
+}, {
     "p": "P1464",
     "name": "P1464inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P1464 ?value FILTER NOT EXISTS { ?value wdt:P971 ?item }}",
@@ -781,6 +796,11 @@
         "1088": 4930092,
         "3142": 152357
     }
+}, {
+    "p": "P1943",
+    "name": "P1943commons",
+    "query": "SELECT ?item WHERE { ?item wdt:P1943 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
+    "action": "normalize"
 }, {
     "p": "P1953",
     "name": "P1953format",
@@ -952,6 +972,11 @@
         "p": "P31",
         "val": "Q5"
     }]
+}, {
+    "p": "P2425",
+    "name": "P2425commons",
+    "query": "SELECT ?item WHERE { ?item wdt:P2425 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
+    "action": "normalize"
 }, {
     "p": "P2437",
     "name": "P2437unit",
