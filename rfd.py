@@ -32,8 +32,7 @@ for i in range(0,len(content)):
             cntDone += 1
         else:
             if '{{on hold' not in content[i][1]:
-                refs = len(list(item.getReferences(follow_redirects=False, withTemplateInclusion=False,
-                                                   namespaces=[0, 120], total=11)))
+                refs = len(list(item.backlinks(followRedirects=False, namespaces=[0, 120], total=11)))
                 if refs > 0:
                     force = True
                     content[i][1] += u'\n: {{{{on hold}}}} This item is linked from {}{} other{}. --~~~~'.format(
