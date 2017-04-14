@@ -981,6 +981,13 @@
         "val": "Q5"
     }]
 }, {
+    "p": "P2309",
+    "name": "P2309move",
+    "query": "SELECT ?item WHERE { ?item wdt:P2309/wdt:P31 wd:Q5}",
+    "action": "moveP",
+    "pOld": "P2309",
+    "pNew": "P1038",
+}, {
     "p": "P2425",
     "name": "P2425commons",
     "query": "SELECT ?item WHERE { ?item wdt:P2425 ?value . FILTER( REGEX(STR(?value), '_') = true)}",
