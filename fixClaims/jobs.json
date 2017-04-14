@@ -407,6 +407,13 @@
     "subaction": "removePrefix",
     "regex": "[0-9]{5}"
 }, {
+    "p": "P723",
+    "name": "P723format",
+    "query": "SELECT ?item WHERE { ?item wdt:P723 ?value . FILTER( REGEX(STR(?value), '^([a-z_]{4}[0-9]{3})$') = false )}",
+    "action": "format",
+    "subaction": "lowercase",
+    "regex": "[a-z_]{4}[0-9]{3}"
+}, {
     "p": "P762",
     "name": "P762addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P762 ?dummy0 . OPTIONAL { ?item wdt:P17 ?dummy1 } FILTER(!bound(?dummy1))}",
