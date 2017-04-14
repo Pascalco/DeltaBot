@@ -265,6 +265,13 @@
         "val": "Q5"
     }]
 }, {
+    "p": "P465",
+    "name": "P465format",
+    "query": "SELECT ?item WHERE { ?item wdt:P465 ?value . FILTER( REGEX(STR(?value), '^([0-9A-F]{6})$') = false )}",
+    "action": "format",
+    "subaction": "uppercase",
+    "regex": "[0-9A-F]{6}"
+}, {
     "p": "P536",
     "name": "P536addclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P597 ?dummy0 . ?item wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q10833314 } MINUS { ?item wdt:P106 wd:Q18814798 }}",
