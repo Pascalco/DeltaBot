@@ -986,7 +986,7 @@
     "query": "SELECT ?item WHERE { ?item wdt:P2309/wdt:P31 wd:Q5}",
     "action": "moveP",
     "pOld": "P2309",
-    "pNew": "P1038",
+    "pNew": "P1038"
 }, {
     "p": "P2425",
     "name": "P2425commons",
