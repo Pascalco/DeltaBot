@@ -801,6 +801,13 @@
         "type": "category"
     }]
 }, {
+    "p": "P1846",
+    "name": "P1846move",
+    "query": "SELECT ?item WHERE { ?item wdt:P1846 ?value; wdt:P31 wd:Q16521}",
+    "action": "moveP",
+    "pOld": "P1846",
+    "pNew": "P181"
+}, {
     "p": "P1884",
     "name": "P1884changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1884 ?value . FILTER( ?value IN (wd:Q23445, wd:Q47071, wd:Q1088, wd:Q3142))}",
