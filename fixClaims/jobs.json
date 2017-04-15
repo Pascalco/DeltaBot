@@ -137,12 +137,12 @@
 }, {
     "p": "P155",
     "name": "P155move",
-    "query": "SELECT DISTINCT ?item WHERE { wd:P155 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P155 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
 }, {
     "p": "P156",
     "name": "P156move",
-    "query": "SELECT DISTINCT ?item WHERE { wd:P156 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P156 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
 }, {
     "p": "P213",
@@ -265,6 +265,11 @@
         "val": "Q5"
     }]
 }, {
+    "p": "P453",
+    "name": "P453move",
+    "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P453 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
+    "action": "moveSourceToQualifier"
+}, {
     "p": "P465",
     "name": "P465format",
     "query": "SELECT ?item WHERE { ?item wdt:P465 ?value . FILTER( REGEX(STR(?value), '^([0-9A-F]{6})$') = false )}",
@@ -290,6 +295,11 @@
     "action": "format",
     "subaction": "uppercase",
     "regex": "[A-Z]*\\d*"
+}, {
+    "p": "P548",
+    "name": "P548move",
+    "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P548 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
+    "action": "moveSourceToQualifier"
 }, {
     "p": "P555",
     "name": "P555format",
@@ -357,8 +367,8 @@
     "pNew": "P159"
 }, {
     "p": "P642",
-    "name": "P652move",
-    "query": "SELECT DISTINCT ?item WHERE { wd:P642 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "name": "P642move",
+    "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P642 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
 }, {
     "p": "P646",
@@ -521,17 +531,24 @@
     "pNew": "P17",
     "valNew": "Q34"
 }, {
-    "p": "P1104",
-    "name": "P1104unit",
-    "query": "SELECT ?item WHERE{ ?item p:P1104/psv:P1104/wikibase:quantityUnit ?unit . FILTER(?unit != wd:Q199)}",
-    "action": "removeUnit"
-}, {
     "p": "P1015",
     "name": "P1015format",
     "query": "SELECT ?item WHERE { ?item wdt:P1015 ?value . FILTER( REGEX(STR(?value), '^([1-9]\\\\d{0,8})$') = false )}",
     "action": "format",
     "subaction": "removePrefix",
     "regex": "[1-9]\\d{0,8}"
+}, {
+    "p": "P1039",
+    "name": "P1039move",
+    "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P1039 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
+    "action": "moveSourceToQualifier"
+}, {
+    "p": "P1077",
+    "name": "P1077addclaim",
+    "query": "SELECT ?item WHERE { ?item wdt:P1077 ?dummy0 . MINUS { ?item wdt:P17 wd:Q212 }}",
+    "action": "addClaim",
+    "pNew": "P17",
+    "valNew": "Q212"
 }, {
     "p": "P1082",
     "name": "P1082unit",
@@ -543,12 +560,10 @@
     "query": "SELECT ?item WHERE{ ?item p:P1101/psv:P1101/wikibase:quantityUnit ?unit . FILTER(?unit IN (wd:Q174583))}",
     "action": "removeUnit"
 }, {
-    "p": "P1077",
-    "name": "P1077addclaim",
-    "query": "SELECT ?item WHERE { ?item wdt:P1077 ?dummy0 . MINUS { ?item wdt:P17 wd:Q212 }}",
-    "action": "addClaim",
-    "pNew": "P17",
-    "valNew": "Q212"
+    "p": "P1104",
+    "name": "P1104unit",
+    "query": "SELECT ?item WHERE{ ?item p:P1104/psv:P1104/wikibase:quantityUnit ?unit . FILTER(?unit != wd:Q199)}",
+    "action": "removeUnit"
 }, {
     "p": "P1113",
     "name": "P1113unit",
@@ -599,7 +614,7 @@
 }, {
     "p": "P1310",
     "name": "P1310move",
-    "query": "SELECT DISTINCT ?item WHERE { wd:P1310 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P1310 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
 }, {
     "p": "P1339",
@@ -639,12 +654,12 @@
 }, {
     "p": "P1365",
     "name": "P1365move",
-    "query": "SELECT DISTINCT ?item WHERE { wd:P1365 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P1365 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
 }, {
     "p": "P1366",
     "name": "P1366move",
-    "query": "SELECT DISTINCT ?item WHERE { wd:P1366 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P1366 ?pr [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
 }, {
     "p": "P1423",
@@ -918,7 +933,7 @@
 }, {
     "p": "P2096",
     "name": "P2096move2",
-    "query": "SELECT DISTINCT ?item WHERE { wd:P2096 wikibase:reference ?pr . ?ref ?pr [] . ?statement prov:wasDerivedFrom ?ref .?item ?p ?statement . [] wikibase:claim ?p .}",
+    "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P2096 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
 }, {
     "p": "P2124",
