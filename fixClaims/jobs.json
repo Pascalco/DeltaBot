@@ -67,7 +67,7 @@
 }, {
     "p": "P31",
     "name": "P31changeclaim",
-    "query": "SELECT ?item WHERE {?item wdt:P31 ?value . FILTER ( ?value IN (wd:Q215627, wd:Q467, wd:Q8441))}",
+    "query": "SELECT ?item WHERE {?item wdt:P31 ?value . FILTER ( ?value IN (wd:Q215627, wd:Q467, wd:Q8441, wd:Q171283))}",
     "action": "changeClaim",
     "map": {
         "215627": 5,
