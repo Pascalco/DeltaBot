@@ -54,6 +54,20 @@ tasks = [
         'language': 'cs',
         'project': 'wikipedia',
         'site': 'cswiki'
+    },
+    {
+        'badge': 'Q17437798',
+        'category': u'Wikipédia:Dobré články',
+        'language': 'sk',
+        'project': 'wikipedia',
+        'site': 'skwiki'
+    },
+    {
+        'badge': 'Q17437796',
+        'category': u'Wikipédia:Najlepšie články',
+        'language': 'sk',
+        'project': 'wikipedia',
+        'site': 'skwiki'
     }
 ]
 
