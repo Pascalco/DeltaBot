@@ -301,6 +301,150 @@
     "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P548 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
 }, {
+    "p": "P553",
+    "name": "P553moveFa",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q355}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P2013",
+    "pQualifier": "P554",
+    "valueOld": "Q355"
+}, {
+    "p": "P553",
+    "name": "P553moveIn",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q209330}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P2003",
+    "pQualifier": "P554",
+    "valueOld": "Q209330"
+}, {
+    "p": "P553",
+    "name": "P553moveTw",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q918}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P2002",
+    "pQualifier": "P554",
+    "valueOld": "Q918"
+}, {
+    "p": "P553",
+    "name": "P553moveGi",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q364}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P2037",
+    "pQualifier": "P554",
+    "valueOld": "Q364"
+}, {
+    "p": "P553",
+    "name": "P553moveGo",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q356}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P2847",
+    "pQualifier": "P554",
+    "valueOld": "Q356"
+}, {
+    "p": "P553",
+    "name": "P553moveSn",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q333618}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P2984",
+    "pQualifier": "P554",
+    "valueOld": "Q333618"
+}, {
+    "p": "P553",
+    "name": "P553moveSo",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q568769}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P3040",
+    "pQualifier": "P554",
+    "valueOld": "Q568769"
+}, {
+    "p": "P553",
+    "name": "P553moveVk",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q116933}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P3185",
+    "pQualifier": "P554",
+    "valueOld": "Q116933"
+}, {
+    "p": "P553",
+    "name": "P553moveLa",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q183718}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P3192",
+    "pQualifier": "P554",
+    "valueOld": "Q183718"
+}, {
+    "p": "P553",
+    "name": "P553moveMe",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q1580044}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P3835",
+    "pQualifier": "P554",
+    "valueOld": "Q1580044"
+}, {
+    "p": "P553",
+    "name": "P553moveVi",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q3700238}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P3207",
+    "pQualifier": "P554",
+    "valueOld": "Q3700238"
+}, {
+    "p": "P553",
+    "name": "P553moveLi",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q219523}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P3258",
+    "pQualifier": "P554",
+    "valueOld": "Q219523"
+}, {
+    "p": "P553",
+    "name": "P553moveMy",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q40629}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P3265",
+    "pQualifier": "P554",
+    "valueOld": "Q40629"
+}, {
+    "p": "P553",
+    "name": "P553moveFl",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q103204}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P3267",
+    "pQualifier": "P554",
+    "valueOld": "Q103204"
+}, {
+    "p": "P553",
+    "name": "P553moveDa",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q769222}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P2942",
+    "pQualifier": "P554",
+    "valueOld": "Q769222"
+}, {
+    "p": "P553",
+    "name": "P553moveAm",
+    "query": "SELECT ?item WHERE { ?item wdt:P553 wd:Q17988469}",
+    "action": "moveQualifierToStatement",
+    "pOld": "P553",
+    "pNew": "P3502",
+    "pQualifier": "P554",
+    "valueOld": "Q17988469"
+}, {
     "p": "P555",
     "name": "P555format",
     "query": "SELECT ?item WHERE { ?item wdt:P555 ?value . FILTER( REGEX(STR(?value), '^(\\\\d+–\\\\d+)$') = false )}",
