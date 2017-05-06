@@ -1060,7 +1060,7 @@
     "pOld": "P2035",
     "pNew": "P973",
     "constraintvalue": [{
-        "type": "value",
+        "type": "format",
         "regex": "https://www.linkedin.com/company(.*)"
     }]
 }, {
