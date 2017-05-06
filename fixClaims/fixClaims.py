@@ -337,6 +337,32 @@ def action_moveStatementToQualifier(item, job):
     item.editEntity(mydata, summary=summary)
 
 
+def action_moveQualifierToStatement(item, job):
+    if job['pOld'] not in item.claims:
+        return 0
+    mydata = {}
+    mydata['claims'] = []
+    for claim in item.claims[job['pOld']]:
+        if claim.getTarget().getID() == job['valueOld']:
+            if job['pQualifier'] in claim.qualifiers:
+                data = claim.toJSON()
+                mydata['claims'].append({'id':data['id'], 'remove': ''})
+                ok = True
+                value = claim.qualifiers[job['pQualifier']][0].getTarget()
+                if job['pNew'] in item.claims:
+                    for c in item.claims[job['pNew']]:
+                        if c.getTarget() == value:
+                            ok = False
+                if ok:
+                    data['mainsnak']['property'] = job['pNew']
+                    data['mainsnak']['datavalue'] = data['qualifiers'][job['pQualifier']][0]['datavalue']
+                    del data['qualifiers'][job['pQualifier']][0]
+                    del data['id']
+                    mydata['claims'].append(data)
+    summary = u'move claim [[Property:'+job['pOld']+']] -> [[Property:'+job['pNew']+']]'
+    item.editEntity(mydata, summary=summary)
+
+
 def action_moveSourceToQualifier(item, job):
     for prop in item.claims.keys():
         for claim in item.claims[prop]:
