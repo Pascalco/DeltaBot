@@ -68,7 +68,35 @@ tasks = [
         'language': 'sk',
         'project': 'wikipedia',
         'site': 'skwiki'
-    }
+    },
+    {
+        'badge': 'Q17580674',
+        'category': 'Wikipedia:Informatives Portal',
+        'language': 'de',
+        'project': 'wikipedia',
+        'site': 'dewiki'
+    },
+    {
+        'badge': 'Q17506997',
+        'category': 'Wikipedia:Informative Liste',
+        'language': 'de',
+        'project': 'wikipedia',
+        'site': 'dewiki'
+    },
+    {
+        'badge': 'Q17437796',
+        'category': 'Wikipedia:Exzellent',
+        'language': 'de',
+        'project': 'wikipedia',
+        'site': 'dewiki'
+    },
+    {
+        'badge': 'Q17437798',
+        'category': 'Wikipedia:Lesenswert',
+        'language': 'de',
+        'project': 'wikipedia',
+        'site': 'dewiki'
+    }    
 ]
 
 # remove badges
