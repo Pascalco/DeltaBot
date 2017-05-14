@@ -177,7 +177,7 @@
     "pNew": "P94",
     "constraintvalue": [{
         "type": "format",
-        "regex": "(.*)C[Oo]A|[Cc]oat of [Aa]rms|[Ee]scudo|[Bb]la[zs]on(.*)"
+        "regex": "(.*)(C[Oo]A|[Cc]oat of [Aa]rms|[Ee]scudo|[Bb]la[zs]on)(.*)"
     }]
 }, {
     "p": "P213",
