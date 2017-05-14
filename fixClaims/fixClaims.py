@@ -75,7 +75,7 @@ def format_add0(value, job):
 
 
 def format_linkedin(value, job):
-    newvalue = re.sub('https?://(.*)linkedin.com/in/', 'https://www.linkedin.com/in/', value)
+    newvalue = re.sub(r'https?://(.*)linkedin\.com/in/', 'https://www.linkedin.com/in/', value)
     if newvalue[-1] == '/':
         return newvalue[:-1]
     else:
@@ -483,10 +483,7 @@ def formatcheck(claim, regex):
         value = claim.title()
     else:
         value = claim.getTarget()
-    res = re.match('^'+regex+'$', value)
-    if res:
-        return True
-    return False
+    return bool(re.fullmatch(regex, value))
 
 
 def levenshtein(s1, s2):
