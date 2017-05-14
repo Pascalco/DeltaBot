@@ -169,6 +169,17 @@
     "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P156 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
 }, {
+    "p": "P158",
+    "name": "P158move",
+    "query": "SELECT ?item WHERE { ?item wdt:P158 ?value . FILTER(REGEX(STR(?value), 'C[Oo]A|[Cc]oat%20of%20[Aa]rms|[Ee]scudo|[Bb]la[zs]on') = true ) }",
+    "action": "moveP",
+    "pOld": "P158",
+    "pNew": "P94",
+    "constraintvalue": [{
+        "type": "format",
+        "regex": "(.*)C[Oo]A|[Cc]oat of [Aa]rms|[Ee]scudo|[Bb]la[zs]on(.*)"
+    }]
+}, {
     "p": "P213",
     "name": "P213format",
     "query": "SELECT ?item WHERE { ?item wdt:P213 ?value . FILTER( REGEX(STR(?value), '^(0000 000[0-4] \\\\d{4} \\\\d{3}[\\\\dX])$') = false )}",
