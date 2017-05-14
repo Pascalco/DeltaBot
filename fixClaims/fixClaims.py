@@ -479,6 +479,8 @@ def check_format(value, constraint):
 def formatcheck(claim, regex):
     if isinstance(claim, unicode):
         value = claim
+    elif isinstance(claim, pywikibot.FilePage):
+        value = claim.title()
     else:
         value = claim.getTarget()
     res = re.match('^'+regex+'$', value)
