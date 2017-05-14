@@ -12,7 +12,7 @@ siteCommons = pywikibot.Site('commons', 'commons')
 repoCommons = siteCommons.data_repository()
 
 f2 = open('fixClaims/isbn_range.xml').read().replace('\n', '').replace(' ', '')
-execfile('fixClaims/categoryPrefix.dat')
+exec(open('fixClaims/categoryPrefix.dat').read())
 
 whitelist = ['Q4115189', 'Q13406268', 'Q15397819']
 
@@ -111,11 +111,11 @@ def format_isbn10(value, job):
         rest = val[5:]
         rest2 = int(val[5:9])*1000
 
-    res = re.findall(ur'<Prefix>978-'+country+'</Prefix>([^G]*)', f2)
+    res = re.findall(r'<Prefix>978-'+country+'</Prefix>([^G]*)', f2)
     if not res:
         return None
     for m in res:
-        res2 = re.findall(ur'<Range>([0-9]*)-([0-9]*)</Range><Length>([0-9])</Length>', m)
+        res2 = re.findall(r'<Range>([0-9]*)-([0-9]*)</Range><Length>([0-9])</Length>', m)
         if res2:
             for n in res2:
                 if rest2 >= int(n[0]) and rest2 <= int(n[1]):
@@ -477,7 +477,7 @@ def check_format(value, constraint):
 
 
 def formatcheck(claim, regex):
-    if isinstance(claim, unicode):
+    if isinstance(claim, str):
         value = claim
     elif isinstance(claim, pywikibot.FilePage):
         value = claim.title()
