@@ -269,6 +269,13 @@
         "val": "Q2235308"
     }]
 }, {
+    "p": "P381",
+    "name": "P381addclaim",
+    "query": "SELECT ?item WHERE { ?item wdt:P381 []; wdt:P131+ wd:Q39 . OPTIONAL { ?item wdt:P17 ?dummy } FILTER (!BOUND(?dummy)) }",
+    "action": "addClaim",
+    "pNew": "P17",
+    "valNew": "Q39"
+}, {
     "p": "P397",
     "name": "P397inverse",
     "query": "SELECT ?item WHERE { ?item wdt:P397 ?value FILTER NOT EXISTS { ?value wdt:P398 ?item } }",
