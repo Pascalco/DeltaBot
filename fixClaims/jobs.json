@@ -642,6 +642,13 @@
     "query": "SELECT DISTINCT ?item { ?statement1 pq:P854 [] . ?item ?p1 ?statement1 . FILTER (?p1 NOT IN (p:P1343, p:P248, p:P747, p:P485)) }",
     "action": "moveQualifierToSource"
 }, {
+    "p": "P902",
+    "name": "P902format",
+    "query": "SELECT ?item WHERE { ?item wdt:P902 ?value . FILTER( REGEX(STR(?value), '^(500[0-9]{2}|[1-4][0-9]{4}|[1-9][0-9]{0,3})$') = false )}",
+    "action": "format",
+    "subaction": "removeFirst",
+    "regex": "500[0-9]{2}|[1-4][0-9]{4}|[1-9][0-9]{0,3}"
+}, {
     "p": "P910",
     "name": "P910valueclaim",
     "query": "SELECT ?item { ?item wdt:P910 ?value . MINUS { ?value wdt:P31/wdt:P279* wd:Q4167836 }}",
