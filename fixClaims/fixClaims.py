@@ -543,8 +543,8 @@ def proceedOneCandidate(q, job):
 
 
 def main():
-    done = json.load(open('fixClaims/done.json', encoding='utf-8')))
-    jobs = json.load(open('fixClaims/jobs.json', encoding='utf-8')))
+    done = json.load(open('fixClaims/done.json', encoding='utf-8'))
+    jobs = json.load(open('fixClaims/jobs.json', encoding='utf-8'))
     for job in jobs:
         candidates = getViolations(job)
         if job['name'] not in done:
