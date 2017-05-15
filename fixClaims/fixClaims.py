@@ -11,8 +11,8 @@ repo = site.data_repository()
 siteCommons = pywikibot.Site('commons', 'commons')
 repoCommons = siteCommons.data_repository()
 
-f2 = open('fixClaims/isbn_range.xml').read().replace('\n', '').replace(' ', '')
-exec(open('fixClaims/categoryPrefix.dat').read())
+f2 = open('fixClaims/isbn_range.xml', encoding='utf-8').read().replace('\n', '').replace(' ', '')
+exec(open('fixClaims/categoryPrefix.dat', encoding='utf-8').read())
 
 whitelist = ['Q4115189', 'Q13406268', 'Q15397819']
 
@@ -42,7 +42,7 @@ def format_removeWhitespace(value, job):
 
 
 def format_isniformat(value, job):
-    value = re.sub(r'[^0-9X]','', value)
+    value = re.sub(r'[^0-9X]', '', value)
     return value[0:4] + ' ' + value[4:8] + ' ' + value[8:12] + ' ' + value[12:16]
 
 
@@ -543,8 +543,8 @@ def proceedOneCandidate(q, job):
 
 
 def main():
-    done = json.load(open('fixClaims/done.json'))
-    jobs = json.load(open('fixClaims/jobs.json'))
+    done = json.load(open('fixClaims/done.json', encoding='utf-8')))
+    jobs = json.load(open('fixClaims/jobs.json', encoding='utf-8')))
     for job in jobs:
         candidates = getViolations(job)
         if job['name'] not in done:
@@ -556,7 +556,7 @@ def main():
                     done[job['name']].append(q)
                 except:
                     pass
-    f1 = open('fixClaims/done.json', 'w')
+    f1 = open('fixClaims/done.json', 'w', encoding='utf-8')
     f1.write(json.dumps(done, ensure_ascii=False))
 
 
