@@ -1247,6 +1247,13 @@
     "subaction": "uppercase",
     "regex": "\\d{4} [A-Z0-9]+"
 }, {
+    "p": "P2984",
+    "name": "P2984format",
+    "query": "SELECT ?item WHERE { ?item wdt:P2984 ?value . FILTER( REGEX(STR(?value), '^([a-z][a-z0-9\\\\-_\\\\.]{1,13}[a-z0-9])$') = false )}",
+    "action": "format",
+    "subaction": "lowercase",
+    "regex": "[a-z][a-z0-9\\-_\\.]{1,13}[a-z0-9]"
+}, {
     "p": "P3373",
     "name": "P3373inverse",
     "query": "SELECT DISTINCT ?item { ?item wdt:P3373 ?item2 . MINUS { ?item2 p:P3373/ps:P3373 ?item } . ?item2 ?pred ?parent . ?item ?pred ?parent . FILTER( ?pred IN ( wdt:P22, wdt:P25 ) ) }",
