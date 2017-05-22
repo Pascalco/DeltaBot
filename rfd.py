@@ -19,7 +19,7 @@ for i in range(0,len(content)):
     content[i] = map(unicode.strip,list(content[i]))
     res = re.search(r'(Q\d+)',content[i][0])
     if res:
-        if any(x in content[i][1] for x in ('{{done', '{{deleted', '{{not done', '{{not deleted', '{{merged')):
+        if any(x in content[i][1] for x in ('{{done', '{{deleted', '{{not done', '{{notdone', '{{not deleted', '{{merged')):
             continue
         item = pywikibot.ItemPage(repo, res.group(1))
         if item.isRedirectPage() and item.getRedirectTarget().exists():
