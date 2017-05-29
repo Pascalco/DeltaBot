@@ -44,25 +44,25 @@
 }, {
     "p": "P22",
     "name": "P22inverse",
-    "query": "SELECT DISTINCT ?item { ?item wdt:P22 ?item2 . MINUS { ?item2 p:P40/ps:P40 ?item } . ?item wdt:P25 [ p:P26/ps:P26 ?item2 ]}",
+    "query": "SELECT DISTINCT ?item { ?item wdt:P22 ?item2 . MINUS { ?item2 p:P40/ps:P40/owl:sameAs? ?item } . ?item wdt:P25 [ p:P26/ps:P26 ?item2 ]}",
     "action": "inverse",
     "pNewT": "P40"
 }, {
     "p": "P25",
     "name": "P25inverse",
-    "query": "SELECT DISTINCT ?item { ?item wdt:P25 ?item2 . MINUS { ?item2 p:P40/ps:P40 ?item } . ?item wdt:P22 [ p:P26/ps:P26 ?item2 ]}",
+    "query": "SELECT DISTINCT ?item { ?item wdt:P25 ?item2 . MINUS { ?item2 p:P40/ps:P40/owl:sameAs? ?item } . ?item wdt:P22 [ p:P26/ps:P26 ?item2 ]}",
     "action": "inverse",
     "pNewT": "P40"
 }, {
     "p": "P26",
     "name": "P26inverse",
-    "query": "SELECT DISTINCT ?item WHERE { ?item p:P26/ps:P26 ?item2 . MINUS { ?item2 p:P26/ps:P26 ?item } . ?item2 wdt:P40/^wdt:P40 ?item; wdt:P21/wdt:P461/^wdt:P21 ?item .}",
+    "query": "SELECT DISTINCT ?item WHERE { ?item p:P26/ps:P26 ?item2 . MINUS { ?item2 p:P26/ps:P26/owl:sameAs? ?item } . ?item2 wdt:P40/^wdt:P40 ?item; wdt:P21/wdt:P461/^wdt:P21 ?item .}",
     "action": "inverse",
     "pNewT": "P26"
 }, {
     "p": "P26",
     "name": "P26inverse2",
-    "query": "SELECT DISTINCT ?item { VALUES (?class ?p ?ps) { (wd:Q3046146 p:P26 ps:P26) } . ?group wdt:P31/wdt:P279* ?class; wdt:P527 ?part1, ?item . FILTER( ?part1 != ?item ) . MINUS { ?part1 ?p [ ?ps ?item ] } . }",
+    "query": "SELECT DISTINCT ?item { ?group wdt:P31/wdt:P279* wd:Q3046146; wdt:P527 ?part1, ?item . FILTER( ?part1 != ?item ) . MINUS { ?part1 p:P26/ps:P26/owl:sameAs? ?item } . }",
     "action": "inverse",
     "pNewT": "P26"
 }, {
@@ -278,13 +278,13 @@
 }, {
     "p": "P397",
     "name": "P397inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P397 ?value FILTER NOT EXISTS { ?value wdt:P398 ?item } }",
+    "query": "SELECT ?item WHERE { ?item wdt:P397 ?value FILTER NOT EXISTS { ?value wdt:P398/owl:sameAs? ?item } }",
     "action": "inverse",
     "pNewT": "P398"
 }, {
     "p": "P398",
     "name": "P398inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P398 ?value FILTER NOT EXISTS { ?value wdt:P397 ?item } }",
+    "query": "SELECT ?item WHERE { ?item wdt:P398 ?value FILTER NOT EXISTS { ?value wdt:P397/owl:sameAs? ?item } }",
     "action": "inverse",
     "pNewT": "P397"
 }, {
@@ -321,7 +321,7 @@
 }, {
     "p": "P527",
     "name": "P527inverse",
-    "query": "SELECT DISTINCT ?item { VALUES ?class { wd:Q3046146 wd:Q16979650 } . ?item wdt:P31/wdt:P279* ?class; wdt:P527 ?part . MINUS { ?part wdt:P361 ?item } . }",
+    "query": "SELECT DISTINCT ?item { VALUES ?class { wd:Q3046146 wd:Q16979650 } . ?item wdt:P31/wdt:P279* ?class; wdt:P527 ?part . MINUS { ?part wdt:P361/owl:sameAs? ?item } . }",
     "action": "inverse",
     "pNewT": "P361"
 }, {
@@ -788,7 +788,7 @@
 }, {
     "p": "P1151",
     "name": "P1151inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P1151 ?value FILTER NOT EXISTS { ?value wdt:P1204 ?item } }",
+    "query": "SELECT ?item WHERE { ?item wdt:P1151 ?value FILTER NOT EXISTS { ?value wdt:P1204/owl:sameAs? ?item } }",
     "action": "inverse",
     "pNewT": "P1204",
     "constrainttarget": [{
@@ -870,7 +870,7 @@
 }, {
     "p": "P1423",
     "name": "P1423inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P1423 ?value FILTER NOT EXISTS { ?value wdt:P1424 ?item } }",
+    "query": "SELECT ?item WHERE { ?item wdt:P1423 ?value FILTER NOT EXISTS { ?value wdt:P1424/owl:sameAs? ?item } }",
     "action": "inverse",
     "pNewT": "P1424",
     "constraint": [{
@@ -881,7 +881,7 @@
 }, {
     "p": "P1424",
     "name": "P1424inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P1424 ?value FILTER NOT EXISTS { ?value wdt:P1423 ?item } }",
+    "query": "SELECT ?item WHERE { ?item wdt:P1424 ?value FILTER NOT EXISTS { ?value wdt:P1423/owl:sameAs? ?item } }",
     "action": "inverse",
     "pNewT": "P1423",
     "constrainttarget": [{
@@ -897,7 +897,7 @@
 }, {
     "p": "P1464",
     "name": "P1464inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P1464 ?value FILTER NOT EXISTS { ?value wdt:P971 ?item }}",
+    "query": "SELECT ?item WHERE { ?item wdt:P1464 ?value FILTER NOT EXISTS { ?value wdt:P971/owl:sameAs? ?item }}",
     "action": "inverse",
     "pNewT": "P971",
     "constrainttarget": [{
@@ -910,7 +910,7 @@
 }, {
     "p": "P1465",
     "name": "P1465inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P1465 ?value FILTER NOT EXISTS { ?value wdt:P971 ?item }}",
+    "query": "SELECT ?item WHERE { ?item wdt:P1465 ?value FILTER NOT EXISTS { ?value wdt:P971/owl:sameAs? ?item }}",
     "action": "inverse",
     "pNewT": "P971",
     "constrainttarget": [{
@@ -923,7 +923,7 @@
 }, {
     "p": "P1560",
     "name": "P1560inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P1560 ?value FILTER NOT EXISTS { ?value wdt:P1560 ?item } }",
+    "query": "SELECT ?item WHERE { ?item wdt:P1560 ?value FILTER NOT EXISTS { ?value wdt:P1560/owl:sameAs? ?item } }",
     "action": "inverse",
     "pNewT": "P1560",
     "constrainttarget": [{
@@ -962,7 +962,7 @@
 }, {
     "p": "P1753",
     "name": "P1753inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P1753 ?value FILTER NOT EXISTS { ?value wdt:P1754 ?item }}",
+    "query": "SELECT ?item WHERE { ?item wdt:P1753 ?value FILTER NOT EXISTS { ?value wdt:P1754/owl:sameAs? ?item }}",
     "action": "inverse",
     "pNewT": "P1754",
     "constraint": [{
@@ -980,7 +980,7 @@
 }, {
     "p": "P1754",
     "name": "P1754inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P1754 ?value FILTER NOT EXISTS { ?value wdt:P1753 ?item }}",
+    "query": "SELECT ?item WHERE { ?item wdt:P1754 ?value FILTER NOT EXISTS { ?value wdt:P1753/owl:sameAs? ?item }}",
     "action": "inverse",
     "pNewT": "P1753",
     "constraint": [{
@@ -998,7 +998,7 @@
 }, {
     "p": "P1791",
     "name": "P1791inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P1791 ?value FILTER NOT EXISTS { ?value wdt:P971 ?item }}",
+    "query": "SELECT ?item WHERE { ?item wdt:P1791 ?value FILTER NOT EXISTS { ?value wdt:P971/owl:sameAs? ?item }}",
     "action": "inverse",
     "pNewT": "P971",
     "constrainttarget": [{
@@ -1011,7 +1011,7 @@
 }, {
     "p": "P1792",
     "name": "P1792inverse",
-    "query": "SELECT ?item WHERE { ?item wdt:P1792 ?value FILTER NOT EXISTS { ?value wdt:P971 ?item }}",
+    "query": "SELECT ?item WHERE { ?item wdt:P1792 ?value FILTER NOT EXISTS { ?value wdt:P971/owl:sameAs? ?item }}",
     "action": "inverse",
     "pNewT": "P971",
     "constrainttarget": [{
@@ -1256,13 +1256,13 @@
 }, {
     "p": "P3373",
     "name": "P3373inverse",
-    "query": "SELECT DISTINCT ?item { ?item wdt:P3373 ?item2 . MINUS { ?item2 p:P3373/ps:P3373 ?item } . ?item2 ?pred ?parent . ?item ?pred ?parent . FILTER( ?pred IN ( wdt:P22, wdt:P25 ) ) }",
+    "query": "SELECT DISTINCT ?item { ?item wdt:P3373 ?item2 . MINUS { ?item2 p:P3373/ps:P3373/owl:sameAs? ?item } . ?item2 ?pred ?parent . ?item ?pred ?parent . FILTER( ?pred IN ( wdt:P22, wdt:P25 ) ) }",
     "action": "inverse",
     "pNewT": "P3373"
 }, {
     "p": "P3373",
     "name": "P3373inverse2",
-    "query": "SELECT DISTINCT ?item { VALUES (?class ?p ?ps) { (wd:Q16979650 p:P3373 ps:P3373) } . ?group wdt:P31/wdt:P279* ?class; wdt:P527 ?part1, ?item . FILTER( ?part1 != ?item ) . MINUS { ?part1 ?p [ ?ps ?item ] } . }",
+    "query": "SELECT DISTINCT ?item { ?group wdt:P31/wdt:P279* wd:Q16979650; wdt:P527 ?part1, ?item . FILTER( ?part1 != ?item ) . MINUS { ?part1 p:P3373/ps:P3373/owl:sameAs? ?item } . }",
     "action": "inverse",
     "pNewT": "P3373"
 }, {
