@@ -1247,6 +1247,25 @@
     "subaction": "uppercase",
     "regex": "\\d{4} [A-Z0-9]+"
 }, {
+    "p": "P2959",
+    "name": "P2959move",
+    "query": "SELECT DISTINCT ?item WHERE { ?item wdt:P31 wd:Q21286738; wdt:P460 [] . MINUS { ?item wdt:P2959 [] } . MINUS { ?item wdt:P31 wd:Q4167836 } . }",
+    "action": "moveP",
+    "pOld": "P460",
+    "pNew": "P2959"
+}, {
+    "p": "P2959",
+    "name": "P2959inverse1",
+    "query": "SELECT DISTINCT ?item WHERE { ?item wdt:P31 wd:Q21286738; wdt:P2959 ?dupe . MINUS { ?dupe wdt:P2959 ?item } . }",
+    "action": "inverse",
+    "pNewT": "P2959"
+}, {
+    "p": "P2959",
+    "name": "P2959inverse2",
+    "query": "SELECT DISTINCT ?item WHERE { ?dupe wdt:P2959 ?item . ?item wdt:P31 wd:Q21286738 . MINUS { ?item wdt:P2959 ?dupe } . }",
+    "action": "inverse",
+    "pNewT": "P2959"
+}, {
     "p": "P2984",
     "name": "P2984format",
     "query": "SELECT ?item WHERE { ?item wdt:P2984 ?value . FILTER( REGEX(STR(?value), '^([a-z][a-z0-9\\\\-_\\\\.]{1,13}[a-z0-9])$') = false )}",
