@@ -1266,6 +1266,12 @@
     "action": "inverse",
     "pNewT": "P2959"
 }, {
+    "p": "P2959",
+    "name": "P2959inverse3",
+    "query": "SELECT DISTINCT ?item { ?item wdt:P2959 ?value . MINUS { ?value wdt:P2959 [] } . ?value wdt:P31 wd:Q21286738 . MINUS { ?item wdt:P31 wd:Q21286738 } . }",
+    "action": "inverse",
+    "pNewT": "P2959"
+}, {
     "p": "P2984",
     "name": "P2984format",
     "query": "SELECT ?item WHERE { ?item wdt:P2984 ?value . FILTER( REGEX(STR(?value), '^([a-z][a-z0-9\\\\-_\\\\.]{1,13}[a-z0-9])$') = false )}",
