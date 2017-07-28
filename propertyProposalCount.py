@@ -19,6 +19,8 @@ for category in categories:
             page2 = pywikibot.Page(site,'Wikidata:Property proposal/'+proposal)
             if page2.isRedirectPage():
                 page2 = page2.getRedirectTarget()
+            if not page2.exists():
+                continue
             cnt += re.sub(r'(<!([^>]+)>)|\s|\n','',page2.get()).count('status=|')
 
     text += '| '+category+' = '+str(cnt)+'\n'

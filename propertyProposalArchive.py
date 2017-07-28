@@ -85,6 +85,8 @@ def main():
             if page2.isRedirectPage():
                 page2 = page2.getRedirectTarget()
                 newname = page2.title()[27:]
+            elif not page2.exists():
+                continue
             else:
                 newname = proposal
             pptext = re.sub(r'(<!([^>]+)>)|\n','',page2.get())
