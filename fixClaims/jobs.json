@@ -180,6 +180,12 @@
         "regex": "(.*)(C[Oo]A|[Cc]oat of [Aa]rms|[Ee]scudo|[Bb]la[zs]on)(.*)"
     }]
 }, {
+    "p": "P197",
+    "name": "P197inverse",
+    "query": "SELECT DISTINCT ?item WHERE { ?item wdt:P197 ?item2 . MINUS { ?item2 wdt:P197 ?item } . }",
+    "action": "inverse",
+    "pNewT": "P197"
+}, {
     "p": "P213",
     "name": "P213format",
     "query": "SELECT ?item WHERE { ?item wdt:P213 ?value . FILTER( REGEX(STR(?value), '^(0000 000[0-4] \\\\d{4} \\\\d{3}[\\\\dX])$') = false )}",
