@@ -643,6 +643,12 @@
     "pNew": "P17",
     "valNew": "Q34"
 }, {
+    "p": "P833",
+    "name": "P833inverse",
+    "query": "SELECT DISTINCT ?item WHERE { ?item wdt:P833 ?item2 . MINUS { ?item2 wdt:P833 ?item } . }",
+    "action": "inverse",
+    "pNewT": "P833"
+}, {
     "p": "P854",
     "name": "P854move",
     "query": "SELECT DISTINCT ?item { ?statement1 pq:P854 [] . ?item ?p1 ?statement1 . FILTER (?p1 NOT IN (p:P1343, p:P248, p:P747, p:P485)) }",
