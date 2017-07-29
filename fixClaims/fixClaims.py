@@ -456,7 +456,7 @@ def check_item(item, constraint):
     if not constraint['p'] in item.claims:
         return False
     if 'val' in constraint:
-        if isinstance(constraint['val'], basestring):
+        if isinstance(constraint['val'], str):
             constraint['val'] = [constraint['val']]
         if not item.claims[constraint['p']][0].getTarget().getID() in constraint['val']:
             #TODO: don't check only first claim in statement
