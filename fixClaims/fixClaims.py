@@ -201,6 +201,8 @@ def action_inverse(item, job):
     itemID = item.getID()
     for claim in item.claims[job['p']]:
         target = claim.getTarget()
+        if not target:
+            continue
         if target.isRedirectPage():
             continue
         if not target.exists():
@@ -209,17 +211,22 @@ def action_inverse(item, job):
         if 'constrainttarget' in job:
             if not constraintTargetCheck(target, job):
                 continue
+        ok = True
         if target.claims:
             if job['pNewT'] in target.claims:
                 for m in target.claims[job['pNewT']]:
+                    if m.getTarget() is None:
+                        continue
                     if m.getTarget().getID() == itemID:
-                        return 0
-        claimNew = pywikibot.Claim(repo, job['pNewT'])
-        claimNew.setTarget(item)
-        target.addClaim(claimNew, summary=u'adding inverse claim')
-        source = pywikibot.Claim(repo, 'P143')
-        source.setTarget(pywikibot.ItemPage(repo, 'Q20651139'))
-        claimNew.addSource(source)
+                        ok = False
+                        break
+        if ok:
+            claimNew = pywikibot.Claim(repo, job['pNewT'])
+            claimNew.setTarget(item)
+            target.addClaim(claimNew, summary=u'adding inverse claim')
+            source = pywikibot.Claim(repo, 'P143')
+            source.setTarget(pywikibot.ItemPage(repo, 'Q20651139'))
+            claimNew.addSource(source)
 
 
 #move claim from pOld to pNew
