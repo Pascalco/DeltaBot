@@ -164,10 +164,22 @@
     "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P155 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
 }, {
+    "p": "P155",
+    "name": "P155movetoqualifier",
+    "query": "SELECT ?item WHERE { ?item wdt:P155 []; wdt:P3450 []}",
+    "action": "moveStatementToQualifier",
+    "pNew": "P3450"
+}, {
     "p": "P156",
     "name": "P156move",
     "query": "SELECT DISTINCT ?item WHERE { ?ref pr:P156 [] . ?statement prov:wasDerivedFrom ?ref . ?item ?p ?statement . [] wikibase:claim ?p }",
     "action": "moveSourceToQualifier"
+}, {
+    "p": "P156",
+    "name": "P156movetoqualifier",
+    "query": "SELECT ?item WHERE { ?item wdt:P156 []; wdt:P3450 []}",
+    "action": "moveStatementToQualifier",
+    "pNew": "P3450"
 }, {
     "p": "P158",
     "name": "P158move",
