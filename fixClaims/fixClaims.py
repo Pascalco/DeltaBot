@@ -565,6 +565,7 @@ def main():
                     pass
     f1 = open('fixClaims/done.json', 'w', encoding='utf-8')
     f1.write(json.dumps(done, ensure_ascii=False))
+    f1.close()
 
 
 if __name__ == "__main__":
