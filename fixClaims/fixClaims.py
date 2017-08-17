@@ -319,6 +319,14 @@ def action_changeValue(item, job):
         item.editEntity(mydata, summary=summary)
 
 
+def action_removeStatement(item, job):
+    for claim in item.claims[job['p']]:
+        if 'constraintvalue' in job:
+            if not constraintValueCheck(claim.getTarget(), job):
+                continue
+        item.removeClaims(claim, summary=job['summary'])
+
+
 def action_removeUnit(item, job):
     for claim in item.claims[job['p']]:
         m = claim.toJSON()
