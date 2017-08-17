@@ -553,8 +553,9 @@ def proceedOneCandidate(q, job):
 
 
 def main():
+    r = requests.get('https://www.wikidata.org/wiki/User:DeltaBot/fixClaims/jobs?action=raw')
+    jobs = r.json()
     done = json.load(open('fixClaims/done.json', encoding='utf-8'))
-    jobs = json.load(open('fixClaims/jobs.json', encoding='utf-8'))
     for job in jobs:
         candidates = getViolations(job)
         if job['name'] not in done:
