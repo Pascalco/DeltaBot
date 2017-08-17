@@ -229,8 +229,9 @@ def action_inverse(item, job):
             claimNew.addSource(source)
 
 
-#move claim from pOld to pNew
-def action_moveP(item, job):
+# change property from pOld to pNew.
+# if pNew is already added with the same value, only pOld gets removed
+def action_changeProperty(item, job):
     if not job['pOld'] in item.claims:
         return 0
     for claim in item.claims[job['pOld']]:
@@ -248,10 +249,12 @@ def action_moveP(item, job):
             m['mainsnak']['property'] = job['pNew']
             m.pop('id', None)
             mydata['claims'].append(m)
-        item.editEntity(mydata, summary=u'move claim [[Property:'+job['pOld']+']] -> [[Property:'+job['pNew']+']]')
+        item.editEntity(mydata, summary=u'change property [[Property:'+job['pOld']+']] -> [[Property:'+job['pNew']+']]')
 
-#move qualifiers on p from pOld to pNew
-def action_moveQualifier(item, job):
+
+# change property of qualifier on claim p from pOld to pNew
+# if pNew is already set as qualifier, no action is taken
+def action_changeQualifierProperty(item, job):
     data = item.toJSON()
     for m in data['claims'][job['p']]:
         if 'qualifiers' not in m:
@@ -268,7 +271,7 @@ def action_moveQualifier(item, job):
         m['qualifiers-order'] = [w.replace(job['pOld'], job['pNew']) for w in m['qualifiers-order']]
         mydata = {}
         mydata['claims'] = [m]
-        item.editEntity(mydata, summary=u'move qualifier [[Property:'+job['pOld']+']] -> [[Property:'+job['pNew']+']]')
+        item.editEntity(mydata, summary=u'change qualifier [[Property:'+job['pOld']+']] -> [[Property:'+job['pNew']+']]')
 
 
 #add claim pNew=valNew
@@ -300,7 +303,7 @@ def action_addValueClaim(item, job):
             target.addClaim(claimNew)
 
 
-def action_changeClaim(item, job):
+def action_changeValue(item, job):
     for claim in item.claims[job['p']]:
         m = claim.toJSON()
         if 'datavalue' not in m['mainsnak']:
@@ -312,7 +315,7 @@ def action_changeClaim(item, job):
         mydata = {}
         m['mainsnak']['datavalue']['value']['numeric-id'] = newVal
         mydata['claims'] = [m]
-        summary = u'move claim [[Property:' + job['p'] + ']]: [[Q' + curVal + ']] -> [[Q' + str(newVal) + ']]'
+        summary = u'change value of [[Property:' + job['p'] + ']]: [[Q' + curVal + ']] -> [[Q' + str(newVal) + ']]'
         item.editEntity(mydata, summary=summary)
 
 

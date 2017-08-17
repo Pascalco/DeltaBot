@@ -22,7 +22,7 @@
     "p": "P21",
     "name": "P21changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P21 ?value . FILTER( ?value IN (wd:Q8441, wd:Q467))}",
-    "action": "changeClaim",
+    "action": "changeValue",
     "map": {
         "8441": 6581097,
         "467": 6581072
@@ -69,14 +69,14 @@
     "p": "P26",
     "name": "P26movequalifiers",
     "query": "SELECT ?item WHERE { ?item p:P26/pq:P276 [] }",
-    "action": "moveQualifier",
+    "action": "changeQualifierProperty",
     "pOld": "P276",
     "pNew": "P2842"
 },{
     "p": "P27",
     "name": "P27changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P27 wd:Q55; wdt:P569 ?dob . FILTER ( ?dob >= '1816-01-01T00:00:00Z'^^xsd:dateTime )}",
-    "action": "changeClaim",
+    "action": "changeValue",
     "map": {
         "55": 29999
     }
@@ -84,7 +84,7 @@
     "p": "P30",
     "name": "P30changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P30 ?value . FILTER( ?value IN (wd:Q1555938))}",
-    "action": "changeClaim",
+    "action": "changeValue",
     "map": {
         "1555938": 51
     }
@@ -92,7 +92,7 @@
     "p": "P31",
     "name": "P31changeclaim",
     "query": "SELECT ?item WHERE {?item wdt:P31 ?value . FILTER ( ?value IN (wd:Q215627, wd:Q467, wd:Q8441, wd:Q171283))}",
-    "action": "changeClaim",
+    "action": "changeValue",
     "map": {
         "215627": 5,
         "467": 5,
@@ -103,14 +103,14 @@
     "p": "P39",
     "name": "P39movequalifiers1",
     "query": "SELECT ?item WHERE { ?item p:P39/pq:P155 []}",
-    "action": "moveQualifier",
+    "action": "changeQualifierProperty",
     "pOld": "P155",
     "pNew": "P1365"
 }, {
     "p": "P39",
     "name": "P39movequalifiers2",
     "query": "SELECT ?item WHERE { ?item p:P39/pq:P156 []}",
-    "action": "moveQualifier",
+    "action": "changeQualifierProperty",
     "pOld": "P156",
     "pNew": "P1366"
 },  {
@@ -127,7 +127,7 @@
     "p": "P105",
     "name": "P105changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P105 ?value . FILTER( ?value IN (wd:Q8436))}",
-    "action": "changeClaim",
+    "action": "changeValue",
     "map": {
         "8436": 35409
     }
@@ -140,7 +140,7 @@
     "p": "P131",
     "name": "P131conflict",
     "query": "SELECT ?item WHERE { ?item wdt:P131 []; wdt:P31 wd:Q4830453 . MINUS { ?item wdt:P159 [] } }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P131",
     "pNew": "P159",
     "constraint": [{
@@ -184,7 +184,7 @@
     "p": "P158",
     "name": "P158move",
     "query": "SELECT ?item WHERE { ?item wdt:P158 ?value . FILTER(REGEX(STR(?value), 'C[Oo]A|[Cc]oat%20of%20[Aa]rms|[Ee]scudo|[Bb]la[zs]on') = true ) }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P158",
     "pNew": "P94",
     "constraintvalue": [{
@@ -202,7 +202,7 @@
     "p": "P213",
     "name": "P213move",
     "query": "SELECT ?item WHERE { ?item wdt:P213 ?value . FILTER(REGEX(STR(?value), '^[A-Z]{2}[A-Z0-9]{10}$') = true ) }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P213",
     "pNew": "P946",
     "constraintvalue": [{
@@ -220,7 +220,7 @@
     "p": "P234",
     "name": "P234move",
     "query": "SELECT ?item WHERE { ?item wdt:P234 ?value . FILTER(REGEX(STR(?value), '^[A-Z]{14}-[A-Z]{10}-[A-Z]$') = true ) }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P234",
     "pNew": "P235",
     "constraintvalue": [{
@@ -231,7 +231,7 @@
     "p": "P235",
     "name": "P235move",
     "query": "SELECT ?item WHERE { ?item wdt:P235 ?value . FILTER(REGEX(STR(?value), '^1S/([0-9]*[A-Z][ub]?[a-z]?[0-9]*\\\\.?)+(/[A-Za-z0-9+\\\\-(),.*;?]+)*$') = true ) }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P235",
     "pNew": "P234",
     "constraintvalue": [{
@@ -273,7 +273,7 @@
     "p": "P289",
     "name": "P289move",
     "query": "SELECT ?item WHERE{ ?item wdt:P289/wdt:P31 wd:Q2235308 }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P289",
     "pNew": "P31",
     "constraintsvalue": [{
@@ -310,7 +310,7 @@
     "p": "P425",
     "name": "P425conflict",
     "query": "SELECT ?item WHERE { ?item wdt:P425 ?value; wdt:P31 wd:Q5 }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P425",
     "pNew": "P101",
     "constraint": [{
@@ -578,7 +578,7 @@
     "p": "P646",
     "name": "P646format",
     "query": "SELECT ?item WHERE { ?item wdt:P646 ?value . FILTER(REGEX(STR(?value), '^(/g/[0-9a-zA-Z_]+)$') = true ) }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P646",
     "pNew": "P2671",
     "constraintvalue": [{
@@ -680,7 +680,7 @@
     "p": "P914",
     "name": "P914changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P914 ?value . FILTER( ?value IN (wd:Q204, wd:Q23488, wd:Q19774, wd:Q36977, wd:Q23378, wd:Q40254, wd:Q23763, wd:Q38712, wd:Q23756))}",
-    "action": "changeClaim",
+    "action": "changeValue",
     "map": {
         "204": 14920387,
         "23488": 14920391,
@@ -696,7 +696,7 @@
     "p": "P946",
     "name": "P946format",
     "query": "SELECT ?item WHERE { ?item wdt:P946 ?value . FILTER(REGEX(STR(?value), '^(0000 000[0-4] \\\\d{4} \\\\d{3}[\\\\dX])$') = true ) }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P946",
     "pNew": "P213",
     "constraintvalue": [{
@@ -726,7 +726,7 @@
     "p": "P957",
     "name": "P957move",
     "query": "SELECT ?item WHERE { ?item wdt:P957 ?value . FILTER( REGEX(STR(?value), '^97[89]-[0-9-]{13}$') = true ) }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P957",
     "pNew": "P212",
     "constraintvalue": [{
@@ -849,7 +849,7 @@
     "p": "P1340",
     "name": "P1340changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1340 ?value . FILTER( ?value IN (wd:Q1088, wd:Q47071, wd:Q3133, wd:Q943, wd:Q23445, wd:Q42519))}",
-    "action": "changeClaim",
+    "action": "changeValue",
     "map": {
         "1088": 17122834,
         "47071": 17122705,
@@ -1043,14 +1043,14 @@
     "p": "P1846",
     "name": "P1846move",
     "query": "SELECT ?item WHERE { ?item wdt:P1846 ?value; wdt:P31 wd:Q16521}",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P1846",
     "pNew": "P181"
 }, {
     "p": "P1884",
     "name": "P1884changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1884 ?value . FILTER( ?value IN (wd:Q23445, wd:Q47071, wd:Q1088, wd:Q3142))}",
-    "action": "changeClaim",
+    "action": "changeValue",
     "map": {
         "23445": 1922956,
         "47071": 2367101,
@@ -1085,7 +1085,7 @@
     "p": "P1981",
     "name": "P1981changeclaim",
     "query": "SELECT ?item WHERE { ?item wdt:P1981 ?value . FILTER( ?value IN (wd:Q204, wd:Q23488, wd:Q19774, wd:Q36977, wd:Q23378, wd:Q40254, wd:Q23763, wd:Q38712, wd:Q23756))}",
-    "action": "changeClaim",
+    "action": "changeValue",
     "map": {
         "204": 20644794,
         "23488": 20644795,
@@ -1136,7 +1136,7 @@
     "p": "P2035",
     "name": "P2035conflict",
     "query": "SELECT ?item WHERE { ?item wdt:P2035 ?value . FILTER( REGEX(STR(?value), '^https://www.linkedin.com/company') = true )}",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P2035",
     "pNew": "P973",
     "constraintvalue": [{
@@ -1237,7 +1237,7 @@
     "p": "P2309",
     "name": "P2309move",
     "query": "SELECT ?item WHERE { ?item wdt:P2309/wdt:P31 wd:Q5}",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P2309",
     "pNew": "P1038"
 }, {
@@ -1268,7 +1268,7 @@
     "p": "P2959",
     "name": "P2959move",
     "query": "SELECT DISTINCT ?item WHERE { ?item wdt:P31 wd:Q21286738; wdt:P460 [] . MINUS { ?item wdt:P2959 [] } . MINUS { ?item wdt:P31 wd:Q4167836 } . }",
-    "action": "moveP",
+    "action": "changeProperty",
     "pOld": "P460",
     "pNew": "P2959"
 }, {
