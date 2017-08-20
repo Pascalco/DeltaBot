@@ -490,6 +490,14 @@ def check_category(item, constraint):
     return True
 
 
+def check_oneof(value, constraint):
+    if isinstance(value, pywikibot.ItemPage):
+        value = value.getID()
+    if value in constraint['values']:
+        return True
+    return False
+
+
 def check_format(value, constraint):
     return formatcheck(value, constraint['regex'])
 
