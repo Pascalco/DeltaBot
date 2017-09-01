@@ -224,8 +224,8 @@ def action_inverse(item, job):
             claimNew = pywikibot.Claim(repo, job['pNewT'])
             claimNew.setTarget(item)
             target.addClaim(claimNew, summary=u'adding inverse claim')
-            source = pywikibot.Claim(repo, 'P143')
-            source.setTarget(pywikibot.ItemPage(repo, 'Q20651139'))
+            source = pywikibot.Claim(repo, 'P3452')
+            source.setTarget(item)
             claimNew.addSource(source)
 
 
