@@ -194,7 +194,6 @@ def action_viaf(item, job):
                         break
 
 
-
 #add an inverse claim
 def action_inverse(item, job):
     #bug with checking for same claim
@@ -279,8 +278,17 @@ def action_addClaim(item, job):
     if job['pNew'] in item.claims:
         return 0
     claimNew = pywikibot.Claim(repo, job['pNew'])
-    itemNew = pywikibot.ItemPage(repo, job['valNew'])
-    claimNew.setTarget(itemNew)
+    if 'valNew' in job:
+        newvalue = pywikibot.ItemPage(repo, job['valNew'])
+    elif 'fromSitelink' in job:
+        if job['fromSitelink'] not in item.sitelinks:
+            return 0
+        newvalue = item.sitelinks[job['fromSitelink']]
+        if 'removenamespace' in job:
+            newvalue = newvalue.split(':')[0]
+    else:
+        return 0
+    claimNew.setTarget(newvalue)
     item.addClaim(claimNew)
 
 
