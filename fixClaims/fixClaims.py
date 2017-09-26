@@ -284,8 +284,8 @@ def action_addClaim(item, job):
         if job['fromSitelink'] not in item.sitelinks:
             return 0
         newvalue = item.sitelinks[job['fromSitelink']]
-        if 'removenamespace' in job:
-            newvalue = newvalue.split(':')[0]
+        if 'removenamespace' in job and ':' in newvalue:
+            newvalue = newvalue.split(':')[1]
     else:
         return 0
     claimNew.setTarget(newvalue)
