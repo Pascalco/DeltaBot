@@ -76,8 +76,8 @@ def format_add0(value, job):
 
 def format_linkedin(value, job):
     newvalue = re.sub(r'https?://(.*)linkedin\.com/in/', 'https://www.linkedin.com/in/', value)
-    if newvalue[-1] == '/':
-        return newvalue[:-1]
+    if newvalue[-1] != '/':
+        return newvalue+'/'
     else:
         return newvalue
 
