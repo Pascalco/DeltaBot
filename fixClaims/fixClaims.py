@@ -1,18 +1,17 @@
-# -*- coding: utf-8  -*-
+# -*- coding: utf-8 -*-
 import re
-import sys
 import requests
 import pywikibot
 import json
-import string
 
 site = pywikibot.Site('wikidata', 'wikidata')
 repo = site.data_repository()
 siteCommons = pywikibot.Site('commons', 'commons')
-repoCommons = siteCommons.data_repository()
 
-f2 = open('fixClaims/isbn_range.xml', encoding='utf-8').read().replace('\n', '').replace(' ', '')
-exec(open('fixClaims/categoryPrefix.dat', encoding='utf-8').read())
+with open('fixClaims/isbn_range.xml', encoding='utf-8') as f:
+    f2 = f.read().replace('\n', '').replace(' ', '')
+with open('fixClaims/categoryPrefix.dat', encoding='utf-8') as f:
+    exec(f.read())
 
 whitelist = ['Q4115189', 'Q13406268', 'Q15397819']
 
