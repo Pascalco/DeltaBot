@@ -25,6 +25,7 @@ payload = {
 
 r = requests.get('https://www.wikidata.org/w/api.php', params=payload)
 data = r.json()
+data['query']['recentchanges'].sort(key=lambda m: m['pageid'])
 
 if len(data['query']['recentchanges']) == 0:
     text = 'none'
