@@ -211,6 +211,10 @@ def action_inverse(item, job):
             if not constraintTargetCheck(target, job):
                 continue
         ok = True
+        for reference in claim.sources:
+            if 'P3452' in reference:
+                ok = False
+                break
         if target.claims:
             if job['pNewT'] in target.claims:
                 for m in target.claims[job['pNewT']]:
