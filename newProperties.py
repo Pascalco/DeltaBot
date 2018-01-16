@@ -25,23 +25,24 @@ payload = {
 
 r = requests.get('https://www.wikidata.org/w/api.php', params=payload)
 data = r.json()
+data['query']['recentchanges'].sort(key=lambda m: m['pageid'])
 
-if len(data['query']['recentchanges']) == 0:
-    text = 'none'
-else:
-    props = []
-    for m in data['query']['recentchanges']:
-        entity = pywikibot.PropertyPage(repo, m['title'].replace('Property:', ''))
-        entity.get()
-        if 'en' in entity.labels:
-            props.append('[[:d:{0}|{1}]]'.format(m['title'], entity.labels['en']))
-        else:
-            props.append('[[:d:{0}|{1}]]'.format(m['title'], m['title'].replace('Property:', '')))
-    text = ', '.join(props)
+externalIdProps = []
+otherProps = []
+for m in data['query']['recentchanges']:
+    entity = pywikibot.PropertyPage(repo, m['title'].replace('Property:', ''))
+    entity.get()
+    label = entity.labels['en'] if 'en' in entity.labels else m['title'].replace('Property:', '')
+    props = externalIdProps if entity.type == 'external-id' else otherProps
+    props.append('[[:d:{0}|{1}]]'.format(m['title'], label))
+externalIdText = ', '.join(externalIdProps) if externalIdProps else 'none'
+otherText = ', '.join(otherProps) if otherProps else 'none'
 
 header = '<!-- NEW PROPERTIES DO NOT REMOVE -->'
 footer = '<!-- END NEW PROPERTIES -->'
-pretext = '* Newest [[d:Special:ListProperties|properties]]: '
+text = '* Newest [[d:Special:ListProperties|properties]]:\n' + \
+       '** Other datatypes: ' + otherText + '\n' + \
+       '** External identifiers: ' + externalIdText
 
-newtext = re.sub(header + '.*' + footer, header + '\n' + pretext + text + '\n' + footer, page.get(), flags=re.DOTALL)
+newtext = re.sub(header + '.*' + footer, header + '\n' + text + '\n' + footer, page.get(), flags=re.DOTALL)
 page.put(newtext, 'Bot: Updating list of new properties')

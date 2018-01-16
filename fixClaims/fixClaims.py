@@ -1,18 +1,17 @@
-# -*- coding: utf-8  -*-
+# -*- coding: utf-8 -*-
 import re
-import sys
 import requests
 import pywikibot
 import json
-import string
 
 site = pywikibot.Site('wikidata', 'wikidata')
 repo = site.data_repository()
 siteCommons = pywikibot.Site('commons', 'commons')
-repoCommons = siteCommons.data_repository()
 
-f2 = open('fixClaims/isbn_range.xml', encoding='utf-8').read().replace('\n', '').replace(' ', '')
-exec(open('fixClaims/categoryPrefix.dat', encoding='utf-8').read())
+with open('fixClaims/isbn_range.xml', encoding='utf-8') as f:
+    f2 = f.read().replace('\n', '').replace(' ', '')
+with open('fixClaims/categoryPrefix.dat', encoding='utf-8') as f:
+    exec(f.read())
 
 whitelist = ['Q4115189', 'Q13406268', 'Q15397819']
 
@@ -256,7 +255,7 @@ def action_changeProperty(item, job):
 
 
 # change property of qualifier on claim p from pOld to pNew
-# if pNew is already set as qualifier, no action is taken
+# if pNew is already set as qualifier with the same value, only pOld gets removed
 def action_changeQualifierProperty(item, job):
     data = item.toJSON()
     for m in data['claims'][job['p']]:
@@ -264,14 +263,24 @@ def action_changeQualifierProperty(item, job):
             continue
         if job['pOld'] not in m['qualifiers']:
             continue
-        if job['pNew'] in m['qualifiers']:
-            continue
-        m['qualifiers'][job['pNew']] =  m['qualifiers'][job['pOld']]
-        for x in m['qualifiers'][job['pNew']]:
+        if job['pNew'] not in m['qualifiers']:
+            m['qualifiers'][job['pNew']] = []
+        for x in m['qualifiers'][job['pOld']]:
+            qual1 = pywikibot.Claim.qualifierFromJSON(repo, x)
             x['hash'] = ''
             x['property'] = job['pNew']
+            add = True
+            for qual2 in (pywikibot.Claim.qualifierFromJSON(repo, y) for y in m['qualifiers'][job['pNew']]):
+                if str(qual1.getTarget()) == str(qual2.getTarget()):
+                    add = False
+                    break
+            if add:
+                m['qualifiers'][job['pNew']].append(x)
         del m['qualifiers'][job['pOld']]
-        m['qualifiers-order'] = [w.replace(job['pOld'], job['pNew']) for w in m['qualifiers-order']]
+        if job['pNew'] in m['qualifiers-order']:
+            m['qualifiers-order'].remove(job['pOld'])
+        else:
+            m['qualifiers-order'] = [job['pNew'] if w == job['pNew'] else w for w in m['qualifiers-order']]
         mydata = {}
         mydata['claims'] = [m]
         item.editEntity(mydata, summary=u'change qualifier [[Property:'+job['pOld']+']] -> [[Property:'+job['pNew']+']]')
