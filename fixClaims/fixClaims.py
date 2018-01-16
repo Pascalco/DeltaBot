@@ -555,8 +555,17 @@ def levenshtein(s1, s2):
 # main functions        #
 #########################
 
+def createMaintenanceList(notdone):
+    header = 'List of items which could not be edited by DeltaBot\n'
+    text = ''
+    for job in notdone:
+        text += '\n===='+job+'====\n'
+        for q in notdone[job]:
+            text += '{{Q|'+q+'}}\n'
+    page = pywikibot.Page(site, 'User:DeltaBot/fixClaims/maintenance')
+    page.put(text, comment='upd', minorEdit=False)
 
-#find on Wikidata:Dabase_reports violations
+
 def getViolations(job):
     candidates = []
     payload = {
@@ -595,20 +604,25 @@ def main():
     r = requests.get('https://www.wikidata.org/wiki/User:DeltaBot/fixClaims/jobs?action=raw')
     jobs = r.json()
     done = json.load(open('fixClaims/done.json', encoding='utf-8'))
+    notdone = {}
     for job in jobs:
         candidates = getViolations(job)
         if job['name'] not in done:
             done[job['name']] = []
         for q in candidates:
-            if q not in done[job['name']] and q not in whitelist:
-                try:
-                    proceedOneCandidate(q, job)
-                    done[job['name']].append(q)
-                except:
-                    pass
+            if q not in whitelist:
+                if q not in done[job['name']]:
+                    try:
+                        proceedOneCandidate(q, job)
+                        done[job['name']].append(q)
+                    except:
+                        pass
+                else:
+                    notdone.setdefault(job['name'],[]).append(q)
     f1 = open('fixClaims/done.json', 'w', encoding='utf-8')
     f1.write(json.dumps(done, ensure_ascii=False))
     f1.close()
+    createMaintenanceList(notdone)
 
 
 if __name__ == "__main__":
