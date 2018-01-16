@@ -436,6 +436,8 @@ def action_moveQualifierToSource(item, job):
                 ok = True
                 data['references'] = data.get('references', [])
                 for reference in data['references']:
+                    if 'hash' not in reference:
+                        continue
                     for _, ref in pywikibot.Claim.referenceFromJSON(repo, reference).items():
                         for x in ref:
                             if str(snak.getTarget()) == str(x.getTarget()):
