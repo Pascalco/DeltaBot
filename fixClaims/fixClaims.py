@@ -614,9 +614,9 @@ def main():
                 if q not in done[job['name']]:
                     try:
                         proceedOneCandidate(q, job)
-                        done[job['name']].append(q)
                     except:
                         pass
+                    done[job['name']].append(q)
                 else:
                     notdone.setdefault(job['name'],[]).append(q)
     f1 = open('fixClaims/done.json', 'w', encoding='utf-8')
