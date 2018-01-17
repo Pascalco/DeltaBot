@@ -41,7 +41,7 @@ otherText = ', '.join(otherProps) if otherProps else 'none'
 header = '<!-- NEW PROPERTIES DO NOT REMOVE -->'
 footer = '<!-- END NEW PROPERTIES -->'
 text = '* Newest [[d:Special:ListProperties|properties]]:\n' + \
-       '** Other datatypes: ' + otherText + '\n' + \
+       '** General datatypes: ' + otherText + '\n' + \
        '** External identifiers: ' + externalIdText
 
 newtext = re.sub(header + '.*' + footer, header + '\n' + text + '\n' + footer, page.get(), flags=re.DOTALL)
