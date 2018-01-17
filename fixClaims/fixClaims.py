@@ -558,7 +558,7 @@ def levenshtein(s1, s2):
 def createMaintenanceList(notdone):
     header = 'List of items which could not be edited by DeltaBot\n'
     text = ''
-    for job in notdone:
+    for job in sorted(notdone):
         text += '\n===='+job+'====\n'
         for q in notdone[job]:
             text += '{{Q|'+q+'}}\n'
