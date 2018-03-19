@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-#licensed under CC-Zero: https://creativecommons.org/publicdomain/zero/1.0
+# licensed under CC-Zero: https://creativecommons.org/publicdomain/zero/1.0
 
 import pywikibot
 from datetime import datetime
@@ -8,26 +8,28 @@ import re
 
 today = datetime.today()
 
-site = pywikibot.Site('wikidata','wikidata')
+site = pywikibot.Site('wikidata', 'wikidata')
 
-#remove proposals from category pages
+
+# remove proposals from category pages
 def removeProposals(proposals):
     categories = {}
     for proposal in proposals:
         if proposal['category'] not in categories:
-            page = pywikibot.Page(site,'Wikidata:Property_proposal/'+proposal['category'])
-            te = re.sub(r'(?<!_)_(?!_)',' ',page.get())
+            page = pywikibot.Page(site, 'Wikidata:Property_proposal/'+proposal['category'])
+            te = re.sub(r'(?<!_)_(?!_)', ' ', page.get())
             categories[proposal['category']] = {'text': te, 'count': 0}
-        categories[proposal['category']]['text'] = re.sub(r'{{Wikidata:Property proposal/'+re.escape(proposal['name'])+'}}\n?','',categories[proposal['category']]['text'])
+        categories[proposal['category']]['text'] = re.sub(r'{{Wikidata:Property proposal/'+re.escape(proposal['name'])+'}}\n?', '', categories[proposal['category']]['text'])
         categories[proposal['category']]['count'] += 1
     for category in categories:
-        page = pywikibot.Page(site,'Wikidata:Property_proposal/'+category)
+        page = pywikibot.Page(site, 'Wikidata:Property_proposal/'+category)
         comment = 'archiving '+str(categories[category]['count'])+' proposals' if categories[category]['count'] != 1 else 'archiving 1 proposal'
-        page.put(categories[category]['text'],comment=comment,minorEdit=False)
+        page.put(categories[category]['text'], comment=comment, minorEdit=False)
 
-#load new achive subpage
+
+# load new archive subpage
 def loadNewArchivePage(archive):
-    page = pywikibot.Page(site,'Wikidata:Property proposal/Archive/'+archive)
+    page = pywikibot.Page(site, 'Wikidata:Property proposal/Archive/'+archive)
     if not page.exists():
         newarchive = ('{{archive|category=Property proposal archive}}\n\n'
                     '==Done==\n\n'
@@ -40,12 +42,13 @@ def loadNewArchivePage(archive):
                     '|-\n'
                     '! Property name !! Proposer !! Start date !! Close date !! Reason\n'
                     '|}')
-        page.put(newarchive,comment='new archive',minorEdit=False)
-    return page.get().replace('_',' ')
+        page.put(newarchive, comment='new archive', minorEdit=False)
+    return page.get().replace('_', ' ')
 
-#add proposals to archive
+
+# add proposals to archive
 def updateArchive(proposals):
-    proposals.sort(key=lambda x:x['closedate'])
+    proposals.sort(key=lambda x: x['closedate'])
     archives = {}
     for proposal in proposals:
         if proposal['archive'] not in archives:
@@ -54,7 +57,7 @@ def updateArchive(proposals):
             newText = ''
             look = False
             for line in archives[proposal['archive']]['text'].split('\n'):
-                if (re.match('==\s*done\s*==',line.lower()) and proposal['note'].isdigit()) or (re.match('==\s*not done\s*==',line.lower()) and not proposal['note'].isdigit()):
+                if (re.match('==\s*done\s*==', line.lower()) and proposal['note'].isdigit()) or (re.match('==\s*not done\s*==', line.lower()) and not proposal['note'].isdigit()):
                     look = True
                 if line.strip() == '|}' and look:
                     newText += u'{{{{PPArchive|{newname}|{proposer}|{startdate}|{closedate}|{note}}}}}\n'.format(**proposal)
@@ -63,9 +66,10 @@ def updateArchive(proposals):
                 newText += line+'\n'
             archives[proposal['archive']]['text'] = newText.strip()
     for archive in archives:
-        page = pywikibot.Page(site,'Wikidata:Property_proposal/Archive/'+archive)
+        page = pywikibot.Page(site, 'Wikidata:Property_proposal/Archive/'+archive)
         comment = 'archiving '+str(archives[archive]['count'])+' proposals' if archives[archive]['count'] != 1 else 'archiving 1 proposal'
-        page.put(archives[archive]['text'],comment=comment,minorEdit=False)
+        page.put(archives[archive]['text'], comment=comment, minorEdit=False)
+
 
 def allClosed(stati):
     for status in stati:
@@ -73,15 +77,16 @@ def allClosed(stati):
             return False
     return True
 
+
 def main():
     toArchive = []
-    categories = ['Generic','Event','Place','Economics','Authority control','Creative work','Transportation','Person','Term','Natural science','Organization','Space','Sister projects','Property metadata','Sports']
+    categories = ['Generic', 'Event', 'Place', 'Economics', 'Authority control', 'Creative work', 'Transportation', 'Person', 'Term', 'Natural science', 'Organization', 'Space', 'Sister projects', 'Property metadata', 'Sports']
     for category in categories:
-        page = pywikibot.Page(site,'Wikidata:Property_proposal/'+category)
+        page = pywikibot.Page(site, 'Wikidata:Property_proposal/'+category)
         fo = page.get().split('</noinclude>')
-        proposals = re.findall('{{Wikidata:Property proposal/(.*)}}',fo[1].replace('_',' '))
+        proposals = re.findall('{{Wikidata:Property proposal/(.*)}}', fo[1].replace('_', ' '))
         for proposal in proposals:
-            page2 = pywikibot.Page(site,'Wikidata:Property proposal/'+proposal)
+            page2 = pywikibot.Page(site, 'Wikidata:Property proposal/'+proposal)
             if page2.isRedirectPage():
                 page2 = page2.getRedirectTarget()
                 newname = page2.title()[27:]
@@ -89,8 +94,8 @@ def main():
                 continue
             else:
                 newname = proposal
-            pptext = re.sub(r'(<!([^>]+)>)|\n','',page2.get())
-            stati = re.findall('\|\s*status\s*=\s*([^\|\}]+)',pptext)
+            pptext = re.sub(r'(<!([^>]+)>)|\n', '', page2.get())
+            stati = re.findall('\|\s*status\s*=\s*([^\|\}]+)', pptext)
             stati = map(unicode.strip, stati)
             if not allClosed(stati):
                 continue
@@ -100,7 +105,7 @@ def main():
                 if (today - history[0].timestamp).days >= 3:
                     month = str(history[0].timestamp.month) if history[0].timestamp.month > 9 else '0'+str(history[0].timestamp.month)
                     data = {
-                        'name': proposal.replace('_',' '),
+                        'name': proposal.replace('_', ' '),
                         'newname': newname,
                         'category': category,
                         'proposer': history[-1].user,
