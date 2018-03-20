@@ -13,6 +13,7 @@ import requests
 import json
 import re
 import time
+import datetime
 import pywikibot
 from pywikibot.pagegenerators import *
 
@@ -253,6 +254,10 @@ def main():
             ppage.get()
             if 'P2302' not in ppage.claims:
                 continue
+            cpage = pywikibot.Page(site, 'Wikidata:Database reports/Constraint violations/'+p)
+            lastedit = cpage.getVersionHistory()[0]
+            if lastedit[2] == 'KrBot' and (datetime.datetime.now()-lastedit[1]).days < 5:
+                continue
             report = u''
             for co in ppage.claims['P2302']:
                 if co.getTarget().getID() in types:
@@ -268,7 +273,6 @@ def main():
                 except:
                     cnt = ''
                 report = header.format(time.strftime("%Y-%m-%d %H:%M (%Z)"), cnt) + report
-                cpage = pywikibot.Page(site, 'Wikidata:Database reports/Constraint violations/'+p)
                 cpage.put(report, comment='report update for [[Property:'+p+']]', minorEdit=False)
         except Exception, e:
             logwrite(str(e) + '\n')
