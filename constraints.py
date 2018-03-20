@@ -130,8 +130,8 @@ def oneConstraint(p, datatype, constraint):
                 max = constraint.qualifiers['P2311'][0].getTarget().year
             query = 'SELECT DISTINCT ?item ?value WHERE {{ ?item wdt:{p} ?value FILTER (year(?value) < {min} || year(?value) > {max}) }} ORDER BY ?item'.format(p=p, min=min, max=max)
         else:
-            min = constraint.qualifiers['P2313'][0].getTarget()
-            max = constraint.qualifiers['P2312'][0].getTarget()
+            min = constraint.qualifiers['P2313'][0].getTarget().amount
+            max = constraint.qualifiers['P2312'][0].getTarget().amount
             query = 'SELECT DISTINCT ?item ?value WHERE {{ ?item wdt:{p} ?value FILTER (?value < {min} || ?value > {max}) }} ORDER BY ?item'.format(p=p, min=min, max=max)
         title = '<span id="Range"></span>\n== "Range" violations =='
         variables = ['value']
