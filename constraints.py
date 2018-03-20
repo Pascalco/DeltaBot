@@ -257,7 +257,7 @@ def main():
             cpage = pywikibot.Page(site, 'Wikidata:Database reports/Constraint violations/'+p)
             if cpage.exists():
                 lastedit = cpage.getVersionHistory()[0]
-                if lastedit[2] == 'KrBot' and (datetime.datetime.now()-lastedit[1]).days < 5:
+                if lastedit[2] == 'KrBot2' and (datetime.datetime.now()-lastedit[1]).days < 5:
                     continue
             report = u''
             for co in ppage.claims['P2302']:
