@@ -255,9 +255,10 @@ def main():
             if 'P2302' not in ppage.claims:
                 continue
             cpage = pywikibot.Page(site, 'Wikidata:Database reports/Constraint violations/'+p)
-            lastedit = cpage.getVersionHistory()[0]
-            if lastedit[2] == 'KrBot' and (datetime.datetime.now()-lastedit[1]).days < 5:
-                continue
+            if cpage.exists():
+                lastedit = cpage.getVersionHistory()[0]
+                if lastedit[2] == 'KrBot' and (datetime.datetime.now()-lastedit[1]).days < 5:
+                    continue
             report = u''
             for co in ppage.claims['P2302']:
                 if co.getTarget().getID() in types:
