@@ -52,14 +52,14 @@ def oneConstraint(p, datatype, constraint):
 
     # write query
     if constrainttype == 'Q21503250': # Constraint:Type
-        relation = 'P279' if constraint.qualifiers['P2309'] == 'Q21514624' else 'P31' #ToDo: instance or subclass (Q30208840)
+        relation = 'P279' if constraint.qualifiers['P2309'][0].getTarget().getID() == 'Q21514624' else 'P31' #ToDo: instance or subclass (Q30208840)
         list = [val.getTarget().getID() for val in constraint.qualifiers['P2308']]
         classes = 'wd:' + ', wd:'.join(list)
         query = 'SELECT DISTINCT ?item WHERE{{ ?item wdt:{p} [] . MINUS {{ ?item wdt:{relation}/wdt:P279* ?class . FILTER(?class IN ({classes})) }} }} ORDER BY ?item'.format(p=p, relation=relation, classes=classes)
         title = '<span id="Type {}"></span>\n== "Type {{{{Q|{}}}}}" violations =='.format(', '.join(list), '}}, {{Q|'.join(list))
 
     elif constrainttype == 'Q21510865': # Constraint:Value type
-        relation = 'P279' if constraint.qualifiers['P2309'] == 'Q21514624' else 'P31' #ToDo: instance or subclass (Q30208840)
+        relation = 'P279' if constraint.qualifiers['P2309'][0].getTarget().getID() == 'Q21514624' else 'P31' #ToDo: instance or subclass (Q30208840)
         list = [val.getTarget().getID() for val in constraint.qualifiers['P2308']]
         classes = 'wd:' + ', wd:'.join(list)
         query = 'SELECT DISTINCT ?item WHERE{{ ?item wdt:{p} ?value . MINUS {{ ?value wdt:{relation}/wdt:P279* ?class . FILTER(?class IN ({classes})) }} }} ORDER BY ?item'.format(p=p, relation=relation, classes=classes)
