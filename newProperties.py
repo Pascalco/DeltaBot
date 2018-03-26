@@ -31,9 +31,9 @@ def newProposals(startdate):
     cat = pywikibot.Category(site, 'Open property proposals')
     ps = list(cat.articles(recurse=1, namespaces=4, sortby='timestamp', starttime=startdate))
     for p in ps:
-        text = re.sub(r'(<!([^>]+)>)|\s|\n', '', p.get())
+        text = re.sub(r'(<!([^>]+)>)|\s|\n', '', p.get()).lower()
         if text.count('status=|') or text.count('status=ready|') > 0:
-            props = externalIdProps if text.count('datatype=external-id') > 0 else generalProps
+            props = externalIdProps if (text.count('datatype=external-id') + text.count('datatype=id')) > 0 else generalProps
             props.append('[[:d:{0}|{1}]]'.format(p.title(), p.title().replace('Wikidata:Property proposal/', '')))
     externalIdText = ', '.join(externalIdProps) if externalIdProps else 'none'
     otherText = ', '.join(generalProps) if generalProps else 'none'
