@@ -20,8 +20,8 @@ from pywikibot.pagegenerators import *
 site = pywikibot.Site('wikidata', 'wikidata')
 repo = site.data_repository()
 
-types = ['Q21503250', 'Q21510865', 'Q21510862', 'Q21510855', 'Q21502410', 'Q19474404', 'Q21510857', 'Q21503247', 'Q21510864', 'Q21514353', 'Q21510860', 'Q21510851', 'Q21510856', 'Q21528958', 'Q21510863', 'Q21528959', 'Q21502404', 'Q21510859']
-#missing_types = ['Q21510852','Q21502838', 'Q21510854']
+types = ['Q21503250', 'Q21510865', 'Q21510862', 'Q21510855', 'Q21502410', 'Q19474404', 'Q21510857', 'Q21503247', 'Q21510864', 'Q21514353', 'Q21510860', 'Q21510851', 'Q21510856', 'Q21528958', 'Q21510863', 'Q21528959', 'Q21502404', 'Q21510859', 'Q21502838']
+#missing_types = ['Q21510852', 'Q21510854']
 header = '{{{{Constraint violations report|date={}|item count={}}}}}\n'
 
 
@@ -186,6 +186,19 @@ def oneConstraint(p, datatype, constraint):
             values = ','.join(list)
         query = 'SELECT DISTINCT ?item ?value WHERE {{ ?item wdt:{p} ?value . FILTER (?value NOT IN ({values})) }} ORDER BY ?item'.format(p=p, values=values)
         title = '<span id="One of"></span>\n== "One of" violations =='
+        variables = ['value']
+
+    elif constrainttype == 'Q21502838': #Constraint:Conflict with
+        property = constraint.qualifiers['P2306'][0].getTarget().getID()
+        if 'P2305' in constraint.qualifiers:
+            list = [val.getTarget() for val in constraint.qualifiers['P2305']]
+            if None in list: list.remove(None)
+            list = [l.getID() for l in list]
+            values = 'wd:' + ' wd:'.join(list)
+            query = 'SELECT DISTINCT ?item ?value WHERE {{?item wdt:{p} [] . VALUES ?value {{ {values} }} . ?item wdt:{property} ?value .}} ORDER BY ?item'.format(p=p, property=property, values=values)
+        else:
+            query = 'SELECT DISTINCT ?item ?value WHERE {{?item wdt:{p} [] . ?item wdt:{property} ?value .}} ORDER BY ?item'.format(p=p, property=property)
+        title = '<span id="Conflicts with"></span>\n== "Conflicts with" violations =='
         variables = ['value']
 
     # execute query, if necessary limit number of results
