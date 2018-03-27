@@ -180,10 +180,7 @@ def oneConstraint(p, datatype, constraint):
         list = [val.getTarget() for val in constraint.qualifiers['P2305']]
         if None in list: list.remove(None)
         list = [l.getID() for l in list]
-        if datatype == 'wikibase-item':
-            values = 'wd:' + ', wd:'.join(list)
-        else:
-            values = ','.join(list)
+        values = 'wd:' + ', wd:'.join(list)
         query = 'SELECT DISTINCT ?item ?value WHERE {{ ?item wdt:{p} ?value . FILTER (?value NOT IN ({values})) }} ORDER BY ?item'.format(p=p, values=values)
         title = '<span id="One of"></span>\n== "One of" violations =='
         variables = ['value']
