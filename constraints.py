@@ -138,12 +138,13 @@ def oneConstraint(p, datatype, constraint):
 
     elif constrainttype == 'Q21510851': # Constraint:Allowed Qualifiers
         if constraint.qualifiers['P2306'][0].snaktype == 'novalue':
-            query = 'SELECT DISTINCT ?item WHERE {{ hint:Query hint:optimizer "None" . ?item p:{p} ?statement . ?statement ?pq_qual ?pq_obj . ?qual wikibase:qualifier ?pq_qual }} ORDER BY ?item'.format(p=p)
+            query = 'SELECT DISTINCT ?item ?qual WHERE {{ hint:Query hint:optimizer "None" . ?item p:{p} ?statement . ?statement ?pq_qual ?pq_obj . ?qual wikibase:qualifier ?pq_qual }} ORDER BY ?item'.format(p=p)
         else:
             list = [val.getTarget().getID() for val in constraint.qualifiers['P2306']]
             qualifiers = 'wd:' + ', wd:'.join(list)
-            query = 'SELECT DISTINCT ?item WHERE {{ hint:Query hint:optimizer "None" . ?item p:{p} ?statement . ?statement ?pq_qual ?pq_obj . ?qual wikibase:qualifier ?pq_qual . FILTER (?qual NOT IN ({qualifiers})) }} ORDER BY ?item'.format(p=p, qualifiers=qualifiers)
+            query = 'SELECT DISTINCT ?item ?qual WHERE {{ hint:Query hint:optimizer "None" . ?item p:{p} ?statement . ?statement ?pq_qual ?pq_obj . ?qual wikibase:qualifier ?pq_qual . FILTER (?qual NOT IN ({qualifiers})) }} ORDER BY ?item'.format(p=p, qualifiers=qualifiers)
         title = '<span id="Allowed Qualifiers"></span>\n== "Allowed Qualifiers" violations =='
+        variables = ['qual']
 
     elif constrainttype == 'Q21510856': # Constraint:Mandatory Qualifiers
         list = [val.getTarget().getID() for val in constraint.qualifiers['P2306']]
