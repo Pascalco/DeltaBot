@@ -181,7 +181,7 @@ def oneConstraint(p, datatype, constraint):
         if None in list: list.remove(None)
         list = [l.getID() for l in list]
         values = 'wd:' + ', wd:'.join(list)
-        query = 'SELECT DISTINCT ?item ?value WHERE {{ ?item wdt:{p} ?value . FILTER (?value NOT IN ({values})) }} ORDER BY ?item'.format(p=p, values=values)
+        query = 'SELECT DISTINCT ?item ?value WHERE {{ {{ ?item p:{p}/ps:{p} ?value	}} UNION {{ ?statement1 pq:{p} ?value . ?item ?p1 ?statement1 . }} UNION {{	?ref pr:{p} ?value . ?statement2 prov:wasDerivedFrom ?ref. ?item ?p2 ?statement2 . }} FILTER (?value NOT IN ({values})) }} ORDER BY ?item'.format(p=p, values=values)
         title = '<span id="One of"></span>\n== "One of" violations =='
         variables = ['value']
 
