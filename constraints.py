@@ -232,6 +232,7 @@ def oneConstraint(p, datatype, constraint):
                 for n in variables:
                     if 'http://www.wikidata.org/entity/' in m[n]['value']:
                         tt = m[n]['value'].replace('http://www.wikidata.org/entity/', '').split(',')
+                        tt = [t.replace('P', 'Property:P') for t in tt]
                         line += ' [[' + ']], [['.join(tt) + ']],'
                     else:
                         line += ' '+m[n]['value'].replace('http://commons.wikimedia.org/wiki/Special:FilePath/', '') + ','
