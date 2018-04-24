@@ -80,7 +80,7 @@ def allClosed(stati):
 
 def main():
     toArchive = []
-    categories = ['Generic', 'Event', 'Place', 'Economics', 'Authority control', 'Creative work', 'Transportation', 'Person', 'Term', 'Natural science', 'Organization', 'Space', 'Sister projects', 'Property metadata', 'Sports']
+    categories = ['Generic', 'Place', 'Authority control', 'Creative work', 'Transportation', 'Person', 'Natural science', 'Organization', 'Sister projects', 'Sports', 'Lexemes']
     for category in categories:
         page = pywikibot.Page(site, 'Wikidata:Property_proposal/'+category)
         fo = page.get().split('</noinclude>')
