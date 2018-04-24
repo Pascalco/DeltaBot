@@ -38,7 +38,7 @@ def newProposals(startdate):
     externalIdText = ', '.join(externalIdProps) if externalIdProps else 'none'
     otherText = ', '.join(generalProps) if generalProps else 'none'
 
-    text = '* New [[d:Wikidata:Property proposal|property proposals]] to review:\n' + \
+    text = '* New [[d:Special:MyLanguage/Wikidata:Property proposal|property proposals]] to review:\n' + \
            '** General datatypes: ' + otherText + '\n' + \
            '** External identifiers: ' + externalIdText
 
