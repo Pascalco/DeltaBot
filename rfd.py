@@ -15,24 +15,29 @@ cntNotDone = 0
 force = False
 
 content = re.findall(r'(?:(?<!=)==([^=]+)==(?!=))?([\s\S]+?(?=$|(?<!=)==[^=]+==(?!=)))', page.get())
-for i in range(0,len(content)):
+for i in range(len(content)):
     content[i] = map(unicode.strip,list(content[i]))
     res = re.search(r'(Q\d+)',content[i][0])
     if res:
+        entity = pywikibot.ItemPage(repo, res.group(1))
+    else:
+        res = re.search(r'(Lexeme:L\d+)',content[i][0])
+        if res:
+            entity = pywikibot.Page(repo, res.group(1))  # T189321
+    if res:
         if any(x in content[i][1] for x in ('{{done', '{{deleted', '{{not done', '{{notdone', '{{not deleted', '{{merged')):
             continue
-        item = pywikibot.ItemPage(repo, res.group(1))
-        if item.isRedirectPage() and item.getRedirectTarget().exists():
+        if entity.isRedirectPage() and entity.getRedirectTarget().exists():
             content[i][1] += (u'\n: {{{{done}}}} Redirect created by [[User:{}|]], you can do it ' +
-                              u'[[Special:MyLanguage/Help:Merge|yourself]] next time. --~~~~').format(item.userName())
+                              u'[[Special:MyLanguage/Help:Merge|yourself]] next time. --~~~~').format(entity.userName())
             cntDone += 1
-        elif not item.exists():
-            for m in site.logevents(logtype='delete', page=item, total=1):
+        elif not entity.exists():
+            for m in site.logevents(logtype='delete', page=entity, total=1):
                 content[i][1] += u'\n: {{{{deleted|admin={}}}}} --~~~~'.format(m.user())
             cntDone += 1
         else:
             if '{{on hold' not in content[i][1]:
-                refs = len(list(item.backlinks(followRedirects=False, filterRedirects=False, namespaces=[0, 120], total=11)))
+                refs = len(list(entity.backlinks(followRedirects=False, filterRedirects=False, namespaces=[0, 120], total=11)))
                 if refs > 0:
                     force = True
                     content[i][1] += u'\n: {{{{on hold}}}} This item is linked from {}{} other{}. --~~~~'.format(
