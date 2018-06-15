@@ -46,7 +46,7 @@ for i in range(len(content)):
                     content[i][1] += u'\n: {{{{on hold}}}} This item is linked from {}{} other{}. --~~~~'.format(
                         min(numberOfRefs, 10), '+' if numberOfRefs > 10 else '', 's' if numberOfRefs > 1 else '')
             cntNotDone += 1
-'''
+
 text = ''
 for section in content:
     if section[0] != '':
@@ -59,4 +59,3 @@ if cntDone > 0 or force:
 
 statspage = pywikibot.Page(site,'User:BeneBot*/RfD-stats')
 statspage.put(cntNotDone,comment='Updating stats: '+str(cntNotDone),minorEdit=False)
-'''
