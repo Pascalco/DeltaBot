@@ -37,13 +37,16 @@ for i in range(len(content)):
             cntDone += 1
         else:
             if '{{on hold' not in content[i][1]:
-                refs = len(list(entity.backlinks(followRedirects=False, filterRedirects=False, namespaces=[0, 120], total=11)))
-                if refs > 0:
+                refs = list(entity.backlinks(followRedirects=False, filterRedirects=False, namespaces=[0, 120], total=12))
+                numberOfRefs = len(refs)
+                if entity in refs:
+                    numberOfRefs -= 1
+                if numberOfRefs > 0:
                     force = True
                     content[i][1] += u'\n: {{{{on hold}}}} This item is linked from {}{} other{}. --~~~~'.format(
-                        min(refs, 10), '+' if refs > 10 else '', 's' if refs > 1 else '')
+                        min(numberOfRefs, 10), '+' if numberOfRefs > 10 else '', 's' if numberOfRefs > 1 else '')
             cntNotDone += 1
-
+'''
 text = ''
 for section in content:
     if section[0] != '':
@@ -56,3 +59,4 @@ if cntDone > 0 or force:
 
 statspage = pywikibot.Page(site,'User:BeneBot*/RfD-stats')
 statspage.put(cntNotDone,comment='Updating stats: '+str(cntNotDone),minorEdit=False)
+'''
