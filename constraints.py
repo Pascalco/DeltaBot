@@ -285,7 +285,7 @@ def main():
                     cnt = data['results']['bindings'][0]['cnt']['value']
                 except:
                     cnt = ''
-                report = header.format(time.strftime("%Y-%m-%d %H:%M (%Z)"), cnt) + report
+                report = header.format(time.strftime("%Y-%m-%dT%H:%M:%SZ"), cnt) + report
                 cpage.put(report, comment='report update for [[Property:'+p+']]', minorEdit=False)
         except Exception, e:
             logwrite(str(e) + '\n')
