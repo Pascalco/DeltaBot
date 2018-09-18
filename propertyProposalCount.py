@@ -24,6 +24,6 @@ for category in categories:
             cnt += re.sub(r'(<!([^>]+)>)|\s|\n','',page2.get()).count('status=|')
 
     text += '| '+category+' = '+str(cnt)+'\n'
-text += '| #default = <strong class="error">invalid parameter <tt>{{{1}}}</strong>\n}}</includeonly>'
+text += '| #default = <strong class="error">invalid parameter <kbd>{{{1}}}</kbd></strong>\n}}</includeonly>'
 page = pywikibot.Page(site,'Wikidata:Property proposal/count')
 page.put(text.decode('UTF-8'),comment='upd',minorEdit=False)
