@@ -229,10 +229,15 @@ def oneConstraint(p, datatype, constraint):
         else:
             qidlist = [qid]
         if len(set.intersection(*[set(qidlist), set(exceptions)])) == 0:  # not in exceptions
-            if link == 1:
+            if link == 1 and len(d) > 1000:
                 if qid[0] == 'P':
                     qid = 'Property:' + qid + '|' + qid
                 line = '*[[{}]]:'.format(qid)
+            elif link == 1:
+                if qid[0] == 'P':
+                    line = '*{{{{P|{}}}}}:'.format(qid)
+                else:
+                    line = '*{{{{Q|{}}}}}:'.format(qid)
             else:
                 line = '*{}:'.format(qid)
             if 'variables' in locals():
