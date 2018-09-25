@@ -210,8 +210,11 @@ def oneConstraint(p, datatype, constraint):
         try:
             data, limit = requestquery(query, 5000)
         except:
-            logwrite('error with ' + p + ' : ' + constrainttype + '\n' + query + '\n')
-            return ''
+            try:
+                data, limit = requestquery(query, 1000)
+            except:
+                logwrite('error with ' + p + ' : ' + constrainttype + '\n' + query + '\n')
+                return ''
     d = sorted(data['results']['bindings'], key=lambda x: (int(x['item']['value'][32:]) if x['item']['value'][32:].isdigit() else float('inf'), x['item']['value']))
     violations = []
     cntExceptions = 0
