@@ -41,6 +41,13 @@ def requestquery(query, l=0):
     return r.json(), l
 
 
+def getrelation(relationid):
+    if relationid == 'Q21514624':
+        return 'wdt:P279*'
+    elif relationid = 'Q30208840':
+        return 'wdt:P31*/wdt:P279*'
+    return 'wdt:P31/wdt:P279*'
+
 def oneConstraint(p, datatype, constraint):
     # make list of exceptions
     if 'P2303' in constraint.qualifiers:
@@ -52,17 +59,17 @@ def oneConstraint(p, datatype, constraint):
 
     # write query
     if constrainttype == 'Q21503250': # Constraint:Type
-        relation = 'P279' if constraint.qualifiers['P2309'][0].getTarget().getID() == 'Q21514624' else 'P31' #ToDo: instance or subclass (Q30208840)
+        relation = getrelation(constraint.qualifiers['P2309'][0].getTarget().getID())
         list = [val.getTarget().getID() for val in constraint.qualifiers['P2308']]
         classes = 'wd:' + ', wd:'.join(list)
-        query = 'SELECT DISTINCT ?item WHERE{{ ?item wdt:{p} [] . MINUS {{ ?item wdt:{relation}/wdt:P279* ?class . FILTER(?class IN ({classes})) }} }}'.format(p=p, relation=relation, classes=classes)
+        query = 'SELECT DISTINCT ?item WHERE{{ ?item wdt:{p} [] . MINUS {{ ?item {relation} ?class . FILTER(?class IN ({classes})) }} }}'.format(p=p, relation=relation, classes=classes)
         title = '<span id="Type {}"></span>\n== "Type {{{{Q|{}}}}}" violations =='.format(', '.join(list), '}}, {{Q|'.join(list))
 
     elif constrainttype == 'Q21510865': # Constraint:Value type
-        relation = 'P279' if constraint.qualifiers['P2309'][0].getTarget().getID() == 'Q21514624' else 'P31' #ToDo: instance or subclass (Q30208840)
+        relation = getrelation(constraint.qualifiers['P2309'][0].getTarget().getID())
         list = [val.getTarget().getID() for val in constraint.qualifiers['P2308']]
         classes = 'wd:' + ', wd:'.join(list)
-        query = 'SELECT DISTINCT ?item WHERE{{ ?item wdt:{p} ?value . MINUS {{ ?value wdt:{relation}/wdt:P279* ?class . FILTER(?class IN ({classes})) }} }}'.format(p=p, relation=relation, classes=classes)
+        query = 'SELECT DISTINCT ?item WHERE{{ ?item wdt:{p} ?value . MINUS {{ ?value {relation} ?class . FILTER(?class IN ({classes})) }} }}'.format(p=p, relation=relation, classes=classes)
         title = '<span id="Value type {}"></span>\n== "Value type {{{{Q|{}}}}}" violations =='.format(','.join(list), '}}, {{Q|'.join(list))
 
     elif constrainttype == 'Q21510862': # Constraint:Symmetric
