@@ -55,37 +55,37 @@ def oneConstraint(p, datatype, constraint):
         relation = 'P279' if constraint.qualifiers['P2309'][0].getTarget().getID() == 'Q21514624' else 'P31' #ToDo: instance or subclass (Q30208840)
         list = [val.getTarget().getID() for val in constraint.qualifiers['P2308']]
         classes = 'wd:' + ', wd:'.join(list)
-        query = 'SELECT DISTINCT ?item WHERE{{ ?item wdt:{p} [] . MINUS {{ ?item wdt:{relation}/wdt:P279* ?class . FILTER(?class IN ({classes})) }} }} ORDER BY ?item'.format(p=p, relation=relation, classes=classes)
+        query = 'SELECT DISTINCT ?item WHERE{{ ?item wdt:{p} [] . MINUS {{ ?item wdt:{relation}/wdt:P279* ?class . FILTER(?class IN ({classes})) }} }}'.format(p=p, relation=relation, classes=classes)
         title = '<span id="Type {}"></span>\n== "Type {{{{Q|{}}}}}" violations =='.format(', '.join(list), '}}, {{Q|'.join(list))
 
     elif constrainttype == 'Q21510865': # Constraint:Value type
         relation = 'P279' if constraint.qualifiers['P2309'][0].getTarget().getID() == 'Q21514624' else 'P31' #ToDo: instance or subclass (Q30208840)
         list = [val.getTarget().getID() for val in constraint.qualifiers['P2308']]
         classes = 'wd:' + ', wd:'.join(list)
-        query = 'SELECT DISTINCT ?item WHERE{{ ?item wdt:{p} ?value . MINUS {{ ?value wdt:{relation}/wdt:P279* ?class . FILTER(?class IN ({classes})) }} }} ORDER BY ?item'.format(p=p, relation=relation, classes=classes)
+        query = 'SELECT DISTINCT ?item WHERE{{ ?item wdt:{p} ?value . MINUS {{ ?value wdt:{relation}/wdt:P279* ?class . FILTER(?class IN ({classes})) }} }}'.format(p=p, relation=relation, classes=classes)
         title = '<span id="Value type {}"></span>\n== "Value type {{{{Q|{}}}}}" violations =='.format(','.join(list), '}}, {{Q|'.join(list))
 
     elif constrainttype == 'Q21510862': # Constraint:Symmetric
-        query = 'SELECT DISTINCT ?item {{ ?item wdt:{p} ?value . MINUS {{ ?value wdt:{p} ?item . }} }} ORDER BY ?item'.format(p=p)
+        query = 'SELECT DISTINCT ?item {{ ?item wdt:{p} ?value . MINUS {{ ?value wdt:{p} ?item . }} }}'.format(p=p)
         title = '<span id="Symmetric"></span>\n== "Symmetric" violations =='
 
     elif constrainttype == 'Q21510855': # Constraint:Inverse
         property = constraint.qualifiers['P2306'][0].getTarget().getID()
-        query = 'SELECT DISTINCT ?item WHERE {{ ?inverse wdt:{p} ?item FILTER NOT EXISTS {{ ?item wdt:{property} ?inverse }} }} ORDER BY ?item'.format(p=p, property=property)
+        query = 'SELECT DISTINCT ?item WHERE {{ ?inverse wdt:{p} ?item FILTER NOT EXISTS {{ ?item wdt:{property} ?inverse }} }}'.format(p=p, property=property)
         title = '<span id="Inverse"></span>\n== "Inverse" violations =='
 
     elif constrainttype == 'Q21502410': # Constraint:Unique value/Distinct value
-        query = 'SELECT DISTINCT ?item (COUNT(?item1) AS ?count)(GROUP_CONCAT(?item1;separator=",") AS ?items) WHERE {{ ?item1 wdt:{p} ?item }} GROUP BY ?item HAVING(?count > 1) ORDER BY ?item1'.format(p=p)
+        query = 'SELECT DISTINCT ?item (COUNT(?item1) AS ?count)(GROUP_CONCAT(?item1;separator=",") AS ?items) WHERE {{ ?item1 wdt:{p} ?item }} GROUP BY ?item HAVING(?count > 1)1'.format(p=p)
         title = '<span id="Unique value"></span>\n== "Unique value" violations =='
         variables = ['items']
 
     elif constrainttype == 'Q19474404': # Constraint:Single value
-        query = 'SELECT DISTINCT ?item (COUNT(?value) AS ?count)(GROUP_CONCAT(?value;separator=", ") AS ?values) WHERE {{ ?item wdt:{p} ?value }} GROUP BY ?item HAVING(?count > 1) ORDER BY ?item'.format(p=p)
+        query = 'SELECT DISTINCT ?item (COUNT(?value) AS ?count)(GROUP_CONCAT(?value;separator=", ") AS ?values) WHERE {{ ?item wdt:{p} ?value }} GROUP BY ?item HAVING(?count > 1)'.format(p=p)
         title = '<span id="Single value"></span>\n== "Single value" violations =='
         variables = ['values']
 
     elif constrainttype == 'Q21510857': # Constraint:Multi values
-        query = 'SELECT DISTINCT ?item (COUNT(?value) AS ?count) {{ ?item wdt:{p} ?value .}} GROUP BY ?item HAVING (?count=1) ORDER BY ?item'.format(p=p)
+        query = 'SELECT DISTINCT ?item (COUNT(?value) AS ?count) {{ ?item wdt:{p} ?value .}} GROUP BY ?item HAVING (?count=1)'.format(p=p)
         title = '<span id="Multi value"></span>\n== "Multi value" violations =='
 
     elif constrainttype == 'Q21503247': # Constraint:Item
@@ -114,7 +114,7 @@ def oneConstraint(p, datatype, constraint):
         else:
             list = [val.getTarget().getID() for val in constraint.qualifiers['P2305']]
             units = 'wd:' + ', wd:'.join(list)
-        query = 'SELECT DISTINCT ?item ?unit WHERE {{ ?item p:{p}/psv:{p}/wikibase:quantityUnit ?unit FILTER (?unit NOT IN ({units})) }} ORDER BY ?item'.format(p=p, units=units)
+        query = 'SELECT DISTINCT ?item ?unit WHERE {{ ?item p:{p}/psv:{p}/wikibase:quantityUnit ?unit FILTER (?unit NOT IN ({units})) }}'.format(p=p, units=units)
         title = '<span id="Units"></span>\n== "Units" violations =='
         variables = ['unit']
 
@@ -128,40 +128,40 @@ def oneConstraint(p, datatype, constraint):
                 max = time.strftime('%Y')
             else:
                 max = constraint.qualifiers['P2311'][0].getTarget().year
-            query = 'SELECT DISTINCT ?item ?value WHERE {{ ?item wdt:{p} ?value FILTER (year(?value) < {min} || year(?value) > {max}) }} ORDER BY ?item'.format(p=p, min=min, max=max)
+            query = 'SELECT DISTINCT ?item ?value WHERE {{ ?item wdt:{p} ?value FILTER (year(?value) < {min} || year(?value) > {max}) }}'.format(p=p, min=min, max=max)
         else:
             min = constraint.qualifiers['P2313'][0].getTarget().amount
             max = constraint.qualifiers['P2312'][0].getTarget().amount
-            query = 'SELECT DISTINCT ?item ?value WHERE {{ ?item wdt:{p} ?value FILTER (?value < {min} || ?value > {max}) }} ORDER BY ?item'.format(p=p, min=min, max=max)
+            query = 'SELECT DISTINCT ?item ?value WHERE {{ ?item wdt:{p} ?value FILTER (?value < {min} || ?value > {max}) }}'.format(p=p, min=min, max=max)
         title = '<span id="Range"></span>\n== "Range" violations =='
         variables = ['value']
 
     elif constrainttype == 'Q21510851': # Constraint:Allowed Qualifiers
         if constraint.qualifiers['P2306'][0].snaktype == 'novalue':
-            query = 'SELECT DISTINCT ?item ?qual WHERE {{ hint:Query hint:optimizer "None" . ?item p:{p} ?statement . ?statement ?pq_qual ?pq_obj . ?qual wikibase:qualifier ?pq_qual }} ORDER BY ?item'.format(p=p)
+            query = 'SELECT DISTINCT ?item ?qual WHERE {{ hint:Query hint:optimizer "None" . ?item p:{p} ?statement . ?statement ?pq_qual ?pq_obj . ?qual wikibase:qualifier ?pq_qual }}'.format(p=p)
         else:
             list = [val.getTarget().getID() for val in constraint.qualifiers['P2306']]
             qualifiers = 'wd:' + ', wd:'.join(list)
-            query = 'SELECT DISTINCT ?item ?qual WHERE {{ hint:Query hint:optimizer "None" . ?item p:{p} ?statement . ?statement ?pq_qual ?pq_obj . ?qual wikibase:qualifier ?pq_qual . FILTER (?qual NOT IN ({qualifiers})) }} ORDER BY ?item'.format(p=p, qualifiers=qualifiers)
+            query = 'SELECT DISTINCT ?item ?qual WHERE {{ hint:Query hint:optimizer "None" . ?item p:{p} ?statement . ?statement ?pq_qual ?pq_obj . ?qual wikibase:qualifier ?pq_qual . FILTER (?qual NOT IN ({qualifiers})) }}'.format(p=p, qualifiers=qualifiers)
         title = '<span id="Allowed Qualifiers"></span>\n== "Allowed Qualifiers" violations =='
         variables = ['qual']
 
     elif constrainttype == 'Q21510856': # Constraint:Mandatory Qualifiers
         list = [val.getTarget().getID() for val in constraint.qualifiers['P2306']]
         qualifiers = 'pq:' + ' []; pq:'.join(list)
-        query = 'SELECT DISTINCT ?item WHERE {{ ?item p:{p} ?statement . MINUS {{ ?statement {qualifiers} [] }} }} ORDER BY ?item'.format(p=p, qualifiers=qualifiers)
+        query = 'SELECT DISTINCT ?item WHERE {{ ?item p:{p} ?statement . MINUS {{ ?statement {qualifiers} [] }} }}'.format(p=p, qualifiers=qualifiers)
         title = '<span id="Mandatory Qualifiers"></span>\n== "Mandatory Qualifiers" violations =='
 
     elif constrainttype == 'Q21528958': # Constraint:Value only
-        query = 'SELECT DISTINCT ?item WHERE {{ {{ ?statement0 pq:{p} ?value . ?item ?p0 ?statement0 . ?prop wikibase:claim ?p0 . FILTER(?prop != wd:P1855 && ?prop != wd:P2271) }} UNION {{ ?ref pr:{p} ?value . ?statement1 prov:wasDerivedFrom ?ref . ?item ?p1 ?statement1 }} }} ORDER BY ?item'.format(p=p)
+        query = 'SELECT DISTINCT ?item WHERE {{ {{ ?statement0 pq:{p} ?value . ?item ?p0 ?statement0 . ?prop wikibase:claim ?p0 . FILTER(?prop != wd:P1855 && ?prop != wd:P2271) }} UNION {{ ?ref pr:{p} ?value . ?statement1 prov:wasDerivedFrom ?ref . ?item ?p1 ?statement1 }} }}'.format(p=p)
         title = '<span id="Value only"></span>\n== "Value only" violations =='
 
     elif constrainttype == 'Q21510863': # Constraint:Qualifier
-        query = 'SELECT DISTINCT ?item WHERE {{ {{ ?item wdt:{p} ?value . }} UNION {{ ?ref pr:{p} ?value . ?statement1 prov:wasDerivedFrom ?ref . ?item ?p1 ?statement1  }} }} ORDER BY ?item'.format(p=p)
+        query = 'SELECT DISTINCT ?item WHERE {{ {{ ?item wdt:{p} ?value . }} UNION {{ ?ref pr:{p} ?value . ?statement1 prov:wasDerivedFrom ?ref . ?item ?p1 ?statement1  }} }}'.format(p=p)
         title = '<span id="Qualifier"></span>\n== "Qualifier" violations =='
 
     elif constrainttype == 'Q21528959': # Constraint:Source only
-        query = 'SELECT DISTINCT ?item {{ {{ ?item wdt:{p} ?value . }} UNION { ?statement1 pq:{p} ?value . ?item ?p1 ?statement1 }} }} ORDER BY ?item'.format(p=p)
+        query = 'SELECT DISTINCT ?item {{ {{ ?item wdt:{p} ?value . }} UNION { ?statement1 pq:{p} ?value . ?item ?p1 ?statement1 }} }}'.format(p=p)
         title = '<span id="Source only"></span>\n== "Source only" violations =='
 
     elif constrainttype == 'Q21502404': # Constraint:Format
@@ -173,7 +173,7 @@ def oneConstraint(p, datatype, constraint):
         if datatype == 'commonsMedia':
             pattern = pattern.replace(' ', '%20')
             pattern = 'http://commons.wikimedia.org/wiki/Special:FilePath/' + pattern
-        query = 'SELECT DISTINCT ?item ?value WHERE {{ {{ ?item wdt:{p} ?value }} UNION {{ ?statement1 pq:{p} ?value . ?item ?p1 ?statement1 . }} UNION {{ ?ref pr:{p} ?value . ?statement2 prov:wasDerivedFrom ?ref . ?item ?p2 ?statement2 . }} .  FILTER( REGEX(STR(?value), "^{pattern}$") = false ) }} ORDER BY ?item'.format(p=p, pattern=pattern)
+        query = 'SELECT DISTINCT ?item ?value WHERE {{ {{ ?item wdt:{p} ?value }} UNION {{ ?statement1 pq:{p} ?value . ?item ?p1 ?statement1 . }} UNION {{ ?ref pr:{p} ?value . ?statement2 prov:wasDerivedFrom ?ref . ?item ?p2 ?statement2 . }} .  FILTER( REGEX(STR(?value), "^{pattern}$") = false ) }}'.format(p=p, pattern=pattern)
         title = '<span id="Format"></span>\n== "Format" violations =='
         variables = ['value']
 
@@ -182,7 +182,7 @@ def oneConstraint(p, datatype, constraint):
         if None in list: list.remove(None)
         list = [l.getID() for l in list]
         values = 'wd:' + ', wd:'.join(list)
-        query = 'SELECT DISTINCT ?item ?value WHERE {{ {{ ?item p:{p}/ps:{p} ?value	}} UNION {{ ?statement1 pq:{p} ?value . ?item ?p1 ?statement1 . }} UNION {{	?ref pr:{p} ?value . ?statement2 prov:wasDerivedFrom ?ref. ?item ?p2 ?statement2 . }} FILTER (?value NOT IN ({values})) }} ORDER BY ?item'.format(p=p, values=values)
+        query = 'SELECT DISTINCT ?item ?value WHERE {{ {{ ?item p:{p}/ps:{p} ?value	}} UNION {{ ?statement1 pq:{p} ?value . ?item ?p1 ?statement1 . }} UNION {{	?ref pr:{p} ?value . ?statement2 prov:wasDerivedFrom ?ref. ?item ?p2 ?statement2 . }} FILTER (?value NOT IN ({values})) }}'.format(p=p, values=values)
         title = '<span id="One of"></span>\n== "One of" violations =='
         variables = ['value']
 
@@ -193,9 +193,9 @@ def oneConstraint(p, datatype, constraint):
             if None in list: list.remove(None)
             list = [l.getID() for l in list]
             values = 'wd:' + ' wd:'.join(list)
-            query = 'SELECT DISTINCT ?item ?value WHERE {{?item wdt:{p} [] . VALUES ?value {{ {values} }} . ?item wdt:{property} ?value .}} ORDER BY ?item'.format(p=p, property=property, values=values)
+            query = 'SELECT DISTINCT ?item ?value WHERE {{?item wdt:{p} [] . VALUES ?value {{ {values} }} . ?item wdt:{property} ?value .}}'.format(p=p, property=property, values=values)
         else:
-            query = 'SELECT DISTINCT ?item ?value WHERE {{?item wdt:{p} [] . ?item wdt:{property} ?value .}} ORDER BY ?item'.format(p=p, property=property)
+            query = 'SELECT DISTINCT ?item ?value WHERE {{?item wdt:{p} [] . ?item wdt:{property} ?value .}}'.format(p=p, property=property)
         title = '<span id="Conflicts with"></span>\n== "Conflicts with" violations =='
         variables = ['value']
 
@@ -212,10 +212,10 @@ def oneConstraint(p, datatype, constraint):
         except:
             logwrite('error with ' + p + ' : ' + constrainttype + '\n' + query + '\n')
             return ''
-
+    d = sorted(data['results']['bindings'], key=lambda x: (int(x['item']['value'][32:]) if x['item']['value'][32:].isdigit() else float('inf'), x['item']['value']))
     violations = []
     cntExceptions = 0
-    for m in data['results']['bindings']:
+    for m in d:
         qid = m['item']['value'].replace('http://www.wikidata.org/entity/', '')
         link = 1
         if constrainttype == 'Q21502410':
