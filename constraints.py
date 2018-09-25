@@ -44,7 +44,7 @@ def requestquery(query, l=0):
 def getrelation(relationid):
     if relationid == 'Q21514624':
         return 'wdt:P279*'
-    elif relationid = 'Q30208840':
+    elif relationid == 'Q30208840':
         return 'wdt:P31*/wdt:P279*'
     return 'wdt:P31/wdt:P279*'
 
@@ -82,7 +82,7 @@ def oneConstraint(p, datatype, constraint):
         title = '<span id="Inverse"></span>\n== "Inverse" violations =='
 
     elif constrainttype == 'Q21502410': # Constraint:Unique value/Distinct value
-        query = 'SELECT DISTINCT ?item (COUNT(?item1) AS ?count)(GROUP_CONCAT(?item1;separator=",") AS ?items) WHERE {{ ?item1 wdt:{p} ?item }} GROUP BY ?item HAVING(?count > 1)1'.format(p=p)
+        query = 'SELECT DISTINCT ?item (COUNT(?item1) AS ?count)(GROUP_CONCAT(?item1;separator=",") AS ?items) WHERE {{ ?item1 wdt:{p} ?item }} GROUP BY ?item HAVING(?count > 1)'.format(p=p)
         title = '<span id="Unique value"></span>\n== "Unique value" violations =='
         variables = ['items']
 
