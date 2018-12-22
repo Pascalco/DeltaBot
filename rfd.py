@@ -1,14 +1,14 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-#licensed under CC-Zero: https://creativecommons.org/publicdomain/zero/1.0
+# licensed under CC-Zero: https://creativecommons.org/publicdomain/zero/1.0
 
 import pywikibot
 import re
 
-site = pywikibot.Site('wikidata','wikidata')
+site = pywikibot.Site('wikidata', 'wikidata')
 repo = site.data_repository()
 
-page = pywikibot.Page(site,'Wikidata:Requests for deletions')
+page = pywikibot.Page(site, 'Wikidata:Requests for deletions')
 
 cntDone = 0
 cntNotDone = 0
@@ -16,19 +16,19 @@ force = False
 
 content = re.findall(r'(?:(?<!=)==([^=]+)==(?!=))?([\s\S]+?(?=$|(?<!=)==[^=]+==(?!=)))', page.get())
 for i in range(len(content)):
-    content[i] = map(unicode.strip,list(content[i]))
-    res = re.search(r'(Q\d+)',content[i][0])
+    content[i] = list(map(str.strip, list(content[i])))
+    res = re.search(r'(Q\d+)', content[i][0])
     if res:
         entity = pywikibot.ItemPage(repo, res.group(1))
     else:
-        res = re.search(r'(Lexeme:L\d+)',content[i][0])
+        res = re.search(r'(Lexeme:L\d+)', content[i][0])
         if res:
             entity = pywikibot.Page(repo, res.group(1))  # T189321
     if res:
         if any(x in content[i][1] for x in ('{{done', '{{deleted', '{{not done', '{{notdone', '{{not deleted', '{{merged')):
             continue
         if entity.isRedirectPage() and entity.getRedirectTarget().exists():
-            content[i][1] += (u'\n: {{{{done}}}} Redirect created by [[User:{}|]], you can do it ' +
+            content[i][1] += (u'\n: {{{{done}}}} Redirect created by [[User:{}]], you can do it ' +
                               u'[[Special:MyLanguage/Help:Merge|yourself]] next time. --~~~~').format(entity.userName())
             cntDone += 1
         elif not entity.exists():
@@ -54,8 +54,8 @@ for section in content:
     text += section[1]+'\n\n'
 
 if cntDone > 0 or force:
-    comment = 'Bot: marking {} requests as done ({} unactioned requests)'.format(cntDone,cntNotDone)
-    page.put(text,comment=comment,minorEdit=False)
+    comment = 'Bot: marking {} requests as done ({} unactioned requests)'.format(cntDone, cntNotDone)
+    page.put(text, comment=comment, minorEdit=False)
 
-statspage = pywikibot.Page(site,'User:BeneBot*/RfD-stats')
-statspage.put(cntNotDone,comment='Updating stats: '+str(cntNotDone),minorEdit=False)
+statspage = pywikibot.Page(site, 'User:BeneBot*/RfD-stats')
+statspage.put(cntNotDone, comment='Updating stats: '+str(cntNotDone), minorEdit=False)
