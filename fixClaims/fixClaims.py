@@ -463,6 +463,32 @@ def action_moveQualifierToSource(item, job):
             item.editEntity(mydata, summary=summary)
 
 
+def action_appendSource(item, job):
+    mydata = {'claims': []}
+    for prop in item.claims.keys():
+        for claim in item.claims[prop]:
+            ok = False
+            data = claim.toJSON()
+            data['references'] = data.get('references', [])
+            for reference in data['references']:
+                if 'P854' in reference['snaks'] and job['pNew'] not in reference['snaks']:
+                    for ref in reference['snaks']['P854']:
+                        if formatcheck(ref['datavalue']['value'], job['regex']):
+                            if 'value' in job:
+                                reference['snaks'][job['pNew']] = [{'snaktype': 'value', 'property': job['pNew'], 'datatype': 'wikibase-item', 'datavalue': {'value': {'entity-type':'item', 'id': job['value']}, 'type': 'wikibase-entityid'}}]
+                            elif 'pattern' in job:
+                                value = regexReplace(ref['datavalue']['value'], job['regex'], job['pattern'])
+                                reference['snaks'][job['pNew']] = [{'snaktype': 'value', 'property': job['pNew'], 'datatype': 'external-id', 'datavalue': {'value': value, 'type': 'string'}}]
+                            else:
+                                return 0
+                            ok = True
+            if ok:
+                mydata['claims'].append(data)
+    if len(mydata['claims']) > 0:
+        summary = u'normalize database source'
+        item.editEntity(mydata, summary=summary)
+
+
 #########################
 # checks                #
 #########################
@@ -535,6 +561,16 @@ def formatcheck(claim, regex):
     return bool(re.fullmatch(regex, value))
 
 
+def regexReplace(claim, pattern, repl):
+    if isinstance(claim, str):
+        value = claim
+    elif isinstance(claim, pywikibot.FilePage):
+        value = claim.title()
+    else:
+        value = claim.getTarget()
+    return re.sub(pattern, repl, value)
+
+
 def levenshtein(s1, s2):
     if len(s1) < len(s2):
         return levenshtein(s2, s1)
@@ -550,6 +586,7 @@ def levenshtein(s1, s2):
             current_row.append(min(insertions, deletions, substitutions))
         previous_row = current_row
     return previous_row[-1]
+
 
 #########################
 # main functions        #
