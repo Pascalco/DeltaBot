@@ -20,7 +20,7 @@ img = None
 t1 = date.today().strftime('%Y%m%d%H0000')
 t2 = (date.today() - timedelta(days=2)).strftime('%Y%m%d%H0000')
 cur = db.cursor()
-cur.execute('SELECT rc_title, COUNT(*) AS cnt FROM recentchanges LEFT JOIN tag_summary ON rc_id = ts_rc_id WHERE ts_tags IS NULL AND rc_type=0 AND rc_bot=0 AND rc_namespace=0 AND rc_patrolled<>0 AND rc_timestamp<%s AND rc_timestamp>%s AND rc_old_len<rc_new_len AND rc_title NOT IN (SELECT pl_title FROM pagelinks WHERE pl_from = 26001882 AND pl_namespace = 0) GROUP BY rc_title HAVING COUNT(DISTINCT rc_user_text) >= 3 ORDER BY cnt DESC' % (t1,t2))
+cur.execute('SELECT rc_title, COUNT(*) AS cnt FROM recentchanges LEFT JOIN change_tag ON rc_id = ct_rc_id WHERE ct_tag_id IS NULL AND rc_source="mw.edit" AND rc_bot=0 AND rc_namespace=0 AND rc_patrolled<>0 AND rc_timestamp<%s AND rc_timestamp>%s AND rc_old_len<rc_new_len AND rc_title NOT IN (SELECT pl_title FROM pagelinks WHERE pl_from = 26001882 AND pl_namespace = 0) GROUP BY rc_title HAVING COUNT(DISTINCT rc_actor) >= 3 ORDER BY cnt DESC' % (t1,t2))
 for row in cur.fetchall():
     q = row[0]
     if q in blacklist:
