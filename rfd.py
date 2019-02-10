@@ -27,13 +27,13 @@ for i in range(len(content)):
     if res:
         if any(x in content[i][1] for x in ('{{done', '{{deleted', '{{not done', '{{notdone', '{{not deleted', '{{merged')):
             continue
-        if entity.isRedirectPage() and entity.getRedirectTarget().exists():
-            content[i][1] += (u'\n: {{{{done}}}} Redirect created by [[User:{}]], you can do it ' +
-                              u'[[Special:MyLanguage/Help:Merge|yourself]] next time. --~~~~').format(entity.userName())
-            cntDone += 1
-        elif not entity.exists():
+        if not entity.exists() and not entity.isRedirectPage():
             for m in site.logevents(logtype='delete', page=entity, total=1):
                 content[i][1] += u'\n: {{{{deleted|admin={}}}}} --~~~~'.format(m.user())
+            cntDone += 1            
+        elif entity.isRedirectPage() and entity.getRedirectTarget().exists():
+            content[i][1] += (u'\n: {{{{done}}}} Redirect created by [[User:{}]], you can do it ' +
+                              u'[[Special:MyLanguage/Help:Merge|yourself]] next time. --~~~~').format(entity.userName())
             cntDone += 1
         else:
             if '{{on hold' not in content[i][1]:
