@@ -49,6 +49,5 @@ for row in cur.fetchall():
     text += '\n'
 if not img:
     text = '<nowiki></nowiki>\n' + text
-text += '<span style="clear:right;"></span>'
 page = pywikibot.Page(site,'Wikidata:Main Page/Popular')
 page.put(text.decode('UTF-8'),comment='upd',minorEdit=False)
