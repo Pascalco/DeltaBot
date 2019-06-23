@@ -12,6 +12,8 @@ site.login()
 repo = site.data_repository()
 site.get_tokens('edit')
 
+ERROR_THRES = 50
+
 r = requests.get('https://www.wikidata.org/wiki/User:DeltaBot/badges?action=raw')
 tasks = r.json()
 
@@ -30,6 +32,8 @@ for t in tasks:
     }
     r = requests.get('https://petscan.wmflabs.org/', params=payload)
     data = r.json()
+    if len(data['*'][0]['a']['*']) > ERROR_THRES:
+        continue
     for m in data['*'][0]['a']['*']:
         params = {
             'action': 'wbsetsitelink',
@@ -56,6 +60,8 @@ for t in tasks:
     }
     r = requests.get('https://petscan.wmflabs.org/', params=payload)
     data = r.json()
+    if len(data['*'][0]['a']['*']) > ERROR_THRES:
+        continue    
     for m in data['*'][0]['a']['*']:
         params = {
             'action': 'wbsetsitelink',
