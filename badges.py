@@ -35,15 +35,18 @@ for t in tasks:
     if len(data['*'][0]['a']['*']) > ERROR_THRES:
         continue
     for m in data['*'][0]['a']['*']:
-        params = {
-            'action': 'wbsetsitelink',
-            'id': m['title'],
-            'linksite': t['site'],
-            'badges': '',
-            'token': site.tokens['edit']
-        }
-        req = api.Request(site=site, **params)
-        data = req.submit()
+        try:
+            params = {
+                'action': 'wbsetsitelink',
+                'id': m['title'],
+                'linksite': t['site'],
+                'badges': '',
+                'token': site.tokens['edit']
+            }
+            req = api.Request(site=site, **params)
+            data = req.submit()
+        except:
+            pass
 
 # add badges
 for t in tasks:
@@ -63,12 +66,15 @@ for t in tasks:
     if len(data['*'][0]['a']['*']) > ERROR_THRES:
         continue    
     for m in data['*'][0]['a']['*']:
-        params = {
-            'action': 'wbsetsitelink',
-            'id': m['title'],
-            'linksite': t['site'],
-            'badges': t['badge'],
-            'token': site.tokens['edit']
-        }
-        req = api.Request(site=site, **params)
-        data = req.submit()
+        try:
+            params = {
+                'action': 'wbsetsitelink',
+                'id': m['title'],
+                'linksite': t['site'],
+                'badges': t['badge'],
+                'token': site.tokens['edit']
+            }
+            req = api.Request(site=site, **params)
+            data = req.submit()
+        except:
+            pass
