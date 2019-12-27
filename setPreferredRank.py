@@ -20,12 +20,13 @@ def setRank(q, p):
     alldates = {}
     for idx in range(len(data['entities'][q]['claims'][p])):
         claim = data['entities'][q]['claims'][p][idx]
-        if 'P585' in claim['qualifiers']:
-            if len(claim['qualifiers']['P585']) != 1:
-                return 0 #unsure what that could mean
-            if p == 'P3872' and claim['qualifiers']['P585'][0]['datavalue']['value']['precision'] != 9:
-                continue #only consider year precision for P3872
-            alldates[idx] = claim['qualifiers']['P585'][0]['datavalue']['value']['time']
+        if 'qualifiers' in claim:
+            if 'P585' in claim['qualifiers']:
+                if len(claim['qualifiers']['P585']) != 1:
+                    return 0 #unsure what that could mean
+                if p == 'P3872' and claim['qualifiers']['P585'][0]['datavalue']['value']['precision'] != 9:
+                    continue #only consider year precision for P3872
+                alldates[idx] = claim['qualifiers']['P585'][0]['datavalue']['value']['time']
 
     newest_val = max(alldates.values())
     newest = [key for key, value in alldates.items() if value == newest_val]
