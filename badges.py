@@ -12,92 +12,10 @@ site.login()
 repo = site.data_repository()
 site.get_tokens('edit')
 
-tasks = [
-    {
-        'badge': 'Q17580674',
-        'category': 'Featured portals',
-        'language': 'en',
-        'project': 'wikipedia',
-        'site': 'enwiki'
-    },
-    {
-        'badge': 'Q17506997',
-        'category': 'Featured lists',
-        'language': 'en',
-        'project': 'wikipedia',
-        'site': 'enwiki'
-    },
-    {
-        'badge': 'Q17437796',
-        'category': 'Featured articles',
-        'language': 'en',
-        'project': 'wikipedia',
-        'site': 'enwiki'
-    },
-    {
-        'badge': 'Q17437798',
-        'category': 'Good articles',
-        'language': 'en',
-        'project': 'wikipedia',
-        'site': 'enwiki'
-    },
-    {
-        'badge': 'Q17437798',
-        'category': u'Wikipedie:Dobré články',
-        'language': 'cs',
-        'project': 'wikipedia',
-        'site': 'cswiki'
-    },
-    {
-        'badge': 'Q17437796',
-        'category': u'Wikipedie:Nejlepší články',
-        'language': 'cs',
-        'project': 'wikipedia',
-        'site': 'cswiki'
-    },
-    {
-        'badge': 'Q17437798',
-        'category': u'Wikipédia:Dobré články',
-        'language': 'sk',
-        'project': 'wikipedia',
-        'site': 'skwiki'
-    },
-    {
-        'badge': 'Q17437796',
-        'category': u'Wikipédia:Najlepšie články',
-        'language': 'sk',
-        'project': 'wikipedia',
-        'site': 'skwiki'
-    },
-    {
-        'badge': 'Q17580674',
-        'category': 'Wikipedia:Informatives Portal',
-        'language': 'de',
-        'project': 'wikipedia',
-        'site': 'dewiki'
-    },
-    {
-        'badge': 'Q17506997',
-        'category': 'Wikipedia:Informative Liste',
-        'language': 'de',
-        'project': 'wikipedia',
-        'site': 'dewiki'
-    },
-    {
-        'badge': 'Q17437796',
-        'category': 'Wikipedia:Exzellent',
-        'language': 'de',
-        'project': 'wikipedia',
-        'site': 'dewiki'
-    },
-    {
-        'badge': 'Q17437798',
-        'category': 'Wikipedia:Lesenswert',
-        'language': 'de',
-        'project': 'wikipedia',
-        'site': 'dewiki'
-    }    
-]
+ERROR_THRES = 50
+
+r = requests.get('https://www.wikidata.org/wiki/User:DeltaBot/badges?action=raw')
+tasks = r.json()
 
 # remove badges
 for t in tasks:
@@ -114,6 +32,8 @@ for t in tasks:
     }
     r = requests.get('https://petscan.wmflabs.org/', params=payload)
     data = r.json()
+    if len(data['*'][0]['a']['*']) > ERROR_THRES:
+        continue
     for m in data['*'][0]['a']['*']:
         params = {
             'action': 'wbsetsitelink',
@@ -140,6 +60,8 @@ for t in tasks:
     }
     r = requests.get('https://petscan.wmflabs.org/', params=payload)
     data = r.json()
+    if len(data['*'][0]['a']['*']) > ERROR_THRES:
+        continue    
     for m in data['*'][0]['a']['*']:
         params = {
             'action': 'wbsetsitelink',

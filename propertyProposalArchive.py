@@ -86,35 +86,38 @@ def main():
         fo = page.get().split('</noinclude>')
         proposals = re.findall('{{Wikidata:Property proposal/(.*)}}', fo[1].replace('_', ' '))
         for proposal in proposals:
-            page2 = pywikibot.Page(site, 'Wikidata:Property proposal/'+proposal)
-            if page2.isRedirectPage():
-                page2 = page2.getRedirectTarget()
-                newname = page2.title()[27:]
-            elif not page2.exists():
-                continue
-            else:
-                newname = proposal
-            pptext = re.sub(r'(<!([^>]+)>)|\n', '', page2.get())
-            stati = re.findall('\|\s*status\s*=\s*([^\|\}]+)', pptext)
-            stati = map(unicode.strip, stati)
-            if not allClosed(stati):
-                continue
-            for status in stati:
-                status = status if status != 'not done' else ''
-                history = page2.getVersionHistory()
-                if (today - history[0].timestamp).days >= 3:
-                    month = str(history[0].timestamp.month) if history[0].timestamp.month > 9 else '0'+str(history[0].timestamp.month)
-                    data = {
-                        'name': proposal.replace('_', ' '),
-                        'newname': newname,
-                        'category': category,
-                        'proposer': history[-1].user,
-                        'startdate': history[-1].timestamp.date().isoformat(),
-                        'closedate': history[0].timestamp.date().isoformat(),
-                        'note': status,
-                        'archive': str(history[0].timestamp.year)+'/'+month
-                    }
-                    toArchive.append(data)
+            try:
+                page2 = pywikibot.Page(site, 'Wikidata:Property proposal/'+proposal)
+                if page2.isRedirectPage():
+                    page2 = page2.getRedirectTarget()
+                    newname = page2.title()[27:]
+                elif not page2.exists():
+                    continue
+                else:
+                    newname = proposal
+                pptext = re.sub(r'(<!([^>]+)>)|\n', '', page2.get())
+                stati = re.findall('\|\s*status\s*=\s*([^\|\}]+)', pptext)
+                stati = map(unicode.strip, stati)
+                if not allClosed(stati):
+                    continue
+                for status in stati:
+                    status = status if status != 'not done' else ''
+                    history = page2.getVersionHistory()
+                    if (today - history[0].timestamp).days >= 1:
+                        month = str(history[0].timestamp.month) if history[0].timestamp.month > 9 else '0'+str(history[0].timestamp.month)
+                        data = {
+                            'name': proposal.replace('_', ' '),
+                            'newname': newname,
+                            'category': category,
+                            'proposer': history[-1].user,
+                            'startdate': history[-1].timestamp.date().isoformat(),
+                            'closedate': history[0].timestamp.date().isoformat(),
+                            'note': status,
+                            'archive': str(history[0].timestamp.year)+'/'+month
+                        }
+                        toArchive.append(data)
+            except:
+                pass
     if len(toArchive) > 0:
         updateArchive(toArchive)
         removeProposals(toArchive)
