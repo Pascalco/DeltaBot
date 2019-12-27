@@ -30,6 +30,9 @@ def setRank(q, p):
                     continue #only consider year precision for P3872
                 alldates[idx] = claim['qualifiers']['P585'][0]['datavalue']['value']['time']
 
+    if len(alldates) == 0:
+        return 0
+
     newest_val = max(alldates.values())
     newest = [key for key, value in alldates.items() if value == newest_val]
     if len(newest) != 1:
