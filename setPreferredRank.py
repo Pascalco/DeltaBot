@@ -34,7 +34,7 @@ def setRank(q, p):
         return 0 # multiple newest values
     newest = newest[0]
 
-    tdiff = datetime.today() - datetime(int(newest_val[1:5]), int(newest_val[6:8]), int(newest_val[9:11]))
+    tdiff = datetime.today() - datetime(int(newest_val[1:5]), 1, 1)
     if tdiff.days > 5*360:
         return 0 #newest value is too old
 
