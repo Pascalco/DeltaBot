@@ -24,6 +24,8 @@ def setRank(q, p):
             if 'P585' in claim['qualifiers']:
                 if len(claim['qualifiers']['P585']) != 1:
                     return 0 #unsure what that could mean
+                if 'datavalue' not in claim['qualifiers']['P585'][0]:
+                    return 0
                 if p == 'P3872' and claim['qualifiers']['P585'][0]['datavalue']['value']['precision'] != 9:
                     continue #only consider year precision for P3872
                 alldates[idx] = claim['qualifiers']['P585'][0]['datavalue']['value']['time']
