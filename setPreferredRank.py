@@ -37,7 +37,7 @@ def setRank(q, p):
     newest = newest[0]
 
     tdiff = datetime.today() - datetime(int(newest_val[1:5]), 1, 1)
-    if tdiff.days > 5*360:
+    if tdiff.days > 10*360:
         return 0 #newest value is too old
 
     if data['entities'][q]['claims'][p][newest]['rank'] != 'normal':
