@@ -70,5 +70,8 @@ for p in ['P1081', 'P1082', 'P1538', 'P1539',  'P1540', 'P3872', 'P6498', 'P6499
     r = requests.get('https://query.wikidata.org/bigdata/namespace/wdq/sparql?', params=payload)
     data = r.json()
     for m in data['results']['bindings']:
-        q = m['item']['value'].replace('http://www.wikidata.org/entity/', '')
-        setRank(q, p)
+        try:
+            q = m['item']['value'].replace('http://www.wikidata.org/entity/', '')
+            setRank(q, p)
+        except:
+            pass
