@@ -27,6 +27,7 @@ for t in tasks:
         'source_combination': 'sparql not categories',
         'ns[0]': 1,
         'ns[100]': 1,
+        'common_wiki': 'wikidata',
         'format': 'json',
         'doit': 'Do it!'
     }
@@ -58,13 +59,14 @@ for t in tasks:
         'source_combination': 'categories not sparql',
         'ns[0]': 1,
         'ns[100]': 1,
+        'common_wiki': 'wikidata',
         'format': 'json',
         'doit': 'Do it!'
     }
     r = requests.get('https://petscan.wmflabs.org/', params=payload)
     data = r.json()
     if len(data['*'][0]['a']['*']) > ERROR_THRES:
-        continue    
+        continue
     for m in data['*'][0]['a']['*']:
         try:
             params = {
