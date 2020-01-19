@@ -22,30 +22,27 @@ def setRank(q, p):
         claim = data['entities'][q]['claims'][p][idx]
         if 'qualifiers' in claim:
             if 'P585' in claim['qualifiers']:
-                if len(claim['qualifiers']['P585']) != 1:
-                    return 0 #unsure what that could mean
-                if 'datavalue' not in claim['qualifiers']['P585'][0]:
-                    return 0
-                if p == 'P3872' and claim['qualifiers']['P585'][0]['datavalue']['value']['precision'] != 9:
-                    continue #only consider year precision for P3872
-                alldates[idx] = claim['qualifiers']['P585'][0]['datavalue']['value']['time']
-
+                qualvalues = []
+                for qualifier in claim['qualifiers']['P585']:
+                    if 'datavalue' not in qualifier:
+                        continue #novalue or unknown value
+                    if p == 'P3872' and qualifier['datavalue']['value']['precision'] != 9:
+                        continue #only consider year precision for P3872
+                    qualvalues.append(qualifier['datavalue']['value']['time'])
+                if len(qualvalues) > 0:
+                    alldates[idx] = max(qualvalues)
     if len(alldates) == 0:
         return 0
-
     newest_val = max(alldates.values())
     newest = [key for key, value in alldates.items() if value == newest_val]
     if len(newest) != 1:
         return 0 # multiple newest values
     newest = newest[0]
-
     tdiff = datetime.today() - datetime(int(newest_val[1:5]), 1, 1)
-    if tdiff.days > 10*360:
+    if tdiff.days > 11*360:
         return 0 #newest value is too old
-
     if data['entities'][q]['claims'][p][newest]['rank'] != 'normal':
         return 0 #newest value is not set to normal
-
     for idx in range(len(data['entities'][q]['claims'][p])):
         claim = data['entities'][q]['claims'][p][idx]
         if idx == newest:
