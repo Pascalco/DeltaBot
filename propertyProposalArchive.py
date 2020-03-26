@@ -106,7 +106,7 @@ def main():
                     status = status if status != 'not done' else ''
                     history = list(page2.revisions())
                     if (today - history[0].timestamp).days >= 1:
-                        month = str(history[0].timestamp.month) if history[0].timestamp.month > 9 else '0'+str(history[0].timestamp.month)
+                        month = '{:02d}'.format(history[0].timestamp.month)
                         data = {
                             'name': proposal.replace('_', ' '),
                             'newname': newname,
