@@ -73,6 +73,8 @@ def updateArchive(proposals):
 
 def allClosed(stati):
     for status in stati:
+        if not status:
+            return False
         if not status.isdigit() and status.lower() != 'not done' and status.lower() != 'withdrawn' and status.lower[0] != 'p' and not status[1:].isdigit():
             return False
     return True
