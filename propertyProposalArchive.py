@@ -116,7 +116,10 @@ def main():
                             'archive': str(history[0].timestamp.year)+'/'+month
                         }
                         toArchive.append(data)
-            except:
+            except Exception as e:
+                print(proposal)
+                print(type(e))
+                print(e)
                 pass
     if len(toArchive) > 0:
         updateArchive(toArchive)
