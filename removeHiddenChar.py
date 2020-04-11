@@ -12,7 +12,7 @@ repo = site.data_repository()
 db = MySQLdb.connect(host='wikidatawiki.labsdb', db='wikidatawiki_p', read_default_file='~/replica.my.cnf')
 
 cur = db.cursor()
-cur.execute('SELECT rc_title, rc_comment FROM recentchanges WHERE rc_namespace=0 AND HEX(rc_comment) LIKE "%E2808F";')
+cur.execute('SELECT rc_title, comment_text FROM recentchanges JOIN comment_recentchanges ON rc_comment_id=comment_id WHERE rc_namespace=0 AND HEX(comment_text) LIKE "%E2808F";')
 
 for row in cur.fetchall():
     try:

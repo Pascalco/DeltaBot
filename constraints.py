@@ -290,14 +290,14 @@ def main():
                 lastedit = cpage.getVersionHistory()[0]
                 if (datetime.datetime.now()-lastedit[1]).days < 1:
                     continue
-                if lastedit[2] == 'KrBot2' and 'ERROR:' not in cpage.text:
+                if lastedit[2] in ['KrBot', 'KrBot2'] and 'ERROR:' not in cpage.text:
                     continue
             report = u''
             for co in ppage.claims['P2302']:
                 if co.getTarget().getID() in types:
                     try:
                         report += oneConstraint(p, ppage.type, co)  # create report for one constraint
-                    except Exception, e:
+                    except Exception as e:
                         logwrite(str(e) + '\n')
             if len(report) > 1:
                 try:
@@ -308,7 +308,7 @@ def main():
                     cnt = ''
                 report = header.format(time.strftime("%Y-%m-%dT%H:%M:%SZ"), cnt) + report
                 cpage.put(report, comment='report update for [[Property:'+p+']]', minorEdit=False)
-        except Exception, e:
+        except Exception as e:
             logwrite(str(e) + '\n')
 
 

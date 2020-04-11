@@ -12,7 +12,7 @@ db = MySQLdb.connect(host="wikidatawiki.labsdb", db="wikidatawiki_p", read_defau
 site = pywikibot.Site('wikidata','wikidata')
 
 blacklist = ['Q4115189','Q13406268','Q15397819','Q16943273','Q17339402'] #sandbox, tour items
-blacklist2 = [4167410, 11266439, 4167836] #disambiguation, template, category items
+blacklist2 = ['Q4167410', 'Q11266439', 'Q4167836'] #disambiguation, template, category items
 
 text = ''
 i = 0
@@ -32,7 +32,7 @@ for row in cur.fetchall():
     if 'claims' in data:
         if 'P31' in data['claims']:
             if data['claims']['P31'][0]['mainsnak']['snaktype'] == 'value':
-                if data['claims']['P31'][0]['mainsnak']['datavalue']['value']['numeric-id'] in blacklist2:
+                if data['claims']['P31'][0]['mainsnak']['datavalue']['value']['id'] in blacklist2:
                     continue
 
     text += '* {{Q|'+q+'}}'
@@ -50,5 +50,6 @@ for row in cur.fetchall():
 if not img:
     text = '<nowiki></nowiki>\n' + text
 text += '<span style="clear:right;"></span>'
-page = pywikibot.Page(site,'Wikidata:Main Page/Popular')
-page.put(text.decode('UTF-8'),comment='upd',minorEdit=False)
+#page = pywikibot.Page(site, 'Wikidata:Main Page/Popular')
+page = pywikibot.Page(site, 'User:Pasleim/test')
+page.put(text, comment='upd', minorEdit=False)

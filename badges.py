@@ -44,8 +44,9 @@ for t in tasks:
                 'badges': '',
                 'token': site.tokens['edit']
             }
-            req = api.Request(site=site, **params)
-            data = req.submit()
+            print(m)
+            #req = api.Request(site=site, **params)
+            #data = req.submit()
         except:
             pass
 

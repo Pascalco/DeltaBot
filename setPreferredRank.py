@@ -55,7 +55,6 @@ def setRank(q, p):
     item = pywikibot.ItemPage(repo, q)
     item.editEntity(mydata, summary='set rank of newest [[Property:'+p+']] to preferred')
 
-
 for p in ['P1081', 'P1082', 'P1538', 'P1539',  'P1540', 'P3872', 'P6498', 'P6499']:
     payload = {
         'query': """SELECT ?item (count(*) as ?cnt) WHERE {
