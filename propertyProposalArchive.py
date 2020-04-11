@@ -73,7 +73,9 @@ def updateArchive(proposals):
 
 def allClosed(stati):
     for status in stati:
-        if not status.isdigit() and status.lower() != 'not done' and status.lower() != 'withdrawn' and status.lower[0] != 'p' and not status[1:].isdigit():
+        if not status:
+            return False
+        if not status.isdigit() and status.lower() != 'not done' and status.lower() != 'withdrawn' and status.lower()[0] != 'p' and not status[1:].isdigit():
             return False
     return True
 
@@ -102,9 +104,9 @@ def main():
                     continue
                 for status in stati:
                     status = status if status != 'not done' else ''
-                    history = page2.getVersionHistory()
+                    history = list(page2.revisions())
                     if (today - history[0].timestamp).days >= 1:
-                        month = str(history[0].timestamp.month) if history[0].timestamp.month > 9 else '0'+str(history[0].timestamp.month)
+                        month = '{:02d}'.format(history[0].timestamp.month)
                         data = {
                             'name': proposal.replace('_', ' '),
                             'newname': newname,
@@ -116,7 +118,10 @@ def main():
                             'archive': str(history[0].timestamp.year)+'/'+month
                         }
                         toArchive.append(data)
-            except:
+            except Exception as e:
+                print(proposal)
+                print(type(e))
+                print(e)
                 pass
     if len(toArchive) > 0:
         updateArchive(toArchive)
