@@ -7,7 +7,7 @@ import re
 
 site = pywikibot.Site('wikidata', 'wikidata')
 
-categories = ['Generic', 'Place', 'Authority control', 'Creative work', 'Transportation', 'Person', 'Natural science', 'Organization', 'Sister projects', 'Sports', 'Lexemes']
+categories = ['Generic', 'Place', 'Authority control', 'Creative work', 'Transportation', 'Person', 'Natural science', 'Organization', 'Sister projects', 'Sports', 'Lexemes', 'Commons']
 text = '<includeonly>{{#switch: {{{1}}}\n'
 for category in categories:
     cnt = 0
