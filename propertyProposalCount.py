@@ -13,7 +13,7 @@ for category in categories:
     cnt = 0
     page = pywikibot.Page(site, 'Wikidata:Property_proposal/'+category)
     fo = page.get().split('</noinclude>')
-    proposals = re.findall('{{Wikidata:Property proposal/(.*)}}', fo[1])
+    proposals = re.findall('{{Wikidata:Property proposal/(.*?)}}', fo[1])
     if proposals:
         for proposal in proposals:
             page2 = pywikibot.Page(site,'Wikidata:Property proposal/'+proposal)
