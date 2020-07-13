@@ -15,7 +15,7 @@ blacklist2 = ['Q4167410', 'Q11266439', 'Q4167836'] #disambiguation, template, ca
 text = ''
 i = 0
 img = None
-rcend = (datetime.now() - timedelta(days=2)).strftime('%Y%m%d%H%M%S')
+rcend = (datetime.now() - timedelta(days=4)).strftime('%Y%m%d%H%M%S')
 allrevisions = {}
 revisioncount = {}
 rccontinue = '|'
@@ -36,7 +36,7 @@ while True:
     r = requests.get('https://www.wikidata.org/w/api.php', params=payload)
     data = r.json()
     for revision in data['query']['recentchanges']:
-        if revision['newlen'] > revision['oldlen'] and len(revision['tags']) == 0:
+        if revision['newlen'] > revision['oldlen'] and len(revision['tags']) == 0 and 'user' in revision:
             allrevisions.setdefault(revision['title'],[]).append(revision['user'])
     if not 'continue' in data:
         break
@@ -93,4 +93,4 @@ if not img:
 text += '<span style="clear:right;"></span>'
 
 page = pywikibot.Page(site, 'Wikidata:Main Page/Popular')
-page.put(text, summary='upd', minorEdit=False)
+#page.put(text, summary='upd', minorEdit=False)
