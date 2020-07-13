@@ -103,7 +103,7 @@ def main():
                 if not allClosed(stati):
                     continue
                 for status in stati:
-                    if status == 'not done':
+                    if status.lower() == 'not done':
                         status = ''
                     if status.lower()[0] == 'P' and status[1:].isdigit():
                         status = status[1:]
