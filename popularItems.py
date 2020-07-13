@@ -93,4 +93,4 @@ if not img:
 text += '<span style="clear:right;"></span>'
 
 page = pywikibot.Page(site, 'Wikidata:Main Page/Popular')
-#page.put(text, summary='upd', minorEdit=False)
+page.put(text, summary='upd', minorEdit=False)
