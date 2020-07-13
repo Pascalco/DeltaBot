@@ -103,7 +103,10 @@ def main():
                 if not allClosed(stati):
                     continue
                 for status in stati:
-                    status = status if status != 'not done' else ''
+                    if status == 'not done':
+                        status = ''
+                    if status.lower()[0] == 'P' and status[1:].isdigit():
+                        status = status[1:]
                     history = list(page2.revisions())
                     if (today - history[0].timestamp).days >= 1:
                         month = '{:02d}'.format(history[0].timestamp.month)
