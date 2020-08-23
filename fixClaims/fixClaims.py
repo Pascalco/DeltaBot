@@ -3,13 +3,12 @@ import re
 import requests
 import pywikibot
 import json
+from stdnum import isbn
 
 site = pywikibot.Site('wikidata', 'wikidata')
 repo = site.data_repository()
 siteCommons = pywikibot.Site('commons', 'commons')
 
-with open('fixClaims/isbn_range.xml', encoding='utf-8') as f:
-    f2 = f.read().replace('\n', '').replace(' ', '')
 with open('fixClaims/categoryPrefix.dat', encoding='utf-8') as f:
     exec(f.read())
 
@@ -81,46 +80,12 @@ def format_linkedin(value, job):
         return newvalue
 
 
-def format_isbn10(value, job):
-    val = value.replace('-', '').replace(' ', '')
-    if len(val) != 10:
+def format_isbn(value, job):
+    try:
+        isbn.validate(value)
+        return isbn.format(value)
+    except:
         return None
-    if int(val[0]) == 6:
-        country = val[0:3]
-        rest = val[3:]
-        rest2 = int(val[3:])
-    elif int(val[0]) <= 7:
-        country = val[0]
-        rest = val[1:]
-        rest2 = int(val[1:8])
-    elif int(val[0:2]) <= 94:
-        country = val[0:2]
-        rest = val[2:]
-        rest2 = int(val[2:9])
-    elif int(val[0:3]) <= 989:
-        country = val[0:3]
-        rest = val[3:]
-        rest2 = int(val[3:9])*10
-    elif int(val[0:4]) <= 9984:
-        country = val[0:4]
-        rest = val[4:]
-        rest2 = int(val[4:9])*100
-    else:
-        country = val[0:5]
-        rest = val[5:]
-        rest2 = int(val[5:9])*1000
-
-    res = re.findall(r'<Prefix>978-'+country+'</Prefix>([^G]*)', f2)
-    if not res:
-        return None
-    for m in res:
-        res2 = re.findall(r'<Range>([0-9]*)-([0-9]*)</Range><Length>([0-9])</Length>', m)
-        if res2:
-            for n in res2:
-                if rest2 >= int(n[0]) and rest2 <= int(n[1]):
-                    publisher = rest[0:int(n[2])]
-                    work = rest[int(n[2]):-1]
-                    return country+'-'+publisher+'-'+work+'-'+val[9]
 
 
 def format_uuid(value, job):
@@ -609,8 +574,8 @@ def getViolations(job):
         'query': job['query'],
         'format': 'json'
     }
-    r = requests.get('https://query.wikidata.org/bigdata/namespace/wdq/sparql?', params=payload)
     try:
+        r = requests.get('https://query.wikidata.org/bigdata/namespace/wdq/sparql?', params=payload)
         data = r.json()
         for m in data['results']['bindings']:
             candidates.append(m['item']['value'].replace('http://www.wikidata.org/entity/', ''))
