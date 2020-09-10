@@ -22,7 +22,7 @@ def getLatestNewsletter():
     ps = list(cat.articles(namespaces=4, sortby='timestamp', reverse=True))
     for p in ps:
         if 'Wikidata:Status updates/2' in p.title() and p.depth == 1:
-            return p.getCreator()[1]
+            return str(p.oldest_revision['timestamp'])
 
 
 def newProposals(startdate):
