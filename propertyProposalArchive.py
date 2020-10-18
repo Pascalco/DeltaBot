@@ -57,7 +57,7 @@ def updateArchive(proposals):
             newText = ''
             look = False
             for line in archives[proposal['archive']]['text'].split('\n'):
-                if (re.match('==\s*done\s*==', line.lower()) and proposal['note'].isdigit()) or (re.match('==\s*not done\s*==', line.lower()) and not proposal['note'].isdigit()):
+                if (re.match('==\s*done\s*==', line.lower()) and (proposal['note'] == 'done' or proposal['note'].isdigit())) or (re.match('==\s*not done\s*==', line.lower()) and not (proposal['note'] == 'not done' or proposal['note'].isdigit())):
                     look = True
                 if line.strip() == '|}' and look:
                     newText += u'{{{{PPArchive|{newname}|{proposer}|{startdate}|{closedate}|{note}}}}}\n'.format(**proposal)
@@ -75,7 +75,7 @@ def allClosed(stati):
     for status in stati:
         if not status:
             return False
-        if not status.isdigit() and status.lower() != 'not done' and status.lower() != 'withdrawn' and status.lower()[0] != 'p' and not status[1:].isdigit():
+        if not status.isdigit() and status.lower() != 'done' and status.lower() != 'not done' and status.lower() != 'withdrawn' and status.lower()[0] != 'p' and not status[1:].isdigit():
             return False
     return True
 
