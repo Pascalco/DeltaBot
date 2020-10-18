@@ -105,7 +105,7 @@ def main():
                 for status in stati:
                     if status.lower() == 'not done':
                         status = ''
-                    if status.lower()[0] == 'P' and status[1:].isdigit():
+                    elif status.lower()[0] == 'p' and status[1:].isdigit():
                         status = status[1:]
                     history = list(page2.revisions())
                     if (today - history[0].timestamp).days >= 1:
