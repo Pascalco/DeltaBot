@@ -5,15 +5,13 @@
 import pywikibot
 from datetime import timedelta, datetime
 
-start = datetime.today() - timedelta(minutes=15)
+start = datetime.utcnow() - timedelta(minutes=15)
 starttime = start.strftime('%Y%m%d%H%M%S')
 
 site = pywikibot.Site('wikidata', 'wikidata')
 gen = site.recentchanges
 generator = gen(start=starttime, bot=False, patrolled=True, reverse=True)
 
-
-#for rev in site.recentchanges(start=starttime, bot=False, patrolled=True, reverse=True):
 for rev in generator:
     try:
         if '/* restore' in rev['comment']:
