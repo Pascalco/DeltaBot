@@ -82,7 +82,7 @@ for q in sorted:
             if 'P18' in data['claims']:
                 if data['claims']['P18'][0]['mainsnak']['snaktype'] == 'value':
                     img = data['claims']['P18'][0]['mainsnak']['datavalue']['value']
-                    text = '<span style="float: {{dir|{{{lang|{{int:lang}}}}}|left|right}}; padding-top: 0.5em; padding-{{dir|{{{lang|{{int:lang}}}}}|right|left}}: 0.5em;">[[File:%s|100px]]</span>\n%s ({{{{I18n|pictured}}}})' % (img, text)
+                    text = '<span style="float: {{dir|{{{lang|{{int:lang}}}}}|left|right}}; padding-top: 0.5em; padding-{{dir|{{{lang|{{int:lang}}}}}|right|left}}: 0.5em;">[[File:%s|100px]]</span>\n%s ({{I18n|pictured}})' % (img, text)
     i += 1
     if i == 7:
         break
