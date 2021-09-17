@@ -95,11 +95,12 @@ def proceedOne(sparql):
     result = []
     try:
         url = 'https://query.wikidata.org/bigdata/namespace/wdq/sparql'
+        headers = {'user-agent': 'DeltaBot Complex Constraints'}
         payload = {
             'query': sparql,
             'format': 'json'
         }
-        r = requests.get(url, params=payload)
+        r = requests.get(url, params=payload, headers=headers)
         data = r.json()
         for m in data['results']['bindings']:
             if m['item']['value'] in blacklist:
