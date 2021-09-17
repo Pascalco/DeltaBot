@@ -129,6 +129,8 @@ def onePropertyReport(page):
                 continue
             if data['label'] == '' or data['sparql'] == '':
                 continue
+            if not data['description']:
+                data['description'] = ''
             data['result'] = proceedOne(data['sparql'])
             data['violations'] = len(data['result'])
             onePdata.append(data)
