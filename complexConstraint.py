@@ -88,7 +88,7 @@ def writeText(onePdata, property):
                     text += var
                 text += '\n'
     page = pywikibot.Page(site, 'Wikidata:Database reports/Complex constraint violations/' + property)
-    page.put(text, summary='upd', minorEdit=False)
+    page.put(text, summary='upd', minor=False)
 
 
 def proceedOne(sparql):
