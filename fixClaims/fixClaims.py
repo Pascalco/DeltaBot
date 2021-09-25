@@ -565,7 +565,7 @@ def createMaintenanceList(notdone):
         for q in notdone[job]:
             text += '{{Q|'+q+'}}\n'
     page = pywikibot.Page(site, 'User:DeltaBot/fixClaims/maintenance')
-    page.put(text, comment='upd', minorEdit=False)
+    page.put(text, summary='upd', minor=False)
 
 
 def getViolations(job):

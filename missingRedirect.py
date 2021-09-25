@@ -17,7 +17,7 @@ liste = list(cat.articles(recurse=5))
 def merge(fromId,toId):
     fromItem = pywikibot.ItemPage(repo,fromId)
     toItem = pywikibot.ItemPage(repo,toId)
-    fromItem.mergeInto(toItem, ignoreconflicts='description')
+    fromItem.mergeInto(toItem, ignore_conflicts='description')
     clearItem(fromId)
     fromItem.set_redirect_target(toItem, force=True, save=True)
 

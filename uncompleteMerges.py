@@ -46,7 +46,7 @@ def merge(fromId, toId):
         return 0
     fromItem = pywikibot.ItemPage(repo, fromId)
     toItem = pywikibot.ItemPage(repo, toId)
-    fromItem.mergeInto(toItem, ignoreconflicts='description')
+    fromItem.mergeInto(toItem, ignore_conflicts='description')
     if not fromItem.isRedirectPage():
         clearItem(fromId)
         fromItem.set_redirect_target(toItem, force=True, save=True)
