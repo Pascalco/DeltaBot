@@ -5,6 +5,7 @@
 import pywikibot
 import requests
 import json
+import re
 from datetime import datetime, timedelta
 
 site = pywikibot.Site('wikidata','wikidata')
@@ -15,7 +16,7 @@ blacklist2 = ['Q4167410', 'Q11266439', 'Q4167836'] #disambiguation, template, ca
 text = ''
 i = 0
 img = None
-rcend = (datetime.now() - timedelta(days=4)).strftime('%Y%m%d%H%M%S')
+rcend = (datetime.now() - timedelta(days=3)).strftime('%Y%m%d%H%M%S')
 allrevisions = {}
 revisioncount = {}
 rccontinue = '|'
@@ -26,7 +27,7 @@ while True:
         'list': 'recentchanges',
         'rcshow': '!bot|!anon',
         'rctype': 'edit',
-        'rcprop': 'user|sizes|title|tags',
+        'rcprop': 'user|sizes|title|tags|comment',
         'rcnamespace': 0,
         'rcend': rcend,
         'rclimit': 'max',
@@ -36,19 +37,28 @@ while True:
     r = requests.get('https://www.wikidata.org/w/api.php', params=payload)
     data = r.json()
     for revision in data['query']['recentchanges']:
-        if revision['newlen'] > revision['oldlen'] and len(revision['tags']) == 0 and 'user' in revision:
-            allrevisions.setdefault(revision['title'],[]).append(revision['user'])
+        if revision['newlen'] > revision['oldlen'] and 'user' in revision and (len(revision['tags']) == 0 or 'OAuth' not in revision['tags'][0]):
+            if 'comment' in revision:
+                prop = re.findall(r"\[\[Property:P\d+\]\]", revision['comment'])
+                if len(prop) > 0:
+                    feature = prop[0]
+                elif '*/' in revision['comment']:
+                    feature = revision['comment'].split('*/')[0]
+                else:
+                    feature = revision['comment']
+            else:
+                feature = '-'
+
+            allrevisions.setdefault(revision['title'],[]).append([revision['user'], feature])
     if not 'continue' in data:
         break
     rccontinue = data['continue']['rccontinue']
 
 for item in allrevisions:
-    if len(set(allrevisions[item])) >= 3: #require at least 3 distinct users
-        revisioncount[item] = len(allrevisions[item])
-
+    if len(set(map(lambda x: x[0], allrevisions[item]))) >= 3: #require at least 3 distinct users
+        revisioncount[item] = len(set(map(lambda x: x[1], allrevisions[item]))) # number of distinct edit comments
 sorted = [k for k, v in sorted(revisioncount.items(), key=lambda item: item[1], reverse=True)] # sort by number of edits
 for q in sorted:
-
     # check if item is not in blacklist
     if q in blacklist:
         continue
