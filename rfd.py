@@ -31,7 +31,7 @@ for i in range(len(content)):
             if not entity.exists() and not entity.isRedirectPage():
                 for m in site.logevents(logtype='delete', page=entity, total=1):
                     content[i][1] += u'\n: {{{{deleted|admin={}}}}} --~~~~'.format(m.user())
-                cntDone += 1            
+                cntDone += 1
             elif entity.isRedirectPage() and entity.getRedirectTarget().exists():
                 content[i][1] += (u'\n: {{{{done}}}} Redirect created by [[User:{}]], you can do it ' +
                                   u'[[Special:MyLanguage/Help:Merge|yourself]] next time. --~~~~').format(entity.userName())
@@ -58,7 +58,7 @@ for section in content:
 
 if cntDone > 0 or force:
     comment = 'Bot: marking {} requests as done ({} unactioned requests)'.format(cntDone, cntNotDone)
-    page.put(text, comment=comment, minorEdit=False)
+    page.put(text, summary=comment, minor=False)
 
 statspage = pywikibot.Page(site, 'User:BeneBot*/RfD-stats')
-statspage.put(cntNotDone, comment='Updating stats: '+str(cntNotDone), minorEdit=False)
+statspage.put(cntNotDone, summary='Updating stats: '+str(cntNotDone), minor=False)

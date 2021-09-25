@@ -24,7 +24,7 @@ def removeProposals(proposals):
     for category in categories:
         page = pywikibot.Page(site, 'Wikidata:Property_proposal/'+category)
         comment = 'archiving '+str(categories[category]['count'])+' proposals' if categories[category]['count'] != 1 else 'archiving 1 proposal'
-        page.put(categories[category]['text'], comment=comment, minorEdit=False)
+        page.put(categories[category]['text'], summary=comment, minor=False)
 
 
 # load new archive subpage
@@ -42,7 +42,7 @@ def loadNewArchivePage(archive):
                     '|-\n'
                     '! Property name !! Proposer !! Start date !! Close date !! Reason\n'
                     '|}')
-        page.put(newarchive, comment='new archive', minorEdit=False)
+        page.put(newarchive, summary='new archive', minor=False)
     return page.get().replace('_', ' ')
 
 
@@ -68,7 +68,7 @@ def updateArchive(proposals):
     for archive in archives:
         page = pywikibot.Page(site, 'Wikidata:Property_proposal/Archive/'+archive)
         comment = 'archiving '+str(archives[archive]['count'])+' proposals' if archives[archive]['count'] != 1 else 'archiving 1 proposal'
-        page.put(archives[archive]['text'], comment=comment, minorEdit=False)
+        page.put(archives[archive]['text'], summary=comment, minor=False)
 
 
 def allClosed(stati):

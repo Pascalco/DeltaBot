@@ -16,7 +16,7 @@ def removeRequests(requests):
     for request in requests:
         text = re.sub(r'{{Wikidata:Requests[\s_]for[\s_]permissions/Bot/'+re.escape(request['name'])+'}}\n?', '', text)
     comment = 'archiving '+str(len(requests))+' requests' if len(requests) != 1 else 'archiving 1 request'
-    page.put(text, comment=comment, minorEdit=False)
+    page.put(text, summary=comment, minor=False)
 
 
 # load new archive page
@@ -28,7 +28,7 @@ def loadNewArchivePage(archive):
 
                     = Unsuccessful requests =
                     """)
-        page.put(newarchive, comment='Bot: Creating new monthly archive.', minorEdit=False)
+        page.put(newarchive, summary='Bot: Creating new monthly archive.', minor=False)
     return page.get().replace('_', ' ')
 
 
@@ -48,7 +48,7 @@ def updateArchive(requests):
     for archive in archives:
         page = pywikibot.Page(site, 'Wikidata:Requests for permissions/RfBot/' + archive)
         comment = 'archiving '+str(archives[archive]['count'])+' requests' if archives[archive]['count'] != 1 else 'archiving 1 request'
-        page.put(archives[archive]['text'], comment=comment, minorEdit=False)
+        page.put(archives[archive]['text'], summary=comment, minor=False)
 
 
 def main():

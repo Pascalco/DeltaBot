@@ -26,4 +26,4 @@ for category in categories:
     text += '| '+category+' = '+str(cnt)+'\n'
 text += '| #default = <strong class="error">invalid parameter <kbd>{{{1}}}</kbd></strong>\n}}</includeonly>'
 page = pywikibot.Page(site, 'Wikidata:Property proposal/count')
-page.put(text, comment='upd', minorEdit=False)
+page.put(text, summary='upd', minor=False)

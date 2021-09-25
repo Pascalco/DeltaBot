@@ -57,7 +57,7 @@ def writeOverview():
         text += row.format(**m)
     text += u'{{/footer}}\n[[Category:Database reports|Complex Constraints]]'
     page = pywikibot.Page(site, 'Wikidata:Database reports/Complex constraints')
-    page.put(text, comment='upd', minorEdit=False)
+    page.put(text, summary='upd', minor=False)
 
 
 def writeText(onePdata, property):
