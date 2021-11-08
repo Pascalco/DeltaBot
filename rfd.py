@@ -58,9 +58,7 @@ for section in content:
 
 if cntDone > 0 or force:
     comment = 'Bot: marking {} requests as done ({} unactioned requests)'.format(cntDone, cntNotDone)
-    #page.put(text, summary=comment, minor=False)
-
-print(cntDone, cntNotDone)
+    page.put(text, summary=comment, minor=False)
 
 statspage = pywikibot.Page(site, 'User:BeneBot*/RfD-stats')
-#statspage.put(cntNotDone, summary='Updating stats: '+str(cntNotDone), minor=False)
+statspage.put(cntNotDone, summary='Updating stats: '+str(cntNotDone), minor=False)
