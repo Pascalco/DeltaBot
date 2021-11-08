@@ -141,7 +141,7 @@ def onePropertyReport(page):
 def main():
     if sys.argv[1] == 'all':
         templatepage = pywikibot.Page(site, 'Template:'+template)
-        gen = templatepage.getReferences(onlyTemplateInclusion=True, namespaces=[1, 121], content=True)
+        gen = templatepage.getReferences(only_template_inclusion=True, namespaces=[1, 121], content=True)
 
         for page in gen:
             try:
