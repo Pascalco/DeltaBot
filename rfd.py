@@ -38,7 +38,7 @@ for i in range(len(content)):
                 cntDone += 1
             else:
                 if '{{on hold' not in content[i][1]:
-                    refs = list(entity.backlinks(followRedirects=False, filterRedirects=False, namespaces=[0, 120], total=12))
+                    refs = list(entity.backlinks(follow_redirects=False, filter_redirects=False, namespaces=[0, 120], total=12))
                     numberOfRefs = len(refs)
                     if entity in refs:
                         numberOfRefs -= 1
@@ -58,7 +58,9 @@ for section in content:
 
 if cntDone > 0 or force:
     comment = 'Bot: marking {} requests as done ({} unactioned requests)'.format(cntDone, cntNotDone)
-    page.put(text, summary=comment, minor=False)
+    #page.put(text, summary=comment, minor=False)
+
+print(cntDone, cntNotDone)
 
 statspage = pywikibot.Page(site, 'User:BeneBot*/RfD-stats')
-statspage.put(cntNotDone, summary='Updating stats: '+str(cntNotDone), minor=False)
+#statspage.put(cntNotDone, summary='Updating stats: '+str(cntNotDone), minor=False)
