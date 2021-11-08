@@ -4,6 +4,7 @@
 
 import pywikibot
 from pywikibot.data import api
+from datetime import datetime, timedelta
 import re
 import sys
 
@@ -45,15 +46,19 @@ def clearItem(fromId):
 def main():
     time_file = 'missingRedirect_time.dat'
     f1 = open(time_file,'r')
-    oldTime = str(int(f1.read())+1)
+    old_time_str = str(int(f1.read())+1)
     f1.close()
-    rccontinue = oldTime+'|0'
+    now = datetime.now()
+    new_time = now - timedelta(minutes=10)
+    new_time_str = new_time.strftime("%Y%m%d%H%M%S")
+    rccontinue = old_time_str+'|0'
     while True:
         params = {
             'action': 'query',
             'list': 'recentchanges',
             'rcprop': 'title|comment|timestamp',
-            'rcstart': oldTime,
+            'rcstart': old_time_str,
+            'rcend': new_time_str,
             'rcdir': 'newer',
             'rclimit' : 500,
             'rctype': 'edit',
