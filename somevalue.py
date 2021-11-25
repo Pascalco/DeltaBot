@@ -37,7 +37,7 @@ for task in tasks:
             ?p ^wikibase:claim [] .
             ?pq ^wikibase:qualifier []
             } UNION {
-            ?item ?p wd:Q108474139 .
+            ?item ?p wd:'''+tasks[task]+''' .
             ?p ^wikibase:directClaim [] .
             }
         }''',
