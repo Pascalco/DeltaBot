@@ -60,5 +60,5 @@ if cntDone > 0 or force:
     comment = 'Bot: marking {} requests as done ({} unactioned requests)'.format(cntDone, cntNotDone)
     page.put(text, summary=comment, minor=False)
 
-statspage = pywikibot.Page(site, 'User:BeneBot*/RfD-stats')
+statspage = pywikibot.Page(site, 'Wikidata:Requests for deletions/count')
 statspage.put(cntNotDone, summary='Updating stats: '+str(cntNotDone), minor=False)
